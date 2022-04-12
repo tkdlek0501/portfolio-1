@@ -1,5 +1,8 @@
 package com.productservice.demo.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,7 +32,7 @@ public class Option {
 	
 	// 연관 관계 매핑
 	@OneToMany(mappedBy = "option")
-	private OrderProduct orderProduct;
+	private List<OrderProduct> orderProduct = new ArrayList<>();
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_option_id")

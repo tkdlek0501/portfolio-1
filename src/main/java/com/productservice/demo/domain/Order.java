@@ -1,6 +1,8 @@
 package com.productservice.demo.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;
@@ -44,6 +46,6 @@ public class Order {
 	private Delivery delivery;
 	
 	@OneToMany(mappedBy = "order")
-	private OrderProduct orderProduct;
+	private List<OrderProduct> orderProduct = new ArrayList<>();
 	
 }

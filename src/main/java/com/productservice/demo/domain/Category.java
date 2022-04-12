@@ -1,5 +1,8 @@
 package com.productservice.demo.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,7 +27,7 @@ public class Category {
 	
 	// 연관 관계 매핑
 	@OneToMany(mappedBy = "category")
-	private Product product;
+	private List<Product> product = new ArrayList<>();
 	
 	
 }
