@@ -25,7 +25,7 @@ public class Option {
 	@Id @GeneratedValue
 	@Column(name = "option_id")
 	private Long id;
-
+	
 	private String names;
 	
 	private int stockQuantity;

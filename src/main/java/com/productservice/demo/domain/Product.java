@@ -45,4 +45,35 @@ public class Product {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private Category category;
+	
+	// === 연관 관계 메서드
+	
+	public void setProductOption(ProductOption productOption) {
+		this.productOption = productOption;
+		productOption.setProduct(this);
+	}
+	
+	public void setCategory(Category category) {
+		this.category = category;
+		category.getProduct().add(this);
+	}
+	
+	// === 생성 메서드
+	
+	public static Product createProduct(
+			String name,
+			int price,
+			String image,
+			ProductOption productOption,
+			Category category
+			) {
+		Product product = new Product();
+		product.setName(name);
+		product.setPrice(price);
+		product.setImage(image);
+		product.setProductOption(productOption);
+		product.setCategory(category);
+		
+		return product;
+	}
 }

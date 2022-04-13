@@ -35,7 +35,7 @@ public class Order {
 	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
 	
-	// 연관관계 매핑
+	// === 연관관계 매핑
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
@@ -47,5 +47,41 @@ public class Order {
 	
 	@OneToMany(mappedBy = "order")
 	private List<OrderProduct> orderProduct = new ArrayList<>();
+	
+	// === 연관 관계 메서드
+	
+	public void setMember(Member member) {
+		this.member = member;
+		member.addOrder(this);
+	}
+	
+	public void setDelivery(Delivery delivery) {
+		this.delivery = delivery;
+		delivery.setOrder(this);
+	}
+	
+	public void addOrderProduct(OrderProduct orderProduct) {
+		this.orderProduct.add(orderProduct);
+		orderProduct.setOrder(this);
+	}
+	
+	// === 생성 메서드
+	
+	public static Order createOrder(
+		Member member,
+		Delivery delivery,
+		OrderProduct... orderProducts
+			) {
+		Order order = new Order();
+		order.setOrderDate(LocalDateTime.now());
+		order.setStatus(OrderStatus.ORDER);
+		order.setMember(member);
+		order.setDelivery(delivery);
+		for(OrderProduct orderProduct : orderProducts) {
+			order.addOrderProduct(orderProduct);
+		}
+		
+		return order;
+	}
 	
 }
