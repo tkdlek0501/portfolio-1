@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.productservice.demo.controller.form.UpdateMemberForm;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +18,6 @@ import lombok.ToString;
 
 @Entity
 @Getter @Setter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Address {
 	
@@ -45,6 +46,15 @@ public class Address {
 		address.setCity(city);
 		address.setStreet(street);
 		address.setZipcode(zipcode);
+		
+		return address;
+	}
+
+	public Address modify(UpdateMemberForm form) {
+		Address address = new Address();
+		address.setCity(form.getAddress().getCity());
+		address.setStreet(form.getAddress().getStreet());
+		address.setZipcode(form.getAddress().getZipcode());
 		
 		return address;
 	}

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.productservice.demo.controller.form.UpdateMemberForm;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -46,7 +50,7 @@ public class Member {
 	
 	// === 연관관계 매핑
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "address_id")
 	private Address address;
 	
@@ -105,5 +109,19 @@ public class Member {
 		
 		return member;
 	}
+	
+	// 수정
+	public Member modify(UpdateMemberForm form) {
+		Member member = new Member();
+		member.setId(form.getId());
+		member.setUsername(form.getUsername());
+		member.setPassword(form.getPassword());
+		member.setName(form.getName());
+		member.setAge(form.getAge());
+		member.setAddress(form.getAddress());
+		
+		return member;
+	}
+
 	
 }

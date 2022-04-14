@@ -27,11 +27,16 @@ public class MemberRepository {
 	// 회원 조회
 	public Member findOne(Long memberId) {
 		return em.find(Member.class, memberId);
+//		 List<Member> member = em.createQuery("select m from Member m left join m.address a where m.id = :id", Member.class)
+//			 .setParameter("id", memberId)
+//			 .getResultList();
+//		 
+//		 return member.stream().findAny();
 	}
 	
 	// 회원 목록
 	public List<Member> findAll(){
-		return em.createQuery("select m from Member m", Member.class)
+		return em.createQuery("select m from Member m left join m.address a", Member.class)
 				.getResultList();
 	}
 	
@@ -50,7 +55,7 @@ public class MemberRepository {
 				.setParameter("username", username)
 				.getResultList(); 
 		
-		log.info("아이디로 찾아온 member : {}", member);
+		if(member.size() != 0) log.info("아이디로 찾아온 member : {}", member.get(0));
 		
 		return member.stream().findAny();
 	}

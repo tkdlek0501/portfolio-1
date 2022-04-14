@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.productservice.demo.controller.form.UpdateMemberForm;
 import com.productservice.demo.domain.Member;
+import com.productservice.demo.repository.AddressRepository;
 import com.productservice.demo.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberService {
 	
 	private final MemberRepository memberRepository;
+	private final AddressRepository addressRepository;
 	
 	// 회원 가입(생성)
 	@Transactional
@@ -29,13 +31,15 @@ public class MemberService {
 		validateDuplicateMember(member.getUsername());
 		
 		memberRepository.save(member);
+		addressRepository.save(member.getAddress());
+		
 		return member.getId();
 	}
 	
 	// 중복 검증 (아이디 중복 막음)
 	private void validateDuplicateMember(String username) {
 		
-		log.info("중복 검증 실행");
+		log.info("중복 검증 실행 username : {}", username);
 		
 		Optional<Member> findMember = memberRepository.findOneByUsername(username); // TODO: 멀티 쓰레드 환경이므로 DB에서도 중복을 막아야 한다.(유니크하게 컬럼 관리) 
 		
@@ -58,15 +62,23 @@ public class MemberService {
 	@Transactional
 	public Long modifyMember(UpdateMemberForm form) {
 		
-		// 받아온 username 있으면 검증
-		if(form.getUsername() != null) {
-			validateDuplicateMember(form.getUsername());
-		}
+		// 받아온 username 있으면 
+		if(form.getUsername() != null && !form.getUsername().isEmpty()) {
+			// 원래 아이디 찾기
+			Member member = memberRepository.findOne(form.getId());
+			
+			// 자신의 기존 아이디와 다르면 검증
+			if(!member.getUsername().equals(form.getUsername())) {
+				log.info("기존 아이디와 달라 검증 중입니다.");
+				validateDuplicateMember(form.getUsername());
+			}
+		}	
 		
+		// 기존 멤버 (이 객체의 필드가 변경되면 감지한다?)
 		Member findMember = memberRepository.findOne(form.getId()); // 영속성 컨텍스트 등록
 		
-		// 변경 
-		findMember = Member.updateMember(findMember.getId(), findMember.getUsername(), findMember.getPassword(), findMember.getName(), findMember.getAge(), findMember.getAddress());
+		// 수정 (변경 감지)
+		findMember = findMember.modify(form);
 		
 		return findMember.getId();
 	}

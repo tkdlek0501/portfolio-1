@@ -30,4 +30,25 @@ public class UpdateMemberForm {
 	
 	private Address address;
 	
+	// 생성 메서드
+	public static UpdateMemberForm createMemberForm(
+			Long id,
+			String username,
+			String password,
+			String name,
+			Integer age,
+			Address address
+			) {
+		UpdateMemberForm form = new UpdateMemberForm();
+		form.setId(id);
+		form.setUsername(username);
+		form.setPassword(password);
+		form.setName(name);
+		if(age != 0) form.setAge(age);
+		form.setAddress(address);
+		
+		return form;
+	}
+	
+	
 }
