@@ -95,7 +95,7 @@ public class MemberServiceTest {
 		assertEquals(expectedMember.getUsername(), resultMember.getUsername()); // TODO: expected KHJ but HJ -> findOne이 제대로 안된다 
 		assertEquals(expectedMember.getPassword(), resultMember.getPassword());
 		assertEquals(expectedMember.getName(), resultMember.getName());
-		assertEquals(expectedMember.getAge(), resultMember.getAge());
+		assertEquals(expectedMember.getAge(), resultMember.getAge()); // set 안 해준 것은 그대로 유지
 		
 	}
 	

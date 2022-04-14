@@ -110,17 +110,21 @@ public class Member {
 		return member;
 	}
 	
+	// TODO: 여기서 null, empty 체크를 해도 되는건지?
 	// 수정
 	public Member modify(UpdateMemberForm form) {
-		Member member = new Member();
-		member.setId(form.getId());
-		member.setUsername(form.getUsername());
-		member.setPassword(form.getPassword());
-		member.setName(form.getName());
-		member.setAge(form.getAge());
-		member.setAddress(form.getAddress());
+		if(form.getUsername() != null && !form.getUsername().isEmpty()) this.setUsername(form.getUsername());
+		if(form.getPassword() != null && !form.getPassword().isEmpty()) this.setPassword(form.getPassword());
+		if(form.getName() != null && !form.getName().isEmpty()) this.setName(form.getName());
+		if(form.getAge() != 0) this.setAge(form.getAge());
 		
-		return member;
+		if(form.getAddress() != null) {
+			if(form.getAddress().getCity() != null && !form.getAddress().getCity().isEmpty()) this.getAddress().setCity(form.getAddress().getCity());
+			if(form.getAddress().getStreet() != null && !form.getAddress().getStreet().isEmpty()) this.getAddress().setStreet(form.getAddress().getStreet());
+			this.getAddress().setZipcode(form.getAddress().getZipcode());
+		}
+		
+		return this;
 	}
 
 	

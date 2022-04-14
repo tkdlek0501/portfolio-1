@@ -78,10 +78,10 @@ public class MemberService {
 		Member findMember = memberRepository.findOne(form.getId()); // 영속성 컨텍스트 등록
 		
 		// 수정 (변경 감지)
-//		findMember = findMember.modify(form);
-		findMember.setUsername(form.getUsername());
-		findMember.setName(form.getName());
-		findMember.setPassword(form.getPassword());
+		findMember.modify(form); // TODO: setter 사용하지 않고 메서드로 변경하기!
+//		findMember.setUsername(form.getUsername());
+//		findMember.setName(form.getName());
+//		findMember.setPassword(form.getPassword());
 		
 		return findMember.getId();
 	}
