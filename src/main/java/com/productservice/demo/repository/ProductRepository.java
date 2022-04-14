@@ -28,7 +28,7 @@ public class ProductRepository {
 	
 	// 상품 목록
 	public List<Product> findAll() {
-		return em.createQuery("select p from product p", Product.class)
+		return em.createQuery("select p from Product p", Product.class)
 				.getResultList();
 	}
 	

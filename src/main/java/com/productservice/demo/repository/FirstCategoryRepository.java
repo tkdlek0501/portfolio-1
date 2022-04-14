@@ -32,7 +32,7 @@ public class FirstCategoryRepository implements CategoryRepository {
 	// 카테고리 전체 목록 -> 추후에 검색에 포함 예정
 	@Override
 	public List<Category> findAll() {
-		return em.createQuery("select c from category c", Category.class)
+		return em.createQuery("select c from Category c", Category.class)
 				.getResultList();
 	}
 	

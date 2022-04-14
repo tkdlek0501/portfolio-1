@@ -66,7 +66,6 @@ public class Member {
 	}
 	
 	// === 생성 메서드
-	
 	public static Member createMember(
 			String username, 
 			String password, 
@@ -86,4 +85,25 @@ public class Member {
 		
 		return member;
 	}
+	
+	// 수정 메서드
+	public static Member updateMember(
+			Long memberId,
+			String username,
+			String password,
+			String name,
+			int age,
+			Address address
+			) {
+		Member member = new Member();
+		member.setId(memberId);
+		member.setUsername(username);
+		member.setPassword(password);
+		member.setName(name);
+		member.setAge(age);
+		member.setAddress(address);
+		
+		return member;
+	}
+	
 }

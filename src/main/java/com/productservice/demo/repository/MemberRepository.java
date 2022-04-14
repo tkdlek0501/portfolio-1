@@ -1,6 +1,7 @@
 package com.productservice.demo.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
@@ -9,9 +10,11 @@ import org.springframework.stereotype.Repository;
 import com.productservice.demo.domain.Member;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class MemberRepository {
 	
 	private final EntityManager em;
@@ -28,7 +31,7 @@ public class MemberRepository {
 	
 	// 회원 목록
 	public List<Member> findAll(){
-		return em.createQuery("select m from member m", Member.class)
+		return em.createQuery("select m from Member m", Member.class)
 				.getResultList();
 	}
 	
@@ -36,8 +39,24 @@ public class MemberRepository {
 	
 	// 이름으로 회원 조회
 	public List<Member> findByName(String name){
-		return em.createQuery("select m form member m where m.name = :name", Member.class)
+		return em.createQuery("select m form Member m where m.name = :name", Member.class)
 				.setParameter("name", name)
 				.getResultList();
+	}
+	
+	// 아이디로 회원 조회 // TODO: getSingleResult 사용시 null 체크 해줘야 한다. -> getResultList 로 변경 + optional(NPE를 피하기 위한 방법) 로 해결 
+	public Optional<Member> findOneByUsername(String username) {
+		List<Member> member = em.createQuery("select m from Member m where m.username = :username", Member.class)
+				.setParameter("username", username)
+				.getResultList(); 
+		
+		log.info("아이디로 찾아온 member : {}", member);
+		
+		return member.stream().findAny();
+	}
+	
+	// 회원 삭제
+	public void deleteOne(Member member) {
+		em.remove(member);
 	}
 }

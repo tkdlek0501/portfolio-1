@@ -28,10 +28,25 @@ public class Address {
 	
 	private String street;
 	
-	private String zipcode;
+	private int zipcode;
 	
 	// 연관관계 매핑
 	
 	@OneToOne(mappedBy="address", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Member member;
+	
+	// 생성 메서드
+	public static Address createAddress(
+			String city,
+			String street,
+			int zipcode
+			) {
+		Address address = new Address();
+		address.setCity(city);
+		address.setStreet(street);
+		address.setZipcode(zipcode);
+		
+		return address;
+	}
+	
 }

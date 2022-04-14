@@ -30,14 +30,14 @@ public class OrderRepository {
 	
 	// 주문 목록 (전체)
 	public List<Order> findAll(){
-		return em.createQuery("select o from order o", Order.class)
+		return em.createQuery("select o from Orders o", Order.class)
 				.getResultList();
 	}
 	
 	// TODO: 주문 목록 (검색 포함)
 //	public List<Order> findAll(OrderSearch orderSearch){
 //		
-//		String jpql = "select o, opt, p from Order o left join o.member m"
+//		String jpql = "select o, opt, p from Orders o left join o.member m"
 //				+ "left join o.orderProduct op"
 //				+ "left join op.option opt"
 //				+ "left join opt.productOption po"
