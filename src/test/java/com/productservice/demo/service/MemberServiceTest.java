@@ -32,6 +32,7 @@ public class MemberServiceTest {
 	@Autowired EntityManager em;
 	
 	Address address = Address.createAddress("경기", "남로", 12345);
+	Address address2 = Address.createAddress("경기", "남로", 67890);
 	
 	// 회원 가입
 	@Test
@@ -52,7 +53,8 @@ public class MemberServiceTest {
 	public void validation() throws Exception {
 		// given
 		Member member1 = Member.createMember("HJ", "김현준", "1234", 29, Grade.ADMIN, address);
-		Member member2 = Member.createMember("HJ", "김현준", "1234", 29, Grade.ADMIN, address);
+		Member member2 = Member.createMember("HJ", "김현준", "1234", 29, Grade.ADMIN, address2); 
+		// TODO: ※같은 address 인스턴스를 쓰면 안된다 - 인스턴스가 같으면 같은 엔티티로 판단함
 		
 		// when
 		memberService.join(member1);
@@ -69,22 +71,32 @@ public class MemberServiceTest {
 		// given
 			// 등록 
 			Member member = Member.createMember("HJ", "김현준", "1234", 29, Grade.ADMIN, address);
+			
+			log.info("등록할 member: {}", member);
+			
 			Long memberId = memberService.join(member);
 			
 			// 등록한  member 찾아오기 (영속성 컨텍스트 등록)
 			Member findMember = memberRepository.findOne(memberId);
 			
-			// 변경된 data
-			UpdateMemberForm form = UpdateMemberForm.createMemberForm(findMember.getId(), "KHJ", "현준김", "12345", 0, null);
+			// 변경할 data
+			UpdateMemberForm form = UpdateMemberForm.createMemberForm(findMember.getId(), "KHJ", "12345", "현준김", 0, null);
+			
 			// member 기대값 (비교를 위해 생성)
-			Member expectedMember = Member.updateMember(176L, "KHJ", "현준김", "12345", 29, address);
+			Member expectedMember = Member.updateMember(findMember.getId(), "KHJ", "12345", "현준김", 29, findMember.getAddress());
 		
 		// when
 			memberService.modifyMember(form);
 		
 		// then
 		//em.flush(); // 쿼리 동작 강제
-		assertEquals(expectedMember, memberRepository.findOne(findMember.getId())); // 수정 객체와 같아야 함
+		Member resultMember = memberRepository.findOne(findMember.getId());
+		log.info("result : {}", resultMember);
+		assertEquals(expectedMember.getUsername(), resultMember.getUsername()); // TODO: expected KHJ but HJ -> findOne이 제대로 안된다 
+		assertEquals(expectedMember.getPassword(), resultMember.getPassword());
+		assertEquals(expectedMember.getName(), resultMember.getName());
+		assertEquals(expectedMember.getAge(), resultMember.getAge());
+		
 	}
 	
 	// 회원 삭제

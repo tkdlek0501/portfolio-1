@@ -31,12 +31,12 @@ public class Address {
 	
 	private int zipcode;
 	
-	// 연관관계 매핑
+	// === 연관관계 매핑
 	
-	@OneToOne(mappedBy="address", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(mappedBy="address", fetch = FetchType.LAZY)
 	private Member member;
 	
-	// 생성 메서드
+	// === 생성 메서드
 	public static Address createAddress(
 			String city,
 			String street,

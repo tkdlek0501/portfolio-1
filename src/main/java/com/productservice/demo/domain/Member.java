@@ -61,7 +61,7 @@ public class Member {
 	
 	public void setAddress(Address address) {
 		this.address = address;
-		address.setMember(this);
+		if(address != null) address.setMember(this); // null. 은 불가능!
 	}
 	
 	public void addOrder(Order order) {

@@ -64,7 +64,7 @@ public class MemberService {
 		
 		// 받아온 username 있으면 
 		if(form.getUsername() != null && !form.getUsername().isEmpty()) {
-			// 원래 아이디 찾기
+			// member 찾기
 			Member member = memberRepository.findOne(form.getId());
 			
 			// 자신의 기존 아이디와 다르면 검증
@@ -74,11 +74,14 @@ public class MemberService {
 			}
 		}	
 		
-		// 기존 멤버 (이 객체의 필드가 변경되면 감지한다?)
+		// 기존 멤버 (이 객체의 필드가 변경되면 감지한다)
 		Member findMember = memberRepository.findOne(form.getId()); // 영속성 컨텍스트 등록
 		
 		// 수정 (변경 감지)
-		findMember = findMember.modify(form);
+//		findMember = findMember.modify(form);
+		findMember.setUsername(form.getUsername());
+		findMember.setName(form.getName());
+		findMember.setPassword(form.getPassword());
 		
 		return findMember.getId();
 	}
