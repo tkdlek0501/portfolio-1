@@ -28,7 +28,11 @@ public class MemberService {
 	public Long join(Member member) {
 		
 		// 중복 검증
-		validateDuplicateMember(member.getUsername());
+		try {
+			validateDuplicateMember(member.getUsername());
+		} catch (IllegalStateException e) {
+			return null;
+		}
 		
 		memberRepository.save(member);
 		addressRepository.save(member.getAddress());
