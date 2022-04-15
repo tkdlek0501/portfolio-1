@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import com.productservice.demo.controller.form.UpdateMemberForm;
+import com.productservice.demo.controller.form.UpdateMemberTestForm;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -29,7 +29,7 @@ public class Address {
 	
 	private String street;
 	
-	private int zipcode;
+	private String zipcode;
 	
 	// === 연관관계 매핑
 	
@@ -40,7 +40,7 @@ public class Address {
 	public static Address createAddress(
 			String city,
 			String street,
-			int zipcode
+			String zipcode
 			) {
 		Address address = new Address();
 		address.setCity(city);
@@ -50,7 +50,7 @@ public class Address {
 		return address;
 	}
 
-	public Address modify(UpdateMemberForm form) {
+	public Address modify(UpdateMemberTestForm form) {
 		Address address = new Address();
 		address.setCity(form.getAddress().getCity());
 		address.setStreet(form.getAddress().getStreet());

@@ -18,6 +18,7 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.productservice.demo.controller.form.UpdateMemberForm;
+import com.productservice.demo.controller.form.UpdateMemberTestForm;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -117,12 +118,13 @@ public class Member {
 		if(form.getPassword() != null && !form.getPassword().isEmpty()) this.setPassword(form.getPassword());
 		if(form.getName() != null && !form.getName().isEmpty()) this.setName(form.getName());
 		if(form.getAge() != 0) this.setAge(form.getAge());
+		Grade grade = Grade.valueOf(form.getGrade());
+		if(form.getGrade() != null) this.setGrade(grade);
 		
-		if(form.getAddress() != null) {
-			if(form.getAddress().getCity() != null && !form.getAddress().getCity().isEmpty()) this.getAddress().setCity(form.getAddress().getCity());
-			if(form.getAddress().getStreet() != null && !form.getAddress().getStreet().isEmpty()) this.getAddress().setStreet(form.getAddress().getStreet());
-			this.getAddress().setZipcode(form.getAddress().getZipcode());
-		}
+		if(form.getCity() != null && !form.getCity().isEmpty()) this.getAddress().setCity(form.getCity());
+		if(form.getStreet() != null && !form.getStreet().isEmpty()) this.getAddress().setStreet(form.getStreet());
+		
+		if(form.getZipcode() != null && !form.getZipcode().isEmpty()) this.getAddress().setZipcode(form.getZipcode());
 		
 		return this;
 	}

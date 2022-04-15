@@ -28,7 +28,7 @@ public class CreateMemberForm {
 	
 	@NotNull(message = "나이를 입력해주세요.")
 	@Min(value=0, message="나이는 최소 1세 이상으로 입력하세요.")
-	private int age;
+	private Integer age;
 	
 	@NotBlank(message = "등급을 선택해주세요.")
 	private String grade; 
@@ -41,7 +41,7 @@ public class CreateMemberForm {
 	@NotBlank(message = "도로명을 입력해주세요.")
 	private String street;
 	
-	@NotBlank
+	@NotBlank(message = " ")
 	@Size(min = 5, max = 5, message = "우편번호 5자리를 입력해주세요.")
 	private String zipcode;
 	// String 으로 받고 int 로 컨버팅 할 것

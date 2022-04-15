@@ -6,6 +6,16 @@
     <th:block th:replace="/../common/sidebar.html"></th:block>
     <!-- partial -->
     
+    <style>
+    	.fieldError{
+    		border: 1px solid red;
+    		color: red;
+    	}
+    	.field-error{
+    		color: red;
+    	}
+    </style>
+    
     <div class="page-content-wrapper">
      <div class="page-content-wrapper-inner">
       <div id="content-viewport"> 
@@ -20,6 +30,9 @@
 						<div>
 							<div>
 								<form th:action th:object="${member}" method="post">
+									<!-- <div th:if="${#fields.hasGlobalErrors()}">
+								 		<p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+								 	</div> -->
 									<input th:field="*{id}" type="hidden">
 									<table class="table table-bordered">
 				            			<tbody>
@@ -27,7 +40,8 @@
 				            					<th style="width:20%;">아이디</th>
 				            					<td>
 				            						<div class="rows">
-														<input th:field="*{username}" type="text" class="form-control" style="width:30%;">
+														<input th:field="*{username}" type="text" class="form-control" style="width:30%;" th:classappend="${#fields.hasErrors('username')}? 'fieldError' : ''">
+														<p th:errors="*{username}">에러 메시지</p>
 													</div>
 				            					</td>
 				            				</tr>
@@ -35,7 +49,8 @@
 				            					<th style="width:20%;">이름</th>
 				            					<td>
 				            						<div class="rows">
-														<input th:field="*{name}" type="text" class="form-control" style="width:30%;">
+														<input th:field="*{name}" type="text" class="form-control" style="width:30%;" th:classappend="${#fields.hasErrors('name')}? 'fieldError' : ''">
+														<p th:errors="*{name}">에러 메시지</p>
 													</div>
 				            					</td>
 				            				</tr>
@@ -43,7 +58,8 @@
 				            					<th style="width:20%;">나이</th>
 				            					<td>
 				            						<div class="rows">
-														<input th:field="*{age}" type="text" class="form-control" style="width:30%;">
+														<input th:field="*{age}" type="text" class="form-control" style="width:30%;" th:classappend="${#fields.hasErrors('age')}? 'fieldError' : ''">
+														<p th:errors="*{age}">에러 메시지</p>
 													</div>
 				            					</td>
 				            				</tr>
@@ -51,7 +67,11 @@
 				            					<th style="width:20%;">등급</th>
 				            					<td>
 				            						<div class="rows">
-														<input th:field="*{grade}" type="text" class="form-control" style="width:30%;">
+														<select th:field="*{grade}" class="form-control" style="width:30%;" th:classappend="${#fields.hasErrors('grade')}? 'fieldError' : ''">
+															<option th:value="ADMIN">ADMIN</option>
+															<option th:value="USER">USER</option>
+														</select>
+														<p th:errors="*{grade}">에러 메시지</p>
 													</div>
 				            					</td>
 				            				</tr>
@@ -59,7 +79,8 @@
 				            					<th style="width:20%;">도시</th>
 				            					<td>
 				            						<div class="rows">
-														<input th:field="*{address.city}" type="text" class="form-control" style="width:30%;">
+														<input th:field="*{city}" type="text" class="form-control" style="width:30%;" th:classappend="${#fields.hasErrors('city')}? 'fieldError' : ''">
+														<p th:errors="*{city}">에러 메시지</p>
 													</div>
 				            					</td>
 				            				</tr>
@@ -67,7 +88,8 @@
 				            					<th style="width:20%;">도로명</th>
 				            					<td>
 				            						<div class="rows">
-														<input th:field="*{address.street}" type="text" class="form-control" style="width:30%;">
+														<input th:field="*{street}" type="text" class="form-control" style="width:30%;" th:classappend="${#fields.hasErrors('street')}? 'fieldError' : ''">
+														<p th:errors="*{street}">에러 메시지</p>
 													</div>
 				            					</td>
 				            				</tr>
@@ -75,7 +97,8 @@
 				            					<th style="width:20%;">우편번호</th>
 				            					<td>
 				            						<div class="rows">
-														<input th:field="*{address.zipcode}" type="text" class="form-control" style="width:30%;">
+														<input th:field="*{zipcode}" type="text" class="form-control" style="width:30%;" th:classappend="${#fields.hasErrors('zipcode')}? 'fieldError' : ''">
+														<p th:errors="*{zipcode}">에러 메시지</p>
 													</div>
 				            					</td>
 				            				</tr>
@@ -83,7 +106,8 @@
 				            					<th style="width:20%;">가입날짜</th>
 				            					<td>
 				            						<div class="rows">
-														<input th:value="${#strings.substring(#strings.replace(member.registeredDate, '-', '.'), 0, 16)}" type="text" readonly class="form-control" style="width:30%;">
+														<input th:value="${#strings.substring(#strings.replace(member.registeredDate, '-', '.'), 0, 10)}" type="text" readonly class="form-control" style="width:30%;">
+														<input type="hidden" th:field="*{registeredDate}">
 													</div>
 				            					</td>
 				            				</tr>

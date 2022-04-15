@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.productservice.demo.controller.form.UpdateMemberForm;
+import com.productservice.demo.controller.form.UpdateMemberTestForm;
 import com.productservice.demo.domain.Member;
 import com.productservice.demo.repository.AddressRepository;
 import com.productservice.demo.repository.MemberRepository;
@@ -82,10 +83,7 @@ public class MemberService {
 		Member findMember = memberRepository.findOne(form.getId()); // 영속성 컨텍스트 등록
 		
 		// 수정 (변경 감지)
-		findMember.modify(form); // TODO: setter 사용하지 않고 메서드로 변경하기!
-//		findMember.setUsername(form.getUsername());
-//		findMember.setName(form.getName());
-//		findMember.setPassword(form.getPassword());
+		findMember.modify(form);
 		
 		return findMember.getId();
 	}
