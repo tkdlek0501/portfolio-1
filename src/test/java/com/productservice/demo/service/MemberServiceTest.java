@@ -1,7 +1,6 @@
 package com.productservice.demo.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import javax.persistence.EntityManager;
 
@@ -100,8 +99,25 @@ public class MemberServiceTest {
 	}
 	
 	// 회원 삭제
-}
+	@Test
+	public void deleteMember() throws Exception{
+		//given
+			// 등록
+			Member member = Member.createMember("HJ", "김현준", "1234", 29, Grade.ADMIN, address);
+			Long memberId = memberService.join(member);
+			
+			// 등록한 member 찾아오기 (영속성 컨텍스트 등록)
+			Member findMember = memberRepository.findOne(memberId);
 
+		//when
+			// 삭제
+			memberRepository.deleteOne(findMember);
+						
+		//then
+			Member resultMember = memberRepository.findOne(memberId); // 조회가 되면 안됨
+			assertEquals(resultMember, null); 
+	}
+}
 // 테스트시 주의점
 // DB를 사용하는 경우 properties에 ddl 설정에 따라 exception 발생하는 경우 생김
 // save the transient instance before flushing 에러
