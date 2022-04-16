@@ -2,6 +2,7 @@ package com.productservice.demo.domain;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.productservice.demo.controller.form.UpdateMemberForm;
@@ -30,7 +35,7 @@ import lombok.ToString;
 @Getter @Setter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member implements UserDetails{
 	
 	@Id @GeneratedValue
 	@Column(name="member_id")
@@ -111,7 +116,7 @@ public class Member {
 		return member;
 	}
 	
-	// TODO: 여기서 null, empty 체크를 해도 되는건지?
+	// TODO: @여기서 null, empty 체크를 해도 되는건지?
 	// 수정
 	public Member modify(UpdateMemberForm form) {
 		if(form.getUsername() != null && !form.getUsername().isEmpty()) this.setUsername(form.getUsername());
@@ -127,6 +132,40 @@ public class Member {
 		if(form.getZipcode() != null && !form.getZipcode().isEmpty()) this.getAddress().setZipcode(form.getZipcode());
 		
 		return this;
+	}
+	
+	
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		String grade = String.valueOf(this.grade);
+		authorities.add(new SimpleGrantedAuthority("ROLE_" + grade)); 
+		return authorities;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	

@@ -60,8 +60,7 @@ public class MemberController {
 		// 에러 처리
 		if(bindingResult.hasErrors()) {
 			log.info("회원 등록 잘못된 값 바인딩 error={}", bindingResult);
-			return "member/newMember"; // TODO: ※회원 등록 폼으로 redirect 사용 하면 th:errors 이용 안됨
-			//return "redirect:/members/new";
+			return "member/newMember";
 		}
 		
 		// converting

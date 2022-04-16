@@ -88,15 +88,16 @@ public class UpdateMemberForm {
 			Address address,
 			LocalDateTime registeredDate
 			) {
+		
+		// converting
+		String stringGrade = String.valueOf(grade);
+		
 		UpdateMemberForm form = new UpdateMemberForm();
 		form.setId(id);
 		form.setUsername(username);
 		form.setPassword(password);
 		form.setName(name);
 		form.setAge(age);
-		
-		// converting
-		String stringGrade = String.valueOf(grade);
 		form.setGrade(stringGrade);
 		form.setCity(address.getCity());
 		form.setStreet(address.getStreet());
