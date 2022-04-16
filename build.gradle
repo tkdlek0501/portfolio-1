@@ -30,7 +30,6 @@ dependencies {
 	
 	// security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.security:spring-security-test'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	
 	// 콘솔에서 쿼리 파라미터 남기게 해주는 라이브러리; 운영 단계에서는 사용 안할 것임

@@ -2,9 +2,12 @@ package com.productservice.demo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class HomeController {
 	
 	// admin index 페이지
@@ -22,6 +25,12 @@ public class HomeController {
 	// login 페이지
 	@GetMapping("/login")
 	public String login() {
+		return "/login";
+	}
+	
+	// logiin 실패 페이지 - test
+	@GetMapping("/fail")
+	public String fail() {
 		return "/login";
 	}
 	

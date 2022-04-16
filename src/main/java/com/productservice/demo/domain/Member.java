@@ -33,7 +33,6 @@ import lombok.ToString;
 
 @Entity
 @Getter @Setter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member implements UserDetails{
 	
@@ -166,6 +165,12 @@ public class Member implements UserDetails{
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Member [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", age="
+				+ age + ", grade=" + grade + ", registeredDate=" + registeredDate + "]";
 	}
 
 	

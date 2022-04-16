@@ -49,8 +49,9 @@ public class MemberRepository {
 				.getResultList();
 	}
 	
-	// 아이디로 회원 조회 // TODO: getSingleResult 사용시 null 체크 해줘야 한다. -> getResultList 로 변경 + optional(NPE를 피하기 위한 방법) 로 해결 
+	// 아이디로 회원 조회 // getSingleResult 사용시 null 체크 해줘야 한다. -> getResultList 로 변경 + optional(NPE를 피하기 위한 방법) 로 해결 
 	public Optional<Member> findOneByUsername(String username) {
+		log.info("아이디로 회원 조회");
 		List<Member> member = em.createQuery("select m from Member m where m.username = :username", Member.class)
 				.setParameter("username", username)
 				.getResultList(); 

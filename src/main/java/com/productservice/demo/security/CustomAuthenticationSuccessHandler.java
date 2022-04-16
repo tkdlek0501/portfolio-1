@@ -34,9 +34,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		// 권한에 따른 redirect //TODO: authority를 이용해보기
 		String grade = String.valueOf(member.getGrade());
 		if(grade.equals("ADMIN")) {
-			response.sendRedirect("/admin/index");
+			response.sendRedirect("/admin");
 		}else {
-			response.sendRedirect("/user/index");
+			response.sendRedirect("/user");
 		}
 		
 	}
