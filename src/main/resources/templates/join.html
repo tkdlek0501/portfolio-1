@@ -1,9 +1,16 @@
-    <th:block th:replace="/../common/header.html"></th:block>
-    <div class="page-body">
-    <th:block th:replace="/../common/sidebar.html"></th:block>
-    
-    <!-- <div th:replace="fragments/footer :: footer" /></div> -->
-    <style>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- th:with=" user = ${#authentication.principal}" -->
+	<head>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	  <title>포트폴리오</title>
+	  <link rel="stylesheet" href="../assets/vendors/iconfonts/mdi/css/materialdesignicons.css">
+	  <link  type="text/css" rel="stylesheet" href="../assets/vendors/css/vendor.addons.css" />
+	  <link rel="stylesheet" href="../assets/css/shared/style.css">
+	  <link rel="stylesheet" href="../assets/css/demo_1/style.css">
+	  <link rel="shortcut icon" href="../asssets/images/favicon.ico" />
+	  <style>
     	.fieldError{
     		border: 1px solid red;
     		color: red;
@@ -11,23 +18,23 @@
     	.field-error{
     		color: red;
     	}
-    </style>
-    
-    
-    <div class="page-content-wrapper">
-     <div class="page-content-wrapper-inner">
-      <div id="content-viewport"> 
+      </style>
+	</head>
+<body>
+    <div class="authentication-theme">
+    <!-- <div th:replace="fragments/footer :: footer" /></div> -->
+
         <!-- Begin Page Content -->
         <div class="row">
 		 <div class="col-12">		
     			<div class="grid">
-    			 <p class="grid-header">회원 등록</p>
+    			 <p class="grid-header">회원 가입</p>
     			  <div class="grid-body">
                     <div class="item-wrapper">
                       <div class="table-responsive">
 						<div>
 							<div>
-								<form th:action="@{/admin/members}" th:object="${form}" method="post">
+								<form th:action th:object="${form}" method="post">
 									<!-- enctype="multipart/form-data" -->
 								<div th:if="${#fields.hasGlobalErrors()}">
 								 	<p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
@@ -127,16 +134,9 @@
 		  		<a href="javascript:history.back();" style="width:100px;background:#fff;" class="btn btn-user btn-block">뒤로가기</a>	
          </div>
           <!-- DataTales Example -->
-        
        </div>
-      </div>
-      
-      <!-- Footer -->
-           <!-- End of Main Content -->
-      </div>
-      <!-- End of Footer -->
-    </div>
-    <!-- End of Content Wrapper -->
+	
+	</div>
 	
 	
 	 <!-- Bootstrap core JavaScript-->

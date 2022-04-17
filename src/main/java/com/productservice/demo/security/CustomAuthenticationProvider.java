@@ -36,8 +36,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 		String password = authentication.getCredentials().toString();
 		
 		// 비밀번호 틀리면
-		//if (!passwordEncoder.matches(input_pw, member.getMem_password())) {
-		if (!(password.equals(member.getPassword()))) {
+		if (!passwordEncoder.matches(password, member.getPassword())) {
+		// if (!(password.equals(member.getPassword()))) {
 			throw new BadCredentialsException("아이디 또는 비밀번호가 틀렸습니다."); // failure로 던져줌
 		}
 		

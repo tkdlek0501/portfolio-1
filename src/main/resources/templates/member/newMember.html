@@ -27,7 +27,7 @@
                       <div class="table-responsive">
 						<div>
 							<div>
-								<form th:action="@{/members}" th:object="${form}" method="post">
+								<form th:action="@{/admin/members}" th:object="${form}" method="post">
 									<!-- enctype="multipart/form-data" -->
 								<div th:if="${#fields.hasGlobalErrors()}">
 								 	<p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>

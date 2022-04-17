@@ -36,9 +36,9 @@
 			                 		<td th:text="${m.age}"></td>
 			                 		<td th:text="${m.grade}"></td>
 			                 		<td>
-			                 			<a class="btn" th:href="|@{/members/{memberId}(memberId=${m.id})}|">상세</a>
+			                 			<a class="btn" th:href="|@{/admin/members/{memberId}(memberId=${m.id})}|">상세</a>
 			                 		</td>
-			                 		<td><button class="btn" th:onclick="|if(confirm('영구삭제 하시겠습니까?')){location.href='/members/${m.id}/remove'}|" type="button">삭제</button></td>
+			                 		<td><button class="btn" th:onclick="|if(confirm('영구삭제 하시겠습니까?')){location.href='/admin/members/${m.id}/remove'}|" type="button">삭제</button></td>
 			                  	 </tr>
 			                  </tbody>
 			                </table>	

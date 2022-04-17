@@ -133,13 +133,12 @@ public class Member implements UserDetails{
 		return this;
 	}
 	
-	
-	
+	// 권한 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		String grade = String.valueOf(this.grade);
-		authorities.add(new SimpleGrantedAuthority("ROLE_" + grade)); 
+		authorities.add(new SimpleGrantedAuthority("ROLE_" + grade)); // hasrole에서 ROLE_ 로 판단
 		return authorities;
 	}
 

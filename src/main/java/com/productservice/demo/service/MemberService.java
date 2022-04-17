@@ -3,6 +3,7 @@ package com.productservice.demo.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ public class MemberService {
 	
 	private final MemberRepository memberRepository;
 	private final AddressRepository addressRepository;
+	private final PasswordEncoder passwordEncoder;
 	
 	// 회원 가입(생성)
 	@Transactional
@@ -34,6 +36,9 @@ public class MemberService {
 		} catch (IllegalStateException e) {
 			return null;
 		}
+		
+		// 비밀번호 암호화
+		member.setPassword(passwordEncoder.encode(member.getPassword()));
 		
 		memberRepository.save(member);
 		addressRepository.save(member.getAddress());
