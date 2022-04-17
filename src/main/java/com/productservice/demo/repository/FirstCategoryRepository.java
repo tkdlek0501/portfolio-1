@@ -43,5 +43,11 @@ public class FirstCategoryRepository implements CategoryRepository {
 		return null;
 	}
 	
+	// 카테고리 삭제
+	@Override
+	public void deleteOne(Category findCat) {
+		em.remove(findCat);
+	}
+	
 	
 }

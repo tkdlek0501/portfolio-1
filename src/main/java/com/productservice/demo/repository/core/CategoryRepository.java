@@ -17,4 +17,7 @@ public interface CategoryRepository {
 	
 	// 검색
 	public Category search();
+	
+	// 삭제
+	public void deleteOne(Category findCat);
 }

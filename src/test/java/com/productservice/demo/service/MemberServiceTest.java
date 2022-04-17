@@ -108,7 +108,7 @@ public class MemberServiceTest {
 			Member member = Member.createMember("HJ", "김현준", "1234", 29, Grade.ADMIN, address);
 			Long memberId = memberService.join(member);
 			
-			// 등록한 member 찾아오기 (영속성 컨텍스트 등록)
+			// 등록한 member 찾아오기
 			Member findMember = memberRepository.findOne(memberId);
 
 		//when
