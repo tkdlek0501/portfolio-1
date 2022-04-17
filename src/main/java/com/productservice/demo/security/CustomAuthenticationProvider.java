@@ -28,7 +28,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		
-		System.out.println("provider 에서 name : " + authentication.getName());
 		log.info("username : {}", authentication.getName());
 		
 		Member member = (Member) userService.loadUserByUsername(authentication.getName());

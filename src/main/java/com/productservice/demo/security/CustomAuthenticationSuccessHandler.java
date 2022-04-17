@@ -31,9 +31,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		Collection<? extends GrantedAuthority> authority = member.getAuthorities();
 		log.info("로그인한 회원 등급 authority : {}", authority); 
 		
-		// 권한에 따른 redirect //TODO: authority를 이용해보기
-		String grade = String.valueOf(member.getGrade());
-		if(grade.equals("ADMIN")) {
+		// 권한에 따른 redirect 
+		String grade = String.valueOf(authority);
+		if(grade.equals("ROLE_ADMIN")) {
 			response.sendRedirect("/admin");
 		}else {
 			response.sendRedirect("/user");
