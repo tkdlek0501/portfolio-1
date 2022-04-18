@@ -32,7 +32,7 @@ public class CategoryService {
 	}
 	
 	// 카테고리 목록
-	public List<Category> findCategorys() {
+	public List<Category> findCategories() {
 		return catRepository.findAll();
 	}
 	

@@ -119,7 +119,7 @@ public class MemberController {
 		// 회원 수정 실패시
 		if(id == null) {
 			log.info("회원 수정 실패");
-			bindingResult.reject("modifyMemberFail", null, "회원 수정 실패");
+			bindingResult.reject("modifyMemberFail", null, "이미 사용하고 있는 아이디 입니다. 다른 아이디를 사용해주세요.");
 			return "member/member";
 		}
 		

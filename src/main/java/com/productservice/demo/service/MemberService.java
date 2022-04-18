@@ -80,7 +80,11 @@ public class MemberService {
 			// 자신의 기존 아이디와 다르면 검증
 			if(!member.getUsername().equals(form.getUsername())) {
 				log.info("기존 아이디와 달라 검증 중입니다.");
-				validateDuplicateMember(form.getUsername());
+				try {
+					validateDuplicateMember(form.getUsername());
+				} catch (IllegalStateException e) {
+					return null;
+				}
 			}
 		}	
 		
