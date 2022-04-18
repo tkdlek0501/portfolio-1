@@ -1,11 +1,8 @@
-	<!-- partial:partials/_header.html -->
     <th:block th:replace="/../common/header.html"></th:block>
-    <!-- partial -->
     <div class="page-body">
-      <!-- partial:partials/_sidebar.html -->
     <th:block th:replace="/../common/sidebar.html"></th:block>
-    <!-- partial -->
     
+    <!-- <div th:replace="fragments/footer :: footer" /></div> -->
     <style>
     	.fieldError{
     		border: 1px solid red;
@@ -16,6 +13,7 @@
     	}
     </style>
     
+    
     <div class="page-content-wrapper">
      <div class="page-content-wrapper-inner">
       <div id="content-viewport"> 
@@ -23,102 +21,34 @@
         <div class="row">
 		 <div class="col-12">		
     			<div class="grid">
-    			 <p class="grid-header">카테고리 상세/ 수정</p>
+    			 <p class="grid-header">카테고리 등록</p>
     			  <div class="grid-body">
                     <div class="item-wrapper">
                       <div class="table-responsive">
 						<div>
 							<div>
-								<form th:action th:object="${member}" method="post">
-									<!-- <div th:if="${#fields.hasGlobalErrors()}">
-								 		<p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
-								 	</div> -->
-									<input th:field="*{id}" type="hidden">
+								<form th:action th:object="${form}" method="post">
+									<!-- enctype="multipart/form-data" -->
+								<div th:if="${#fields.hasGlobalErrors()}">
+								 	<p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+								 </div>	
 									<table class="table table-bordered">
 				            			<tbody>
-				            				<tr>
-				            					<th style="width:20%;">아이디</th>
-				            					<td>
-				            						<div class="rows">
-														<input th:field="*{username}" type="text" class="form-control" style="width:30%;" th:classappend="${#fields.hasErrors('username')}? 'fieldError' : ''">
-														<p th:errors="*{username}">에러 메시지</p>
-													</div>
-				            					</td>
-				            				</tr>
 				            				<tr>
 				            					<th style="width:20%;">이름</th>
 				            					<td>
 				            						<div class="rows">
-														<input th:field="*{name}" type="text" class="form-control" style="width:30%;" th:classappend="${#fields.hasErrors('name')}? 'fieldError' : ''">
-														<p th:errors="*{name}">에러 메시지</p>
+														<input th:field="*{name}" type="text" style="width:30%;" th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
+														<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">에러 메시지</p>
 													</div>
 				            					</td>
 				            				</tr>
 				            				<tr>
-				            					<th style="width:20%;">나이</th>
+				            					<th style="width:20%;"></th>
 				            					<td>
-				            						<div class="rows">
-														<input th:field="*{age}" type="text" class="form-control" style="width:30%;" th:classappend="${#fields.hasErrors('age')}? 'fieldError' : ''">
-														<p th:errors="*{age}">에러 메시지</p>
-													</div>
+				            						<button type="submit" onclick="return validate();" style="width:100px;" class="btn btn-dark btn-user btn-block">등록</button>
 				            					</td>
 				            				</tr>
-				            				<tr>
-				            					<th style="width:20%;">등급</th>
-				            					<td>
-				            						<div class="rows">
-														<select th:field="*{grade}" class="form-control" style="width:30%;" th:classappend="${#fields.hasErrors('grade')}? 'fieldError' : ''">
-															<option th:value="ADMIN">ADMIN</option>
-															<option th:value="USER">USER</option>
-														</select>
-														<p th:errors="*{grade}">에러 메시지</p>
-													</div>
-				            					</td>
-				            				</tr>
-				            				<tr>
-				            					<th style="width:20%;">도시</th>
-				            					<td>
-				            						<div class="rows">
-														<input th:field="*{city}" type="text" class="form-control" style="width:30%;" th:classappend="${#fields.hasErrors('city')}? 'fieldError' : ''">
-														<p th:errors="*{city}">에러 메시지</p>
-													</div>
-				            					</td>
-				            				</tr>
-				            				<tr>
-				            					<th style="width:20%;">도로명</th>
-				            					<td>
-				            						<div class="rows">
-														<input th:field="*{street}" type="text" class="form-control" style="width:30%;" th:classappend="${#fields.hasErrors('street')}? 'fieldError' : ''">
-														<p th:errors="*{street}">에러 메시지</p>
-													</div>
-				            					</td>
-				            				</tr>
-				            				<tr>
-				            					<th style="width:20%;">우편번호</th>
-				            					<td>
-				            						<div class="rows">
-														<input th:field="*{zipcode}" type="text" class="form-control" style="width:30%;" th:classappend="${#fields.hasErrors('zipcode')}? 'fieldError' : ''">
-														<p th:errors="*{zipcode}">에러 메시지</p>
-													</div>
-				            					</td>
-				            				</tr>
-				            				<tr>
-				            					<th style="width:20%;">가입날짜</th>
-				            					<td>
-				            						<div class="rows">
-														<input th:value="${#strings.substring(#strings.replace(member.registeredDate, '-', '.'), 0, 10)}" type="text" readonly class="form-control" style="width:30%;">
-														<input type="hidden" th:field="*{registeredDate}">
-													</div>
-				            					</td>
-				            				</tr>
-				            				<tr>
-												<th style="width:20%"></th>	
-												<td>
-													<div class="rows">
-														<button type="submit" class="btn">수정</button>
-													</div>
-												</td>
-											</tr>
 				            			</tbody>
 				            		</table>
 				            	</form>	
@@ -154,193 +84,16 @@
     <script src="../assets/js/template.js"></script>
     <script src="../assets/js/dashboard.js"></script>
     <script th:inline="javascript">
- // 수정
- 	var meet_id = /*[[${meet_id}]]*/;
-	var meet_image = /*[[${meet_image}]]*/; 
-	var meet_profile_image = /*[[${meet_profile_image}]]*/;
- 
-	$("#updateMeetBtn").click(function(){
-		console.log("수정중");
-		
-		//  유효성 검사
-		if(validate() == false){
-			return false;
-		}
-		
-		// parameters
-		
-		var meet_title = $('#meet_title').val(); 
-		var meet_content = CKEDITOR.instances.ckeditor.getData();
-		var meet_tags = "";
-		var meet_keyword = $("#meet_keyword > option:selected").val();
-		if(!meet_keyword){
-			meet_keyword = "";
-		}
-		var meet_picked = $("#meet_picked > option:selected").val();
-		
-		var each_tag = "";
-		$('.meet_tags').each(function(i) { 
-			each_tag = $('.meet_tags:checked:eq('+i+')').val();
-			if(each_tag != null && each_tag != ''){
-				console.log("each_tag : " + each_tag);
-				meet_tags += each_tag + ",";
-			}
- 		});
-		meet_tags = meet_tags.slice(0, -1);
-		
-		var meet_profile_used = $("#meet_profile_used > option:selected").val();
-		var meet_profile_name = $('#meet_profile_name').val();
-		var meet_profile_intro = $('#meet_profile_intro').val();
-		
-		var form = new FormData();
-		form.append("meet_temp", "0");
-		// 이미지 업로드 
-		if(meet_image == '' || meet_image == null){ // 기존 이미지 없으면
-			if(files.length > 0){ // 새로운 이미지 있으면
-				form.append("image", files[0]);
-			}
-		}else{ // 기존 이미지 있으면
-			form.append("meet_image", meet_image);
-		}
-		if(meet_profile_image == '' || meet_profile_image == null){ // 기존 이미지 없으면
-			if(profileImage.length > 0){ // 새로운 이미지 있으면
-				form.append("profileImage", profileImage[0]);
-			}
-		}else{ // 기존 이미지 있으면
-			form.append("meet_profile_image", meet_profile_image);
-		}
-		
-		form.append("meet_id", meet_id);
-		form.append("meet_title", meet_title);
-		form.append("meet_tags", meet_tags);
-		form.append("meet_content", meet_content);
-		form.append("meet_keyword", meet_keyword);
-		form.append("meet_picked", meet_picked);
-		form.append("meet_profile_used", meet_profile_used);
-		form.append("meet_profile_name", meet_profile_name);
-		form.append("meet_profile_intro", meet_profile_intro);
-		
-		if (confirm('작성한 항목들로 수정 하시겠습니까?') == true) {
-			$.ajax({
-				url : '/admin/updateMeet',
-				method : 'POST',
-				enctype: 'multipart/form-data', // multipart 필수
-				processData: false, // 파일 업로드 가능하게
-	  			contentType: false,
-	  			dataType : 'json',
-	  			data : form,
-				success : function(data){
-					if(data != 0){						
-						alert('수정 완료되었습니다.');
-		  				//location.href='/admin/meet';
-		  				location.reload();
-					}
-				}
-			});
-		} else {
-			return false;
-		}
-	});
-	
 	// 등록 유효성 검사
 	function validate(){
 	 	
-		var meet_title = $("#meet_title").val();
-		var meet_content = CKEDITOR.instances.ckeditor.getData();
-	 	
-		console.log("meet 유효성 검사중");		
-		var valid = true;
-		
-		if(meet_image == '' || meet_image == null){ // 기존 이미지 없으면
-			valid = false;
-			console.log("이미지 없음");
-			if(files.length > 0){ // 새로운 이미지 있으면
-				console.log("새로운 이미지 있음");				
-				valid = true;
-			}
-		}
-		if(meet_title == '' || meet_title == null || meet_title.length > 30){
-          valid = false;
-          console.log("제목 없음");
-     	}
-		if(meet_content == '' || meet_content == null){
-	          valid = false;
-	          console.log("내용 없음");
-	    }
-		
-		// 체크박스
-		var each_tag = "";
-		var meet_tags = "";
-		$('.meet_tags').each(function(i) { 
-			each_tag = $('.meet_tags:checked:eq('+i+')').val();
-			if(each_tag != null && each_tag != ''){
-				meet_tags += each_tag;
-			}
- 		});
-		if(meet_tags == null || meet_tags == ''){
-			valid = false;
-		}
+		var name = $("input[name=name]").val();
 		
 		console.log("valid : " + valid);
 		
 		if(valid==false){ // 유효성 검사 실패시
 			alert("필수 항목을 모두 입력하셨는지 확인해주세요.");
-			return false;
 		}
-	}
-	
-	// 이미지 변경
-	var files = "";
-	$('#meet_image').on("change", uploadFiles); // input 으로 파일 업로드
-	function uploadFiles(e) {
-	    e.stopPropagation();
-	    e.preventDefault();
-	    //dragOver(e); //1
-	 
-	    e.dataTransfer = e.originalEvent.dataTransfer; //2
-	    files = e.target.files || e.dataTransfer.files; // 올린 파일 객체
-	 
-	    if (files.length > 1) {
-	        alert('배너이미지는 하나만 올려주세요.');
-	        return;
-	    }
-	    
-	    if (files[0].type.match(/image.*/)) {
-		    //$(e.target).css({
-		   /*  $('.add_text').css({		
-		        "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
-		        "outline": "none",
-		        //"background-size": "100% 100%"
-		        "background-size" : "cover"
-		    });
-		    $('.add_text').text(""); // 문구 삭제
-		    $(".resetImage").text("커버사진변경하기");
-		    console.log("files[0] : " + files[0]); */
-		}else{
-		  alert('이미지가 아닙니다.');
-		  return;
-		}
-	}
-	    
-	var profileImage = ""; // 프로필카드 이미지
-	$("#meet_profile_image").on("change", uploadProfileImage);
-	function uploadProfileImage(e){
-		 e.stopPropagation();
-		 e.preventDefault();
-		 
-		 e.dataTransfer = e.originalEvent.dataTransfer; //2
-		 profileImage = e.target.files || e.dataTransfer.files; // 올린 파일 객체
-		 
-		 if (profileImage.length > 1) {
-		        alert('배너이미지는 하나만 올려주세요.');
-		        return;
-		 }
-		 
-		 if (profileImage[0].type.match(/image.*/)) {
-		 }else{
-			  alert('이미지가 아닙니다.');
-			  return;
-		 }
 	}
     </script>
 </body>

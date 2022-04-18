@@ -81,7 +81,7 @@ public class MemberController {
 		// redirect 설정
 		redirectAttributes.addAttribute("memberId", id);
 		//redirectAttributes.addAttribute("status", true); ?뒤 쿼리스트링
-		return "redirect:/members/{memberId}"; // 성공시 회원 목록으로
+		return "redirect:/admin/members/{memberId}"; // 성공시 회원 목록으로
 	}
 	
 	// 회원 조회 (수정 폼)
@@ -101,7 +101,6 @@ public class MemberController {
 	public String updateMember(
 			@Validated @ModelAttribute("member") UpdateMemberForm form, 
 			BindingResult bindingResult,
-			Model model,
 			RedirectAttributes redirectAttributes
 			) {
 		
@@ -126,7 +125,7 @@ public class MemberController {
 		// 성공시
 		// redirect 설정
 		redirectAttributes.addAttribute("memberId", id);
-		return "redirect:/members/{memberId}"; // 성공시 상세 화면
+		return "redirect:/admin/members/{memberId}"; // 성공시 상세 화면
 	}
 	
 	// 회원 삭제
@@ -136,6 +135,6 @@ public class MemberController {
 		log.info("회원을 삭제합니다. 식별 번호 : {}", memberId);
 		
 		memberService.deleteMember(memberId);
-		return "redirect:/members";
+		return "redirect:/admin/members";
 	} 
 }
