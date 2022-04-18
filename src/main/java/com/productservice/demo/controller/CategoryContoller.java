@@ -73,6 +73,7 @@ public class CategoryContoller {
 		}
 		
 		// 성공시
+		log.info("카테고리 등록 {}", id);
 		return "redirect:/admin/categories";
 	}
 	

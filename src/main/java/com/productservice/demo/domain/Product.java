@@ -2,6 +2,7 @@ package com.productservice.demo.domain;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.productservice.demo.controller.form.UpdateProductForm;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +24,6 @@ import lombok.ToString;
 
 @Entity
 @Getter @Setter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Product {
 	
@@ -41,7 +43,7 @@ public class Product {
 	private LocalDateTime registeredDate;
 	
 	// 연관 관계 매핑
-	@OneToOne(mappedBy = "product")
+	@OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
 	private ProductOption productOption;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -77,5 +79,20 @@ public class Product {
 		product.setCategory(category);
 		
 		return product;
+	}
+	
+	
+	// 수정
+	public void modify(UpdateProductForm form) {
+		
+		if(form.getName() != null && !form.getName().isEmpty()) this.setName(form.getName());
+		if(form.getPrice() != null) this.setPrice(form.getPrice());
+		
+		ProductStatus status = ProductStatus.valueOf(form.getStatus());
+		if(form.getStatus() != null && form.getStatus().isEmpty()) this.setStatus(status);
+		// if(form.getImage() != null) this.setImage(form.getImage()); TODO: 이미지 저장 처리
+		if(form.getOptionItems() != null && !form.getOptionItems().isEmpty()) this.getProductOption().setOptionItems(form.getOptionItems());
+		if(form.getCategoryId() != null) this.getCategory().setId(form.getCategoryId());
+		//if(form.getOptionsNames() != null && !form.getOptionsNames().isEmpty()) this.getProductOption().getOption().get(0).setNames(form.getOptionsNames());
 	}
 }

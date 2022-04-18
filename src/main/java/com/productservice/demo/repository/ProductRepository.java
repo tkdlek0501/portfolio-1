@@ -33,4 +33,9 @@ public class ProductRepository {
 	}
 	
 	// TODO: 상품 목록 (검색 포함)
+	
+	// 상품 삭제
+	public void deleteOne(Product product) {
+		em.remove(product);
+	}
 }

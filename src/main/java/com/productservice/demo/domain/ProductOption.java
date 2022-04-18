@@ -21,7 +21,6 @@ import lombok.ToString;
 
 @Entity
 @Getter @Setter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProductOption {
 	
@@ -29,7 +28,7 @@ public class ProductOption {
 	@Column(name = "product_option_id")
 	private Long id;
 	
-	private String optionItems; // 옵션 상품 이름들
+	private String optionItems; // 옵션 항목 이름
 	
 	// 연관 관계 매핑
 	
@@ -47,21 +46,16 @@ public class ProductOption {
 		option.setProductOption(this);
 	}
 	
-	public void setProduct(Product product) {
-		this.product = product;
-		product.setProductOption(this);
-	}
-	
 	// === 생성 메서드
 	
 	public static ProductOption createProductOption(
 			String optionItems,
-			Product product,
+//			Product product,
 			Option... options
 			) {
 		ProductOption productOption = new ProductOption();
 		productOption.setOptionItems(optionItems);
-		productOption.setProduct(product);
+//		productOption.setProduct(product);
 		for(Option option : options) {
 			productOption.addOption(option);
 		}

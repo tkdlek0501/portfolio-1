@@ -3,6 +3,7 @@ package com.productservice.demo.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,5 +42,18 @@ public class Option {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_option_id")
 	private ProductOption productOption;
-
+	
+	// === 생성 메서드
+	public static Option createOption(
+			String names,
+			int stockQuantity
+			) {
+		Option option = new Option();
+		option.setNames(names);
+		option.setStockQuantity(stockQuantity);
+		
+		return option;
+	}
+	
+	
 }
