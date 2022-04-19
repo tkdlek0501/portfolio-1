@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.aspectj.weaver.loadtime.Options;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.productservice.demo.controller.form.CreateProductForm;
 import com.productservice.demo.controller.form.UpdateProductForm;
 import com.productservice.demo.domain.Category;
 import com.productservice.demo.domain.Option;
@@ -33,17 +35,18 @@ public class ProductServiceTest {
 	@Autowired ProductRepository productRepository;
 	@Autowired EntityManager em;
 	
-	Option option = Option.createOption("옵션1", 100); // 옵션명과 재고 수량
-	ArrayList<Option> options = new ArrayList<Option> ();
-	
-	ProductOption productOption = ProductOption.createProductOption("옵션항목1", option);
-	Category category = Category.createCategory("카테고리1");
-	
 	// 등록
 	@Test
 	public void create() throws Exception{
 		// given
-		Product product = Product.createProduct("상품1", 10000, "image", productOption, category);
+		Option option = Option.createOption("옵션1", 100); // 옵션명과 재고 수량
+		List<Option> options = new ArrayList<>();
+		options.add(option);
+		
+		ProductOption productOption = ProductOption.createProductOption("옵션항목1", options);
+		Category category = Category.createCategory("카테고리1");
+		
+		CreateProductForm product = Product.createProduct("상품1", 10000, "image", productOption, category);
 		
 		// when
 		Long savedId = productService.create(product);

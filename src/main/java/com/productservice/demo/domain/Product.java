@@ -1,6 +1,8 @@
 package com.productservice.demo.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,15 +14,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.productservice.demo.controller.form.UpdateProductForm;
+import com.productservice.demo.dto.UploadFile;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Getter @Setter
@@ -38,8 +41,6 @@ public class Product {
 	@Enumerated(EnumType.STRING)
 	private ProductStatus status;
 	
-	private String image;
-	
 	private LocalDateTime registeredDate;
 	
 	// 연관 관계 매핑
@@ -49,6 +50,9 @@ public class Product {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private Category category;
+	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	private List<ProductImage> productImage = new ArrayList<>();
 	
 	// === 연관 관계 메서드
 	
@@ -62,19 +66,29 @@ public class Product {
 		category.getProduct().add(this);
 	}
 	
+	public void addProductImage(ProductImage productImage) {
+		this.productImage.add(productImage);
+		productImage.setProduct(this);
+	}
+	
 	// === 생성 메서드
 	
 	public static Product createProduct(
 			String name,
 			int price,
-			String image,
+			List<ProductImage> productImages,
 			ProductOption productOption,
 			Category category
 			) {
 		Product product = new Product();
 		product.setName(name);
 		product.setPrice(price);
-		product.setImage(image);
+		product.setStatus(ProductStatus.SHOW);
+		product.setRegisteredDate(LocalDateTime.now());
+		
+		for(ProductImage productImage : productImages) {
+			product.addProductImage(productImage);
+		}
 		product.setProductOption(productOption);
 		product.setCategory(category);
 		

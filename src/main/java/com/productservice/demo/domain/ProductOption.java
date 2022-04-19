@@ -43,19 +43,17 @@ public class ProductOption {
 	
 	public void addOption(Option option) {
 		this.option.add(option);
-		option.setProductOption(this);
+		option.setProductOption(this); // option에는 set 메서드 따로 안만들고 setter 이용했음
 	}
 	
 	// === 생성 메서드
 	
 	public static ProductOption createProductOption(
 			String optionItems,
-//			Product product,
-			Option... options
+			List<Option> options
 			) {
 		ProductOption productOption = new ProductOption();
 		productOption.setOptionItems(optionItems);
-//		productOption.setProduct(product);
 		for(Option option : options) {
 			productOption.addOption(option);
 		}
