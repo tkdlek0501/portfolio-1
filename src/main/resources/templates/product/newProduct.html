@@ -40,7 +40,7 @@
 				            							<select th:field="*{categoryId}" class="form-control">
 				            								<option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
 				            							</select>
-				            							<p th:errors="*{categoryId}">에러 메시지</p>
+				            							<p th:errors="*{categoryId}" class="field-error">에러 메시지</p>
 				            						</div>
 				            					</td>
 				            				</tr>
@@ -49,7 +49,7 @@
 				            					<td>
 				            						<div class="rows">
 				            							<input th:field="*{name}" type="text" th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
-				            							<p th:errors="*{name}">에러 메시지</p>
+				            							<p th:errors="*{name}" class="field-error">에러 메시지</p>
 				            						</div>
 				            					</td>
 				            				</tr>
@@ -58,7 +58,7 @@
 				            					<td>
 				            						<div class="rows">
 				            							<input th:field="*{price}" type="number" th:class="${#fields.hasErrors('price')}? 'form-control fieldError' : 'form-control'">
-				            							<p th:errors="*{price}">에러 메시지</p>
+				            							<p th:errors="*{price}" class="field-error">에러 메시지</p>
 				            						</div>
 				            					</td>
 				            				</tr>
@@ -68,7 +68,7 @@
 				            						<div class="rows">
 				            							<p>업로드 시 파일 경로는 C:/Download/~ 입니다.</p>
 				            							<input th:field="*{image}" type="file" multiple="multiple">
-				            							<p th:errors="*{image}">에러 메시지</p>
+				            							<p th:errors="*{image}" class="field-error">에러 메시지</p>
 													</div>
 				            					</td>
 				            				</tr>
@@ -80,7 +80,7 @@
 															<option value="SHOW" selected>노출</option>
 															<option value="HIDE">숨김</option>
 														</select>
-														<p th:errors="*{status}">에러 메시지</p>
+														<p th:errors="*{status}" class="field-error">에러 메시지</p>
 													</div>
 				            					</td>
 				            				</tr>
@@ -89,7 +89,7 @@
 				            					<td>
 				            						<div class="rows">
 														<input th:field="*{optionItems}" type="text" style="width:30%;" th:class="${#fields.hasErrors('optionItems')}? 'form-control fieldError' : 'form-control'">
-														<p th:errors="*{optionItems}">에러 메시지</p>
+														<p th:errors="*{optionItems}" class="field-error">에러 메시지</p>
 													</div>
 				            					</td>
 				            				</tr>
@@ -97,20 +97,13 @@
 				            					<th style="width:20%">옵션 이름 (쉼표로 구분) ex. red,XL <br> 옵션별 재고</th>
 				            					<td>
 				            						<div class="rows">
-				            							<!-- <th:block th:if="*{option} != null" th:each="opt : *{option}">
-				            								옵션 이름 : <input th:value="${opt.names}" class="form-control"><br>
-				            								옵션 재고 : <input th:value="${opt.stockQuantity}" class="form-control"><br>
-				            							</th:block>
-				            							<th:block>
-				            								옵션 이름 : <input th:field="${}">
-				            							</th:block> -->
 				            							<p>옵션1</p>
-				            							<input th:field="*{option[0].names}" class="form-control" style="width:30%;" placeholder="옵션 이름을 입력해주세요">
-				            							<!-- <p th:errors="*{option[0].names}"> -->
-				            							<input th:field="*{option[0].stockQuantity}" class="form-control" style="width:30%;" placeholder="옵션 재고를 입력해주세요">
+				            							<input th:field="*{option[0].names}" th:class="${#fields.hasErrors('option')}? 'form-control fieldError' : 'form-control'" type="text" style="width:30%;" placeholder="옵션 이름을 입력해주세요">
+				            							<input th:field="*{option[0].stockQuantity}" th:class="${#fields.hasErrors('option')}? 'form-control fieldError' : 'form-control'" type="number" style="width:30%;" placeholder="옵션 재고를 입력해주세요">
+				            							<p th:errors="*{option}" class="field-error"></p>
 				            							<p>옵션2</p>
-				            							<input th:field="*{option[1].names}" class="form-control" style="width:30%;" placeholder="옵션 이름을 입력해주세요">
-				            							<input th:field="*{option[1].stockQuantity}" class="form-control" style="width:30%;" placeholder="옵션 재고를 입력해주세요">
+				            							<input th:field="*{option[1].names}" class="form-control" type="text" style="width:30%;" placeholder="옵션 이름을 입력해주세요">
+				            							<input th:field="*{option[1].stockQuantity}" class="form-control" type="number" style="width:30%;" placeholder="옵션 재고를 입력해주세요">
 				            						</div>
 				            					</td>
 				            				</tr>

@@ -9,9 +9,11 @@ import org.springframework.stereotype.Repository;
 import com.productservice.demo.domain.Product;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class ProductRepository {
 	
 	private final EntityManager em;
@@ -23,6 +25,7 @@ public class ProductRepository {
 	
 	// 상품 조회
 	public Product findOne(Long productId) {
+		log.info("조회하려는 product 식별자 : {}", productId);
 		return em.find(Product.class, productId);
 	}
 	

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.productservice.demo.controller.form.CreateOptionForm;
 import com.productservice.demo.controller.form.CreateProductForm;
@@ -38,19 +39,10 @@ public class ProductService {
 	public Long create(CreateProductForm form) throws IllegalStateException, IOException {
 		
 		// 이미지 처리 
-		List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImage());
-		List<ProductImage> productImages = new ArrayList<>();
-		for (UploadFile storeImageFile : storeImageFiles) {
-			ProductImage productImage = ProductImage.createProductImage(storeImageFile.getUploadFileName(), storeImageFile.getStoreFileName());
-			productImages.add(productImage);
-		}
+		List<ProductImage> productImages = controlImage(form.getImage());
 		
 		// option 생성
-		List<Option> options = new ArrayList<>();
-		for(CreateOptionForm formOption : form.getOption()) {
-			Option option = Option.createOption(formOption.getNames(), formOption.getStockQuantity());
-			options.add(option);
-		}
+		List<Option> options = controlOption(form.getOption());
 		
 		// productOption 생성
 		ProductOption productOption = ProductOption.createProductOption(form.getOptionItems(), options);
@@ -65,7 +57,7 @@ public class ProductService {
 		
 		return product.getId();
 	}
-	
+
 	// 상품 목록
 	public List<Product> findProducts(){
 		return productRepository.findAll();
@@ -78,17 +70,34 @@ public class ProductService {
 	
 	// 상품 수정
 	@Transactional
-	public Long modifyProduct(UpdateProductForm form) {
+	public Long modifyProduct(UpdateProductForm form) throws IllegalStateException, IOException {
+		
+		// 이미지 처리
+		log.info("image 체크 : {}", form.getImage());
+		List<ProductImage> productImages = null;
+		if(form.getImage() != null) {
+			productImages = controlImage(form.getImage());
+		}
+		// option 생성
+		List<Option> options = controlOption(form.getOption());
+		
+		// productOption 생성
+		ProductOption productOption = ProductOption.createProductOption(form.getOptionItems(), options);
+		
+		// 카테고리 엔티티 조회
+		Category category = categoryRepository.findOne(form.getCategoryId());
 		
 		// 기존
 		Product findProduct = productRepository.findOne(form.getId());
 		
+		Product product = Product.createProduct(form.getName(), form.getPrice(), productImages, productOption, category);
+		
 		// 수정
-		findProduct.modify(form);
+		findProduct.modify(product);
 		
 		return findProduct.getId();
 	}
-	
+
 	 // 상품 삭제
 	@Transactional
 	public void deleteProduct(Long productId) {
@@ -96,5 +105,29 @@ public class ProductService {
 		Product findProduct = productRepository.findOne(productId);
 		
 		productRepository.deleteOne(findProduct);
+	}
+	
+	
+	// 상품 이미지 처리
+	private List<ProductImage> controlImage(List<MultipartFile> image) throws IOException {
+		List<UploadFile> storeImageFiles = fileStore.storeFiles(image);
+		List<ProductImage> productImages = new ArrayList<>();
+		for (UploadFile storeImageFile : storeImageFiles) {
+			ProductImage productImage = ProductImage.createProductImage(storeImageFile.getUploadFileName(), storeImageFile.getStoreFileName());
+			productImages.add(productImage);
+		}
+		return productImages;
+	}
+	
+	// 옵션 처리
+	private List<Option> controlOption(List<CreateOptionForm> formOptions) {
+		List<Option> options = new ArrayList<>();
+		for(CreateOptionForm formOption : formOptions) {
+			if(formOption.getNames() != null && !formOption.getNames().isEmpty() && formOption.getStockQuantity() != null) {
+				Option option = Option.createOption(formOption.getNames(), formOption.getStockQuantity());
+				options.add(option);
+			}
+		}
+		return options;
 	}
 }
