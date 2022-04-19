@@ -43,4 +43,18 @@ public class ProductImage {
 		
 		return productImage;
 	}
+	
+	// product의 cascade가 아닌 추가 생성시
+	public static ProductImage addProductImage(
+			String originalName,
+			String storeName,
+			Product product
+			) {
+		ProductImage productImage = new ProductImage();
+		productImage.setOriginalName(originalName);
+		productImage.setStoreName(storeName);
+		productImage.setProduct(product);
+		
+		return productImage;
+	}
 }

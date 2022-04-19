@@ -165,6 +165,7 @@ public class ProductController {
 		}
 		
 		// 수정
+		log.info("받은 image 개수 : {}", form.getImage().size());
 		Long id = productService.modifyProduct(form);
 		
 		// 실패시
@@ -175,5 +176,13 @@ public class ProductController {
 		// 성공시
 		redirectAttributes.addAttribute("productId", form.getId());
 		return "redirect:/admin/products/{productId}";
+	}
+	
+	// 상품 삭제
+	@GetMapping("/{id}/remove")
+	public String deleteProduct(@PathVariable("id") Long id) {
+		
+		productService.deleteProduct(id);
+		return "redirect:/admin/products";
 	}
 }

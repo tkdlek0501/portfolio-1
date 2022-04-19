@@ -17,6 +17,7 @@ import com.productservice.demo.domain.Product;
 import com.productservice.demo.domain.ProductImage;
 import com.productservice.demo.domain.ProductOption;
 import com.productservice.demo.dto.UploadFile;
+import com.productservice.demo.repository.ProductImageRepository;
 import com.productservice.demo.repository.ProductRepository;
 import com.productservice.demo.repository.core.CategoryRepository;
 import com.productservice.demo.util.upload.FileStore;
@@ -33,6 +34,7 @@ public class ProductService {
 	private final ProductRepository productRepository;
 	private final CategoryRepository categoryRepository;
 	private final FileStore fileStore;
+	private final ProductImageRepository productImageRepository;
 	
 	// 상품 생성
 	@Transactional
@@ -73,7 +75,6 @@ public class ProductService {
 	public Long modifyProduct(UpdateProductForm form) throws IllegalStateException, IOException {
 		
 		// 이미지 처리
-		log.info("image 체크 : {}", form.getImage());
 		List<ProductImage> productImages = null;
 		if(form.getImage() != null) {
 			productImages = controlImage(form.getImage());
@@ -89,11 +90,26 @@ public class ProductService {
 		
 		// 기존
 		Product findProduct = productRepository.findOne(form.getId());
+		log.info("기존 product : {}", findProduct);
 		
 		Product product = Product.createProduct(form.getName(), form.getPrice(), productImages, productOption, category);
 		
 		// 수정
 		findProduct.modify(product);
+		
+		// 유동적인 것들 추가 등록 (기존 보다 추가로 들고오면 추가 등록 필요)
+		// 이미지
+		int orgImageSize = findProduct.getProductImage().size();
+		int newImageSize = productImages.size();
+		log.info("orgImageSize : {}", orgImageSize);
+		log.info("newImageSize : {}", newImageSize);
+		if(newImageSize > orgImageSize) {
+			log.info("추가로 등록돼야하는 이미지 있음");
+			for(int i = findProduct.getProductImage().size();i<form.getImage().size();i++) {
+				ProductImage productImage = ProductImage.addProductImage(productImages.get(i).getOriginalName(), productImages.get(i).getStoreName(), findProduct);
+				productImageRepository.save(productImage);
+			}
+		}
 		
 		return findProduct.getId();
 	}

@@ -127,8 +127,10 @@ public class Member implements UserDetails{
 		
 		if(form.getCity() != null && !form.getCity().isEmpty()) this.getAddress().setCity(form.getCity());
 		if(form.getStreet() != null && !form.getStreet().isEmpty()) this.getAddress().setStreet(form.getStreet());
-		
 		if(form.getZipcode() != null && !form.getZipcode().isEmpty()) this.getAddress().setZipcode(form.getZipcode());
+		
+//		Address address = Address.createAddress(form.getCity(), form.getStreet(), form.getZipcode());
+//		this.setAddress(address); // 이러면 address 가 새로 생성된다
 		
 		return this;
 	}

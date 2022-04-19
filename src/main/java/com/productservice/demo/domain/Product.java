@@ -17,18 +17,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.productservice.demo.controller.form.UpdateProductForm;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 @Entity
 @Getter @Setter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Slf4j
 public class Product {
 	
 	@Id @GeneratedValue
@@ -96,14 +96,42 @@ public class Product {
 		return product;
 	}
 	
-	
-	// 수정
+	// 수정 TODO: 각 엔티티에서 set 해줄 수 있게 수정 필요
 	public void modify(Product product) {
+		// 상품
 		if(product.getName() != null && !product.getName().isEmpty()) this.setName(product.getName());
 		this.setPrice(product.getPrice());
 		if(product.getStatus() != null) this.setStatus(status);
-		if(product.getProductOption() != null) this.setProductOption(product.getProductOption());
-		if(product.getCategory() != null) this.setCategory(product.getCategory());
-		if(product.getProductImage() != null) this.setProductImage(product.getProductImage());
+		
+		// 상품 옵션
+//		if(product.getProductOption() != null) this.setProductOption(product.getProductOption()); -> 이러면 수정 대신 row가 추가된다
+		this.getProductOption().setOptionItems(product.getProductOption().getOptionItems());
+		
+		// 옵션
+		for(int i = 0; i < this.getProductOption().getOption().size(); i++) {
+			this.getProductOption().getOption().get(i).setNames(product.getProductOption().getOption().get(i).getNames());
+			this.getProductOption().getOption().get(i).setStockQuantity(product.getProductOption().getOption().get(i).getStockQuantity());
+		}
+		
+		// 카테고리 - 조회해서 가져온 엔티티 넣어줌
+		this.setCategory(product.getCategory());
+		
+		// 이미지
+		int updateImageSize = product.getProductImage().size();
+		int orgImageSize = this.getProductImage().size();
+		if(updateImageSize > orgImageSize) { 
+			for(int i = 0; i < orgImageSize;i++) {
+				this.getProductImage().get(i).setOriginalName(product.getProductImage().get(i).getOriginalName());
+				this.getProductImage().get(i).setStoreName(product.getProductImage().get(i).getStoreName());
+			}
+//			for(int i = orgImageSize; i < updateImageSize; i++) { // 이 부분은 문제 있음, FK가 없는데 등록하려고 해서
+//				this.getProductImage().add(product.getProductImage().get(i));
+//			}
+		}else { // 이 부분은 괜찮은데
+			for(int i = 0; i < updateImageSize; i++) {
+				this.getProductImage().get(i).setOriginalName(product.getProductImage().get(i).getOriginalName());
+				this.getProductImage().get(i).setStoreName(product.getProductImage().get(i).getStoreName());
+			}
+		}
 	}
 }
