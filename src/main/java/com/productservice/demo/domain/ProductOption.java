@@ -32,7 +32,7 @@ public class ProductOption {
 	
 	// 연관 관계 매핑
 	
-	@OneToMany(mappedBy = "productOption", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "productOption")
 	private List<Option> option = new ArrayList<>();
 	
 	@OneToOne(fetch = FetchType.LAZY)
@@ -54,8 +54,11 @@ public class ProductOption {
 			) {
 		ProductOption productOption = new ProductOption();
 		productOption.setOptionItems(optionItems);
-		for(Option option : options) {
-			productOption.addOption(option);
+		
+		if(options != null) {
+			for(Option option : options) {
+				productOption.addOption(option);
+			}
 		}
 		
 		return productOption;

@@ -41,4 +41,5 @@ public class ProductRepository {
 	public void deleteOne(Product product) {
 		em.remove(product);
 	}
+	
 }

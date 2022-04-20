@@ -54,6 +54,18 @@ public class Option {
 		
 		return option;
 	}
+
+	public static Option addOption(
+			String names, 
+			int stockQuantity, 
+			ProductOption productOption
+			) {
+		Option option = new Option();
+		option.setNames(names);
+		option.setStockQuantity(stockQuantity);
+		option.setProductOption(productOption);
+		return option;
+	}
 	
 	
 }

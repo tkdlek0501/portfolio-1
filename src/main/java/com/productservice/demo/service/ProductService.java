@@ -17,6 +17,7 @@ import com.productservice.demo.domain.Product;
 import com.productservice.demo.domain.ProductImage;
 import com.productservice.demo.domain.ProductOption;
 import com.productservice.demo.dto.UploadFile;
+import com.productservice.demo.repository.OptionRepository;
 import com.productservice.demo.repository.ProductImageRepository;
 import com.productservice.demo.repository.ProductRepository;
 import com.productservice.demo.repository.spec.CategoryRepository;
@@ -35,16 +36,14 @@ public class ProductService {
 	private final CategoryRepository categoryRepository;
 	private final FileStore fileStore;
 	private final ProductImageRepository productImageRepository;
+	private final OptionRepository optionRepository;
 	
 	// 상품 생성
 	@Transactional
 	public Long create(CreateProductForm form) throws IllegalStateException, IOException {
 		
-		// option 생성
-		List<Option> options = controlOption(form.getOption());
-		
 		// productOption 생성
-		ProductOption productOption = ProductOption.createProductOption(form.getOptionItems(), options);
+		ProductOption productOption = ProductOption.createProductOption(form.getOptionItems(), null);
 		
 		// 카테고리 엔티티 조회
 		Category category = categoryRepository.findOne(form.getCategoryId());
@@ -52,9 +51,17 @@ public class ProductService {
 		// 생성 메서드
 		Product product = Product.createProduct(form.getName(), form.getPrice(), productOption, category);
 		
+		// 상품 저장
 		productRepository.save(product);
 		
-		// 이미지 추가
+		// 옵션 저장
+		List<Option> options = controlOption(form.getOption());
+		for(int i = 0; i < options.size(); i++) {
+			Option option = Option.addOption(options.get(i).getNames(), options.get(i).getStockQuantity(), product.getProductOption());
+			optionRepository.save(option);
+		}
+		
+		// 이미지 생성
 		if(!form.getImage().get(0).isEmpty()) {
 			List<ProductImage> productImages = null;
 			if(form.getImage() != null) {
@@ -136,12 +143,11 @@ public class ProductService {
 		return findProduct.getId();
 	}
 
-	 // 상품 삭제
+	// 상품 삭제
 	@Transactional
 	public void deleteProduct(Long productId) {
 		
 		Product findProduct = productRepository.findOne(productId);
-		
 		productRepository.deleteOne(findProduct);
 	}
 	

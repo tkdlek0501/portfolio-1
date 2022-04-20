@@ -52,7 +52,7 @@ public class Product {
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
-	@OneToMany(mappedBy = "product")
+	@OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE) // product 삭제시에는 하위 모두 삭제 되게
 	private List<ProductImage> productImage = new ArrayList<>();
 	
 	// === 연관 관계 메서드
