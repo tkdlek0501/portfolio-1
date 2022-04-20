@@ -123,8 +123,9 @@
 				            								<input th:field="*{option[__${i.index}__].names}" th:class="${#fields.hasErrors('option')}? 'form-control fieldError' : 'form-control'" type="text" style="width:30%;" placeholder="옵션 이름을 입력해주세요">
 				            								<input th:field="*{option[__${i.index}__].stockQuantity}" th:class="${#fields.hasErrors('option')}? 'form-control fieldError' : 'form-control'" type="number" style="width:30%;" placeholder="옵션 재고를 입력해주세요">
 				            							</div>
-				            							<div th:if="*{#lists.size(option) < 2}" th:each="remain, i : *{#numbers.sequence(#lists.size(option),2)}">
-				            								<span th:text="|[추가 옵션${i.count}]|"></span>
+				            							<div th:each="remain : *{#numbers.sequence(#lists.size(option),#lists.size(option))}">
+				            								<!-- <span th:text="|[추가 옵션${remainStat.count}]|"></span> -->
+				            								<span>[추가 옵션]</span>
 				            								<br>
 				            								<input th:field="*{option[__${remain}__].names}" class="form-control" type="text" style="width:30%;" placeholder="옵션 이름을 입력해주세요">
 				            								<input th:field="*{option[__${remain}__].stockQuantity}" class="form-control" type="number" style="width:30%;" placeholder="옵션 재고를 입력해주세요">
