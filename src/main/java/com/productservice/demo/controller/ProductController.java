@@ -153,25 +153,32 @@ public class ProductController {
 			Model model
 			) throws IllegalStateException, IOException {
 		
+		log.info("받은 기존 이미지 : {}", form.getProductImage());
+		
 		// category 리스트
 		List<Category> categories = categoryService.findCategories();
 		model.addAttribute("categories", categories);
 		
 		// 이미지 validation
 		if(form.getProductImage().isEmpty() || form.getProductImage() == null){ // 이미 등록된 이미지 없으면
+			log.info("이미 등록된 이미지가 없어서 validation 중");
 			for(MultipartFile image : form.getImage()) { // 새로운 이미지 있는지
 				if(image.isEmpty()) { 
 					bindingResult.rejectValue("image", null, "이미지를 등록해주세요");
-					log.info("이미지 등록 안함");
+					break;
 				}
 			}
 		}
 		
+		// TODO: 삭제할 option 은 validation 에서 제거
+		
 		// option validation
-		if(form.getOption().get(0).getNames() == null || 
-				form.getOption().get(0).getNames().isEmpty() || 
-				form.getOption().get(0).getStockQuantity() == null) {
-			bindingResult.rejectValue("option", null, "최소한 첫번째 옵션은 입력해주세요.");
+		for(CreateOptionForm option : form.getOption()) {
+			if(option.getNames().isEmpty() || option.getStockQuantity() == null) {
+				log.info("옵션 입력 제대로 안됨");
+				bindingResult.rejectValue("option", null, "옵션을 입력해주세요.");
+				break;
+			}
 		}
 		
 		// 수정
@@ -180,6 +187,13 @@ public class ProductController {
 		// 실패시
 		if(id == null) {
 			bindingResult.reject("modifyProductFail", null, "상품 수정에 실패했습니다.");
+		}
+		
+		if(bindingResult.hasErrors()) {
+			bindingResult.reject("createProductError", null, "입력받은 값에 오류가 있습니다.");
+			Product product = productService.findProduct(form.getId());
+			form.setProductImage(product.getProductImage());
+			return "product/product";
 		}
 		
 		// 성공시

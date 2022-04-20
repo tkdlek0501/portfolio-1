@@ -71,22 +71,17 @@
 				            						<div class="rows">
 				            							<!-- 기존 이미지 노출 및 id -->
 				            							<div style="display:flex;flex-flow:nowrap;">
-					            							<div style="display:flex;flex-flow:column;" th:each="img, i : *{productImage}">
+					            							<div th:each="img, i : *{productImage}" style="display:flex;flex-flow:column;">
+					            								<input th:field="*{productImage[__${i.index}__].id}" type="hidden">
 					            								<img th:src="|images/${img.storeName}|" width="300" height="300">
 					            								<a th:href="|download/${img.id}|" th:text="|다운로드 : ${img.originalName}|"></a>
 					            								<div style="display:flex;align-items:center;">
 						            								<span>삭제 시 체크 : </span>
-						            								<input th:name="|productImage[${i.index}].id|" th:value="${img.id}" style="margin-left: 4px;" class="deleteImage" type="checkbox">
+						            								<input th:name="|deleteImage[${i.index}]|" th:value="${img.id}" style="margin-left: 4px;" class="deleteImage" type="checkbox">
 					            								</div>
 					            							</div>
 				            							</div>
 				            							<br>
-				            							
-				            							<!-- <label for="imageChk">이미지 교체</label><br>
-				            							<input name="imageChk" id="imageChk" type="checkbox">
-				            							<span>(체크시 선택한 이미지 개수 만큼 기존 이미지가 앞에서부터 교체됩니다.</span>
-				            							<span> 체크하지 않으면 기존이미지와 상관없이 추가됩니다.)</span> -->
-				            							
 				            							<p>업로드되는 파일 경로는 C:/Download/~ 입니다.</p>
 				            							<input th:field="*{image}" type="file" multiple="multiple">
 				            							<p th:errors="*{image}" class="field-error">에러 메시지</p>
@@ -118,33 +113,17 @@
 				            					<th style="width:20%">옵션 이름 (쉼표로 구분) ex. red,XL <br> 옵션별 재고</th>
 				            					<td>
 				            						<div class="rows">
-				            							<!-- <p>옵션1</p>
-				            							<th:block th:if="*{option.size} > 0">
-				            							<input th:field="*{option[0].names}" th:class="${#fields.hasErrors('option')}? 'form-control fieldError' : 'form-control'" type="text" style="width:30%;" placeholder="옵션 이름을 입력해주세요">
-				            							<input th:field="*{option[0].stockQuantity}" th:class="${#fields.hasErrors('option')}? 'form-control fieldError' : 'form-control'" type="number" style="width:30%;" placeholder="옵션 재고를 입력해주세요">
-				            							<p th:errors="*{option}" class="field-error"></p>
-				            							</th:block>
-				            							첫번째 옵션이 없으면
-				            							<th:block th:if="*{option.size} == 0">
-				            							<input name="option[0].names" class="form-control" style="width:30%;" placeholder="옵션 이름을 입력해주세요">
-				            							<input name="option[0].stockQuantity" class="form-control" style="width:30%;" placeholder="옵션 재고를 입력해주세요">
-				            							</th:block>
-				            							<p>옵션2</p>
-				            							두번째 옵션이 있으면
-				            							<th:block th:if="*{option.size} > 1">
-				            							<input th:field="*{option[1].names}" class="form-control" style="width:30%;" placeholder="옵션 이름을 입력해주세요">
-				            							<input th:field="*{option[1].stockQuantity}" class="form-control" style="width:30%;" placeholder="옵션 재고를 입력해주세요">
-				            							</th:block>
-				            							두번째 옵션이 없으면
-				            							<th:block th:else="*{option.size} > 1">
-				            							<input name="option[1].names" class="form-control" style="width:30%;" placeholder="옵션 이름을 입력해주세요">
-				            							<input name="option[1].stockQuantity" class="form-control" style="width:30%;" placeholder="옵션 재고를 입력해주세요">
-				            							</th:block> -->
 				            							<th:block th:each="opt, i : *{option}">
 				            								<p th:text="|옵션${i.count}|"></p>
 				            								<input th:field="*{option[__${i.index}__].names}" th:class="${#fields.hasErrors('option')}? 'form-control fieldError' : 'form-control'" type="text" style="width:30%;" placeholder="옵션 이름을 입력해주세요">
 				            								<input th:field="*{option[__${i.index}__].stockQuantity}" th:class="${#fields.hasErrors('option')}? 'form-control fieldError' : 'form-control'" type="number" style="width:30%;" placeholder="옵션 재고를 입력해주세요">
 				            							</th:block>
+				            							<th:block th:if="*{#lists.size(option) < 2}" th:each="remain : *{#numbers.sequence(#lists.size(option)+1,2)}">
+				            								<p th:text="|옵션${remain}|"></p>
+				            								<input th:field="*{option[__${remain}__].names}" class="form-control" type="text" style="width:30%;" placeholder="옵션 이름을 입력해주세요">
+				            								<input th:field="*{option[__${remain}__].stockQuantity}" class="form-control" type="number" style="width:30%;" placeholder="옵션 재고를 입력해주세요">
+				            							</th:block>
+				            							
 				            							<p th:errors="*{option}" class="field-error"></p>
 				            						</div>
 				            					</td>

@@ -41,7 +41,11 @@ public class UpdateProductForm {
 	//@NotBlank(message = "파일을 등록해주세요")
 	private List<MultipartFile> image = new ArrayList<>(); // 받아오는 이미지
 	
-	private List<ProductImage> productImage = new ArrayList<>();// 이미 등록된 이미지
+	private List<ProductImage> productImage = new ArrayList<>(); // 이미 등록된 이미지
+	
+	private List<Long> deleteImage = new ArrayList<>(); // 삭제할 이미지 pk
+	
+	private List<Long> deleteOption = new ArrayList<>(); // 삭제할 옵션 pk
 	
 	// productOption
 	@NotBlank(message = "옵션항목을 입력해주세요")

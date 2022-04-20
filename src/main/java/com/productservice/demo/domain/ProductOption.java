@@ -32,7 +32,7 @@ public class ProductOption {
 	
 	// 연관 관계 매핑
 	
-	@OneToMany(mappedBy = "productOption")
+	@OneToMany(mappedBy = "productOption", cascade = CascadeType.REMOVE) // productOption 삭제시 option 같이 삭제
 	private List<Option> option = new ArrayList<>();
 	
 	@OneToOne(fetch = FetchType.LAZY)

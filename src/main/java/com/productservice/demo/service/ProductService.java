@@ -91,53 +91,62 @@ public class ProductService {
 	@Transactional
 	public Long modifyProduct(UpdateProductForm form) throws IllegalStateException, IOException {
 		
-		// option 생성
-		List<Option> options = controlOption(form.getOption());
-		
-		// productOption 생성
-		ProductOption productOption = ProductOption.createProductOption(form.getOptionItems(), options);
-		
-		// 카테고리 엔티티 조회
-		Category category = categoryRepository.findOne(form.getCategoryId());
-		
-		// 기존
+		// 기존 상품 영속성 컨텍스트 등록
 		Product findProduct = productRepository.findOne(form.getId());
-		log.info("기존 product : {}", findProduct);
 		
-		Product product = Product.createProduct(form.getName(), form.getPrice(), productOption, category);
-		
-		// 수정
-		findProduct.modify(product);
-		
-		// 이미지 추가 등록 
-//		int orgImageSize = findProduct.getProductImage().size();
-//		int newImageSize = productImages.size();
-//		if(newImageSize > orgImageSize) {
-//			for(int i = findProduct.getProductImage().size();i<form.getImage().size();i++) {
-//				ProductImage productImage = ProductImage.addProductImage(productImages.get(i).getOriginalName(), productImages.get(i).getStoreName(), findProduct);
-//				productImageRepository.save(productImage);
-//			}
-//		}
-		// 이미지 처리
-		// 삭제
-		if(form.getProductImage().size() > 0) {
-			for(int i = 0; i < form.getProductImage().size();i++) {
-				ProductImage productImage = productImageRepository.findOne(form.getProductImage().get(i).getId());
-				productImageRepository.deleteOne(productImage);
-			}
-		}
-		
-		// 추가
-		if(!form.getImage().get(0).isEmpty()) {
-			List<ProductImage> productImages = null;
-			if(form.getImage() != null) {
-				productImages = controlImage(form.getImage());
+		try {
+			
+			// option 생성
+			List<Option> options = controlOption(form.getOption());
+			List<Option> updateOptions = new ArrayList<>();
+			int orgOptionsSize = findProduct.getProductOption().getOption().size();
+			log.info("orgOptionSize : {}", orgOptionsSize);
+			if(orgOptionsSize > 0) {
+				updateOptions = options.subList(0, orgOptionsSize);
 			}
 			
-			for(int i = 0;i<form.getImage().size();i++) {
-				ProductImage productImage = ProductImage.addProductImage(productImages.get(i).getOriginalName(), productImages.get(i).getStoreName(), findProduct);
-				productImageRepository.save(productImage);
+			// productOption 생성
+			ProductOption productOption = ProductOption.createProductOption(form.getOptionItems(), updateOptions);
+			
+			// 카테고리 엔티티 조회
+			Category category = categoryRepository.findOne(form.getCategoryId());
+			
+			Product product = Product.createProduct(form.getName(), form.getPrice(), productOption, category);
+			
+			// 수정
+			findProduct.modify(product);
+			
+			// 옵션 처리
+			// 추가 등록
+			if(options.size() > orgOptionsSize) {
+				List<Option> addOptions = options.subList(orgOptionsSize, options.size());
+				for(Option addOption : addOptions) {
+					Option option = Option.addOption(addOption.getNames(), addOption.getStockQuantity(), findProduct.getProductOption());
+					optionRepository.save(option);
+				}
 			}
+			
+			// 이미지 처리
+			// 삭제
+			if(form.getDeleteImage().size() > 0) {
+				for(int i = 0; i < form.getDeleteImage().size();i++) {
+					ProductImage productImage = productImageRepository.findOne(form.getDeleteImage().get(i));
+					productImageRepository.deleteOne(productImage);
+				}
+			}
+			
+			// 추가
+			if(!form.getImage().get(0).isEmpty()) {
+				List<ProductImage> productImages = controlImage(form.getImage());
+				
+				for(int i = 0;i<form.getImage().size();i++) {
+					ProductImage productImage = ProductImage.addProductImage(productImages.get(i).getOriginalName(), productImages.get(i).getStoreName(), findProduct);
+					productImageRepository.save(productImage);
+				}
+			}
+		
+		} catch (Exception e) {
+			return null;
 		}
 		
 		return findProduct.getId();
