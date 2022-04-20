@@ -1,10 +1,15 @@
 package com.productservice.demo.controller;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,8 +19,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriUtils;
 
 import com.productservice.demo.controller.form.CreateOptionForm;
 import com.productservice.demo.controller.form.CreateProductForm;
@@ -23,8 +30,11 @@ import com.productservice.demo.controller.form.UpdateProductForm;
 import com.productservice.demo.domain.Category;
 import com.productservice.demo.domain.Option;
 import com.productservice.demo.domain.Product;
+import com.productservice.demo.domain.ProductImage;
+import com.productservice.demo.repository.ProductImageRepository;
 import com.productservice.demo.service.CategoryService;
 import com.productservice.demo.service.ProductService;
+import com.productservice.demo.util.upload.FileStore;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +47,8 @@ public class ProductController {
 	
 	private final ProductService productService;
 	private final CategoryService categoryService;
+	private final ProductImageRepository productImageRepository;
+	private final FileStore fileStore;
 	
 	// 상품 목록
 	@GetMapping("")
@@ -184,5 +196,31 @@ public class ProductController {
 		
 		productService.deleteProduct(id);
 		return "redirect:/admin/products";
+	}
+	
+	// 파일 노출
+	@ResponseBody
+	@GetMapping("/images/{filename}")
+	public Resource showImages(@PathVariable String filename) throws MalformedURLException {
+		return new UrlResource("file:" + fileStore.getFullPath(filename));
+	}
+	
+	// 파일 다운로드
+	@GetMapping("/download/{id}")
+	public ResponseEntity<Resource> downloadAttach(@PathVariable("id") Long id) throws MalformedURLException{
+		
+		ProductImage image = productImageRepository.findOne(id);
+		String storeFileName = image.getStoreName();
+		String orgFilename = image.getOriginalName();
+		
+		// 실제 다운받을 경로
+		UrlResource resource = new UrlResource("file:" + fileStore.getFullPath(storeFileName));
+		
+		String encodeOrgFileName = UriUtils.encode(orgFilename, StandardCharsets.UTF_8);
+		String contentDisposition = "attachment; filename=\"" + encodeOrgFileName + "\"";
+		
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+				.body(resource);
 	}
 }

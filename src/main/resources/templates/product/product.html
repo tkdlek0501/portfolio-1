@@ -69,13 +69,20 @@
 				            					<th style="width:20%;">이미지</th>
 				            					<td>
 				            						<div class="rows">
+				            							<!-- 기존 이미지 노출 및 id -->
+				            							<div style="display:flex;flex-flow:nowrap;">
+					            							<div style="display:flex;flex-flow:column;" th:each="img, i : *{productImage}">
+					            								<img th:src="|images/${img.storeName}|" width="300" height="300">
+					            								<a th:href="|download/${img.id}|" th:text="|다운로드 : ${img.originalName}|"></a>
+					            								<input th:name="|productImage[${i.index}].id|" th:value="${img.id}" type="hidden">
+					            							</div>
+				            							</div>
+				            							<br>
+				            							
+				            							<!-- 삭제할 이미지 id -->
+				            							<input type="hidden" value="">
+				            							
 				            							<p>업로드 시 파일 경로는 C:/Download/~ 입니다.</p>
-				            							
-				            							<!-- 기존 이미지 id -->
-				            							<th:block th:each="img, i : *{productImage}">
-				            								<input th:name="|productImage[${i.index}].id|" th:value="${img.id}" type="hidden">
-				            							</th:block>
-				            							
 				            							<input th:field="*{image}" type="file" multiple="multiple">
 				            							<p th:errors="*{image}" class="field-error">에러 메시지</p>
 													</div>

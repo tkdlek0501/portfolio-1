@@ -1,4 +1,4 @@
-package com.productservice.demo.repository.core;
+package com.productservice.demo.repository.spec;
 
 import java.util.List;
 

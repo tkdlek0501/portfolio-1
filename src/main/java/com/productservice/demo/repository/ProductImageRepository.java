@@ -22,6 +22,11 @@ public class ProductImageRepository {
 		em.persist(productImage);
 	}
 	
+	// 조회
+	public ProductImage findOne(Long id) {
+		return em.find(ProductImage.class, id);
+	}
+	
 	// 이미지 삭제
 	public void deleteOne(ProductImage productImage) {
 		em.remove(productImage);

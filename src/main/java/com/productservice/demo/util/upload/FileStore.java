@@ -2,12 +2,19 @@ package com.productservice.demo.util.upload;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.productservice.demo.dto.UploadFile;
@@ -20,7 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FileStore {
 	
-	@Value("${file.dir}") // file 다운로드 경로 properties 에서 설정한 값 가져옴
+	// Upload
+	
+	@Value("${file.dir}") // file 업로드 경로 properties 에서 설정한 값 가져옴
 	private String fileDir;
 	
 	// 파일 여러개 처리
@@ -53,7 +62,7 @@ public class FileStore {
 	}
 	
 	// fullPath 가져오기
-	private String getFullPath(String storeFileName) {
+	public String getFullPath(String storeFileName) {
 		return fileDir + storeFileName;
 	}
 	
@@ -72,8 +81,5 @@ public class FileStore {
 		String ext = originalFileName.substring(pos + 1);
 		return ext;
 	}
-	
-	
-	
 	
 }

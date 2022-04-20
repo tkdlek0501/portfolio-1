@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.productservice.demo.controller.form.UpdateCategoryForm;
 import com.productservice.demo.domain.Category;
-import com.productservice.demo.repository.core.CategoryRepository;
+import com.productservice.demo.repository.spec.CategoryRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

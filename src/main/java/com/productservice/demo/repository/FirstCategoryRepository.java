@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 import com.productservice.demo.domain.Category;
-import com.productservice.demo.repository.core.CategoryRepository;
+import com.productservice.demo.repository.spec.CategoryRepository;
 
 import lombok.RequiredArgsConstructor;
 

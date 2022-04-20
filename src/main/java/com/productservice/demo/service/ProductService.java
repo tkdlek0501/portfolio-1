@@ -19,7 +19,7 @@ import com.productservice.demo.domain.ProductOption;
 import com.productservice.demo.dto.UploadFile;
 import com.productservice.demo.repository.ProductImageRepository;
 import com.productservice.demo.repository.ProductRepository;
-import com.productservice.demo.repository.core.CategoryRepository;
+import com.productservice.demo.repository.spec.CategoryRepository;
 import com.productservice.demo.util.upload.FileStore;
 
 import lombok.RequiredArgsConstructor;
