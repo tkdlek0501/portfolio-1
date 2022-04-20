@@ -83,6 +83,11 @@ public class ProductService {
 		return productRepository.findAll();
 	}
 	
+	// 노출 상태 상품 목록
+	public List<Product> findShowProducts(){
+		return productRepository.findShowAll();
+	}
+	
 	// 상품 조회
 	public Product findProduct(Long productId) {
 		return productRepository.findOne(productId);

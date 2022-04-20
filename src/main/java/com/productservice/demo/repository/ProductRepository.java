@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 import com.productservice.demo.domain.Product;
+import com.productservice.demo.domain.ProductStatus;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,13 @@ public class ProductRepository {
 	// 상품 삭제
 	public void deleteOne(Product product) {
 		em.remove(product);
+	}
+	
+	// 노출 상태 상품 목록
+	public List<Product> findShowAll() {
+		return em.createQuery("select p from Product p where p.status = :status", Product.class)
+				.setParameter("status", ProductStatus.SHOW)
+				.getResultList();
 	}
 	
 }

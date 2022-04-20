@@ -91,7 +91,7 @@ public class HomeController {
 		// 에러 처리
 		if(bindingResult.hasErrors()) {
 			log.info("회원 등록 잘못된 값 바인딩 error={}", bindingResult);
-			return "member/newMember";
+			return "join";
 		}
 		
 		// converting
@@ -105,7 +105,7 @@ public class HomeController {
 		if(id == null) {
 			log.info("회원 가입 실패");
 			bindingResult.reject("duplicationError", null, "이미 사용하고 있는 아이디 입니다. 다른 아이디를 사용해주세요.");
-			return "member/newMember";
+			return "join";
 		}
 		
 		// 성공시
