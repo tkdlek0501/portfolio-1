@@ -45,14 +45,14 @@ public class Product {
 	private LocalDateTime registeredDate;
 	
 	// 연관 관계 매핑
-	@OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "product", cascade = CascadeType.ALL) // productOption은 product와 등록 삭제 등 라이프 사이클 동일
 	private ProductOption productOption;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "product")
 	private List<ProductImage> productImage = new ArrayList<>();
 	
 	// === 연관 관계 메서드
@@ -77,7 +77,7 @@ public class Product {
 	public static Product createProduct(
 			String name,
 			int price,
-			List<ProductImage> productImages,
+//			List<ProductImage> productImages,
 			ProductOption productOption,
 			Category category
 			) {
@@ -87,16 +87,19 @@ public class Product {
 		product.setStatus(ProductStatus.SHOW);
 		product.setRegisteredDate(LocalDateTime.now());
 		
-		for(ProductImage productImage : productImages) {
-			product.addProductImage(productImage);
-		}
+//		if(productImages != null) {
+//			for(ProductImage productImage : productImages) {
+//				product.addProductImage(productImage);
+//			}
+//		}
+		
 		product.setProductOption(productOption);
 		product.setCategory(category);
 		
 		return product;
 	}
 	
-	// 수정 TODO: 각 엔티티에서 set 해줄 수 있게 수정 필요
+	// 수정
 	public void modify(Product product) {
 		// 상품
 		if(product.getName() != null && !product.getName().isEmpty()) this.setName(product.getName());
@@ -117,21 +120,18 @@ public class Product {
 		this.setCategory(product.getCategory());
 		
 		// 이미지
-		int updateImageSize = product.getProductImage().size();
-		int orgImageSize = this.getProductImage().size();
-		if(updateImageSize > orgImageSize) { 
-			for(int i = 0; i < orgImageSize;i++) {
-				this.getProductImage().get(i).setOriginalName(product.getProductImage().get(i).getOriginalName());
-				this.getProductImage().get(i).setStoreName(product.getProductImage().get(i).getStoreName());
-			}
-//			for(int i = orgImageSize; i < updateImageSize; i++) { // 이 부분은 문제 있음, FK가 없는데 등록하려고 해서
-//				this.getProductImage().add(product.getProductImage().get(i));
+//		int updateImageSize = product.getProductImage().size();
+//		int orgImageSize = this.getProductImage().size();
+//		if(updateImageSize > orgImageSize) { 
+//			for(int i = 0; i < orgImageSize;i++) {
+//				this.getProductImage().get(i).setOriginalName(product.getProductImage().get(i).getOriginalName());
+//				this.getProductImage().get(i).setStoreName(product.getProductImage().get(i).getStoreName());
 //			}
-		}else { // 이 부분은 괜찮은데
-			for(int i = 0; i < updateImageSize; i++) {
-				this.getProductImage().get(i).setOriginalName(product.getProductImage().get(i).getOriginalName());
-				this.getProductImage().get(i).setStoreName(product.getProductImage().get(i).getStoreName());
-			}
-		}
+//		}else { // 이 부분은 괜찮은데
+//			for(int i = 0; i < updateImageSize; i++) {
+//				this.getProductImage().get(i).setOriginalName(product.getProductImage().get(i).getOriginalName());
+//				this.getProductImage().get(i).setStoreName(product.getProductImage().get(i).getStoreName());
+//			}
+//		}
 	}
 }

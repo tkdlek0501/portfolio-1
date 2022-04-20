@@ -29,6 +29,7 @@ public class ProductImageRepository {
 	
 	// 이미지 삭제
 	public void deleteOne(ProductImage productImage) {
+		log.info("DB 이미지 삭제 : {}", productImage.getId());
 		em.remove(productImage);
 	}
 	

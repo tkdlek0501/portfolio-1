@@ -40,9 +40,6 @@ public class ProductService {
 	@Transactional
 	public Long create(CreateProductForm form) throws IllegalStateException, IOException {
 		
-		// 이미지 처리 
-		List<ProductImage> productImages = controlImage(form.getImage());
-		
 		// option 생성
 		List<Option> options = controlOption(form.getOption());
 		
@@ -53,9 +50,22 @@ public class ProductService {
 		Category category = categoryRepository.findOne(form.getCategoryId());
 		
 		// 생성 메서드
-		Product product = Product.createProduct(form.getName(), form.getPrice(), productImages, productOption, category);
+		Product product = Product.createProduct(form.getName(), form.getPrice(), productOption, category);
 		
 		productRepository.save(product);
+		
+		// 이미지 추가
+		if(!form.getImage().get(0).isEmpty()) {
+			List<ProductImage> productImages = null;
+			if(form.getImage() != null) {
+				productImages = controlImage(form.getImage());
+			}
+			
+			for(int i = 0;i<form.getImage().size();i++) {
+				ProductImage productImage = ProductImage.addProductImage(productImages.get(i).getOriginalName(), productImages.get(i).getStoreName(), product);
+				productImageRepository.save(productImage);
+			}
+		}
 		
 		return product.getId();
 	}
@@ -74,11 +84,6 @@ public class ProductService {
 	@Transactional
 	public Long modifyProduct(UpdateProductForm form) throws IllegalStateException, IOException {
 		
-		// 이미지 처리
-		List<ProductImage> productImages = null;
-		if(form.getImage() != null) {
-			productImages = controlImage(form.getImage());
-		}
 		// option 생성
 		List<Option> options = controlOption(form.getOption());
 		
@@ -92,20 +97,37 @@ public class ProductService {
 		Product findProduct = productRepository.findOne(form.getId());
 		log.info("기존 product : {}", findProduct);
 		
-		Product product = Product.createProduct(form.getName(), form.getPrice(), productImages, productOption, category);
+		Product product = Product.createProduct(form.getName(), form.getPrice(), productOption, category);
 		
 		// 수정
 		findProduct.modify(product);
 		
-		// 유동적인 것들 추가 등록 (기존 보다 추가로 들고오면 추가 등록 필요)
-		// 이미지
-		int orgImageSize = findProduct.getProductImage().size();
-		int newImageSize = productImages.size();
-		log.info("orgImageSize : {}", orgImageSize);
-		log.info("newImageSize : {}", newImageSize);
-		if(newImageSize > orgImageSize) {
-			log.info("추가로 등록돼야하는 이미지 있음");
-			for(int i = findProduct.getProductImage().size();i<form.getImage().size();i++) {
+		// 이미지 추가 등록 
+//		int orgImageSize = findProduct.getProductImage().size();
+//		int newImageSize = productImages.size();
+//		if(newImageSize > orgImageSize) {
+//			for(int i = findProduct.getProductImage().size();i<form.getImage().size();i++) {
+//				ProductImage productImage = ProductImage.addProductImage(productImages.get(i).getOriginalName(), productImages.get(i).getStoreName(), findProduct);
+//				productImageRepository.save(productImage);
+//			}
+//		}
+		// 이미지 처리
+		// 삭제
+		if(form.getProductImage().size() > 0) {
+			for(int i = 0; i < form.getProductImage().size();i++) {
+				ProductImage productImage = productImageRepository.findOne(form.getProductImage().get(i).getId());
+				productImageRepository.deleteOne(productImage);
+			}
+		}
+		
+		// 추가
+		if(!form.getImage().get(0).isEmpty()) {
+			List<ProductImage> productImages = null;
+			if(form.getImage() != null) {
+				productImages = controlImage(form.getImage());
+			}
+			
+			for(int i = 0;i<form.getImage().size();i++) {
 				ProductImage productImage = ProductImage.addProductImage(productImages.get(i).getOriginalName(), productImages.get(i).getStoreName(), findProduct);
 				productImageRepository.save(productImage);
 			}

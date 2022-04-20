@@ -153,8 +153,6 @@ public class ProductController {
 			Model model
 			) throws IllegalStateException, IOException {
 		
-		log.info("상품 수정 form : {}", form);
-		
 		// category 리스트
 		List<Category> categories = categoryService.findCategories();
 		model.addAttribute("categories", categories);
@@ -177,7 +175,6 @@ public class ProductController {
 		}
 		
 		// 수정
-		log.info("받은 image 개수 : {}", form.getImage().size());
 		Long id = productService.modifyProduct(form);
 		
 		// 실패시
