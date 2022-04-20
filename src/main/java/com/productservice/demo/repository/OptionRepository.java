@@ -26,4 +26,9 @@ public class OptionRepository {
 		em.remove(option);
 	}
 	
+	// 옵션 조회
+	public Option findOne(Long id) {
+		return em.find(Option.class, id);
+	}
+	
 }

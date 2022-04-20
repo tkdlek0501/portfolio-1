@@ -113,16 +113,22 @@
 				            					<th style="width:20%">옵션 이름 (쉼표로 구분) ex. red,XL <br> 옵션별 재고</th>
 				            					<td>
 				            						<div class="rows">
-				            							<th:block th:each="opt, i : *{option}">
-				            								<p th:text="|옵션${i.count}|"></p>
+				            							<div th:each="opt, i : *{option}">
+				            								<span th:text="|[기존 옵션${i.count}]|"></span>
+				            								<th:block th:if="${i.index} != 0">
+				            								<span>삭제 시 체크 : </span>
+						            						<input th:name="|deleteOption[${i.index}]|" th:value="${opt.id}" style="margin-left: 4px;" class="deleteOption" type="checkbox">
+						            						</th:block>
+						            						<br>
 				            								<input th:field="*{option[__${i.index}__].names}" th:class="${#fields.hasErrors('option')}? 'form-control fieldError' : 'form-control'" type="text" style="width:30%;" placeholder="옵션 이름을 입력해주세요">
 				            								<input th:field="*{option[__${i.index}__].stockQuantity}" th:class="${#fields.hasErrors('option')}? 'form-control fieldError' : 'form-control'" type="number" style="width:30%;" placeholder="옵션 재고를 입력해주세요">
-				            							</th:block>
-				            							<th:block th:if="*{#lists.size(option) < 2}" th:each="remain : *{#numbers.sequence(#lists.size(option)+1,2)}">
-				            								<p th:text="|옵션${remain}|"></p>
+				            							</div>
+				            							<div th:if="*{#lists.size(option) < 2}" th:each="remain, i : *{#numbers.sequence(#lists.size(option),2)}">
+				            								<span th:text="|[추가 옵션${i.count}]|"></span>
+				            								<br>
 				            								<input th:field="*{option[__${remain}__].names}" class="form-control" type="text" style="width:30%;" placeholder="옵션 이름을 입력해주세요">
 				            								<input th:field="*{option[__${remain}__].stockQuantity}" class="form-control" type="number" style="width:30%;" placeholder="옵션 재고를 입력해주세요">
-				            							</th:block>
+				            							</div>
 				            							
 				            							<p th:errors="*{option}" class="field-error"></p>
 				            						</div>
@@ -145,7 +151,7 @@
 					 </div>	
 				   </div>
 		  		</div>
-		  		<a href="javascript:history.back();" style="width:100px;background:#fff;" class="btn btn-user btn-block">뒤로가기</a>	
+		  		<a href="/admin/products" style="width:100px;background:#fff;" class="btn btn-user btn-block">뒤로가기</a>	
          </div>
           <!-- DataTales Example -->
         

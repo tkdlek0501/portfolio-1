@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.productservice.demo.controller.form.CreateOptionForm;
 import com.productservice.demo.controller.form.CreateProductForm;
+import com.productservice.demo.controller.form.UpdateOptionForm;
 import com.productservice.demo.controller.form.UpdateProductForm;
 import com.productservice.demo.domain.Category;
 import com.productservice.demo.domain.Option;
@@ -55,7 +56,7 @@ public class ProductService {
 		productRepository.save(product);
 		
 		// 옵션 저장
-		List<Option> options = controlOption(form.getOption());
+		List<Option> options = createControlOption(form.getOption());
 		for(int i = 0; i < options.size(); i++) {
 			Option option = Option.addOption(options.get(i).getNames(), options.get(i).getStockQuantity(), product.getProductOption());
 			optionRepository.save(option);
@@ -93,11 +94,12 @@ public class ProductService {
 		
 		// 기존 상품 영속성 컨텍스트 등록
 		Product findProduct = productRepository.findOne(form.getId());
+		log.info("삭제 후 상품 옵션 개수 : {}", findProduct.getProductOption().getOption().size());
 		
 		try {
 			
 			// option 생성
-			List<Option> options = controlOption(form.getOption());
+			List<Option> options = updateControlOption(form.getOption());
 			List<Option> updateOptions = new ArrayList<>();
 			int orgOptionsSize = findProduct.getProductOption().getOption().size();
 			log.info("orgOptionSize : {}", orgOptionsSize);
@@ -172,10 +174,22 @@ public class ProductService {
 		return productImages;
 	}
 	
-	// 옵션 처리
-	private List<Option> controlOption(List<CreateOptionForm> formOptions) {
+	// 등록시 옵션 처리
+	private List<Option> createControlOption(List<CreateOptionForm> list) {
 		List<Option> options = new ArrayList<>();
-		for(CreateOptionForm formOption : formOptions) {
+		for(CreateOptionForm formOption : list) {
+			if(formOption.getNames() != null && !formOption.getNames().isEmpty() && formOption.getStockQuantity() != null) {
+				Option option = Option.createOption(formOption.getNames(), formOption.getStockQuantity());
+				options.add(option);
+			}
+		}
+		return options;
+	}
+	
+	// 수정시 옵션 처리
+	private List<Option> updateControlOption(List<UpdateOptionForm> list) {
+		List<Option> options = new ArrayList<>();
+		for(UpdateOptionForm formOption : list) {
 			if(formOption.getNames() != null && !formOption.getNames().isEmpty() && formOption.getStockQuantity() != null) {
 				Option option = Option.createOption(formOption.getNames(), formOption.getStockQuantity());
 				options.add(option);

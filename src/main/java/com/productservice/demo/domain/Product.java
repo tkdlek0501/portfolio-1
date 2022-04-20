@@ -87,12 +87,6 @@ public class Product {
 		product.setStatus(ProductStatus.SHOW);
 		product.setRegisteredDate(LocalDateTime.now());
 		
-//		if(productImages != null) {
-//			for(ProductImage productImage : productImages) {
-//				product.addProductImage(productImage);
-//			}
-//		}
-		
 		product.setProductOption(productOption);
 		product.setCategory(category);
 		
@@ -118,20 +112,5 @@ public class Product {
 		
 		// 카테고리 - 조회해서 가져온 엔티티 넣어줌
 		this.setCategory(product.getCategory());
-		
-		// 이미지
-//		int updateImageSize = product.getProductImage().size();
-//		int orgImageSize = this.getProductImage().size();
-//		if(updateImageSize > orgImageSize) { 
-//			for(int i = 0; i < orgImageSize;i++) {
-//				this.getProductImage().get(i).setOriginalName(product.getProductImage().get(i).getOriginalName());
-//				this.getProductImage().get(i).setStoreName(product.getProductImage().get(i).getStoreName());
-//			}
-//		}else { // 이 부분은 괜찮은데
-//			for(int i = 0; i < updateImageSize; i++) {
-//				this.getProductImage().get(i).setOriginalName(product.getProductImage().get(i).getOriginalName());
-//				this.getProductImage().get(i).setStoreName(product.getProductImage().get(i).getStoreName());
-//			}
-//		}
 	}
 }

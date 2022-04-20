@@ -52,7 +52,7 @@ public class UpdateProductForm {
 	private String optionItems;
 	
 	// option
-	private List<CreateOptionForm> option = new ArrayList<>();
+	private List<UpdateOptionForm> option = new ArrayList<>();
 	
 	// category
 	@NotNull(message = "카테고리를 등록해주세요")
@@ -67,7 +67,7 @@ public class UpdateProductForm {
 			String status,
 			List<ProductImage> productImage,
 			String optionItems,
-			List<CreateOptionForm> option,
+			List<UpdateOptionForm> optionForms,
 			Long categoryId
 			) {
 		UpdateProductForm form = new UpdateProductForm();
@@ -78,38 +78,10 @@ public class UpdateProductForm {
 		form.setStatus(status);
 		form.setProductImage(productImage);
 		form.setOptionItems(optionItems);
-		form.setOption(option);
+		form.setOption(optionForms);
 		form.setCategoryId(categoryId);
 		
 		return form;
 	}
-	
-	// 수정시 생성자
-//	public static UpdateProductForm updateproductForm(
-//		String name,
-//		Integer price,
-//		String status,
-//		List<MultipartFile> image,
-//		String optionItems,
-//		List<CreateOptionForm> option,
-//		Long categoryId
-//			) {
-//		UpdateProductForm form = new UpdateProductForm();
-//		
-//		form.setName(name);
-//		form.setPrice(price);
-//		form.setStatus(status);
-//		form.setImage(image);
-//		form.setOptionItems(optionItems);
-//		form.setOption(option);
-//		form.setCategoryId(categoryId);
-//		
-//		return form;
-//	}
-
-
-	
-	
-	
 	
 }

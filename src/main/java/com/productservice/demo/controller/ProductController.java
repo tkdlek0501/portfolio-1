@@ -26,13 +26,16 @@ import org.springframework.web.util.UriUtils;
 
 import com.productservice.demo.controller.form.CreateOptionForm;
 import com.productservice.demo.controller.form.CreateProductForm;
+import com.productservice.demo.controller.form.UpdateOptionForm;
 import com.productservice.demo.controller.form.UpdateProductForm;
 import com.productservice.demo.domain.Category;
 import com.productservice.demo.domain.Option;
 import com.productservice.demo.domain.Product;
 import com.productservice.demo.domain.ProductImage;
+import com.productservice.demo.repository.OptionRepository;
 import com.productservice.demo.repository.ProductImageRepository;
 import com.productservice.demo.service.CategoryService;
+import com.productservice.demo.service.OptionService;
 import com.productservice.demo.service.ProductService;
 import com.productservice.demo.util.upload.FileStore;
 
@@ -49,6 +52,7 @@ public class ProductController {
 	private final CategoryService categoryService;
 	private final ProductImageRepository productImageRepository;
 	private final FileStore fileStore;
+	private final OptionService optionService;
 	
 	// 상품 목록
 	@GetMapping("")
@@ -128,10 +132,10 @@ public class ProductController {
 		String status = String.valueOf(product.getStatus());
 		
 		List<Option> options = product.getProductOption().getOption();
-		List<CreateOptionForm> optionForms = new ArrayList<>();
+		List<UpdateOptionForm> optionForms = new ArrayList<>();
 		for (Option option : options) {
-			CreateOptionForm createOptionForm = CreateOptionForm.createOptionForm(option.getNames(), option.getStockQuantity());
-			optionForms.add(createOptionForm);
+			UpdateOptionForm updateOptionForm = UpdateOptionForm.createOptionForm(option.getId(), option.getNames(), option.getStockQuantity());
+			optionForms.add(updateOptionForm);
 		}
 		
 		UpdateProductForm getProduct = UpdateProductForm.createUpdateProductForm(product.getId(), product.getName(), product.getPrice(), status, product.getProductImage(), product.getProductOption().getOptionItems(), optionForms, product.getCategory().getId());
@@ -153,11 +157,29 @@ public class ProductController {
 			Model model
 			) throws IllegalStateException, IOException {
 		
-		log.info("받은 기존 이미지 : {}", form.getProductImage());
+		// 옵션 삭제
+		for(int i = 0; i < form.getDeleteOption().size(); i++) {
+			if(form.getDeleteOption().get(i) != null) {
+				
+				form.getOption().remove(i); // 받아온 form에서 i번쨰 삭제 - validation 에서 제외시킴
+				
+				Long pk = Long.valueOf(form.getDeleteOption().get(i));
+				log.info("삭제하려는 옵션 pk : {}", pk);
+				optionService.deleteOne(pk); // 실제 옵션에서 삭제
+			}
+		}
 		
 		// category 리스트
 		List<Category> categories = categoryService.findCategories();
 		model.addAttribute("categories", categories);
+		
+		// 수정
+		Long id = productService.modifyProduct(form);
+		
+		// 실패시
+		if(id == null) {
+			bindingResult.reject("modifyProductFail", null, "상품 수정에 실패했습니다.");
+		}
 		
 		// 이미지 validation
 		if(form.getProductImage().isEmpty() || form.getProductImage() == null){ // 이미 등록된 이미지 없으면
@@ -170,29 +192,28 @@ public class ProductController {
 			}
 		}
 		
-		// TODO: 삭제할 option 은 validation 에서 제거
-		
 		// option validation
-		for(CreateOptionForm option : form.getOption()) {
-			if(option.getNames().isEmpty() || option.getStockQuantity() == null) {
-				log.info("옵션 입력 제대로 안됨");
-				bindingResult.rejectValue("option", null, "옵션을 입력해주세요.");
-				break;
-			}
-		}
-		
-		// 수정
-		Long id = productService.modifyProduct(form);
-		
-		// 실패시
-		if(id == null) {
-			bindingResult.reject("modifyProductFail", null, "상품 수정에 실패했습니다.");
+		if(form.getOption().get(0).getNames().isEmpty() || form.getOption().get(0).getStockQuantity() == null) {
+			log.info("옵션 입력 제대로 안됨");
+			bindingResult.rejectValue("option", null, "옵션을 입력해주세요.");
 		}
 		
 		if(bindingResult.hasErrors()) {
 			bindingResult.reject("createProductError", null, "입력받은 값에 오류가 있습니다.");
+			
+			// 이미지 다시 DB에서 조회
 			Product product = productService.findProduct(form.getId());
 			form.setProductImage(product.getProductImage());
+			
+			// 옵션 원래대로
+			List<Option> options = product.getProductOption().getOption();
+			List<UpdateOptionForm> optionForms = new ArrayList<>();
+			for (Option option : options) {
+				UpdateOptionForm updateOptionForm = UpdateOptionForm.createOptionForm(option.getId(), option.getNames(), option.getStockQuantity());
+				optionForms.add(updateOptionForm);
+			}
+			form.setOption(optionForms);
+			
 			return "product/product";
 		}
 		

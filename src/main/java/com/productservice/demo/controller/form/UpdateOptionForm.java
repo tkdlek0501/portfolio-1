@@ -1,6 +1,7 @@
 package com.productservice.demo.controller.form;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,9 +12,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-//@AllArgsConstructor -> 이거 쓰면 등록폼 템플릿에서 *{option[0].~} 할 때 오류 발생
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CreateOptionForm {
+public class UpdateOptionForm {
+	
+	@NotNull
+	private Long id;
 	
 	@NotBlank(message = "해당 옵션 이름을 입력해주세요") 
 	private String names;
@@ -22,15 +25,17 @@ public class CreateOptionForm {
 	private Integer stockQuantity;
 	
 	
-	public static CreateOptionForm createOptionForm(
+	public static UpdateOptionForm createOptionForm(
+			Long id,
 			String names, 
 			int stockQuantity
 			) {
-		CreateOptionForm form = new CreateOptionForm();
+		UpdateOptionForm form = new UpdateOptionForm();
+		form.setId(id);
 		form.setNames(names);
 		form.setStockQuantity(stockQuantity);
 		
 		return form;
 	}
-
+	
 }
