@@ -27,7 +27,7 @@
 	      </button>
 	      <ul class="nav ml-auto">
 	      	<li class="nav-item nav-link" style="display:flex;align-items:center;">
-	      		<p></p>
+	      		<p th:text="|안녕하세요. ${#authentication.name} 님! :)|"></p>
 	        </li>          
 	        <li style="display:flex;align-items:center;cursor:pointer;" class="nav-item" onclick="location.href='/doLogout'">
 	          <span>로그아웃</span>

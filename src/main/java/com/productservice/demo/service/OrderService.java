@@ -14,7 +14,7 @@ import com.productservice.demo.domain.Member;
 import com.productservice.demo.domain.Option;
 import com.productservice.demo.domain.Order;
 import com.productservice.demo.domain.OrderProduct;
-import com.productservice.demo.dto.OrderListDto;
+import com.productservice.demo.dto.OrderSearch;
 import com.productservice.demo.exception.NotEnoughStockException;
 import com.productservice.demo.repository.MemberRepository;
 import com.productservice.demo.repository.OptionRepository;
@@ -78,6 +78,11 @@ public class OrderService {
 	// 모든 주문 목록
 	public List<Order> findAll() {
 		return orderRepository.findAll();
+	}
+	
+	// 검색 포함 주문 목록
+	public List<Order> searchAll(OrderSearch orderSearch) {
+		return orderRepository.searchAll(orderSearch);
 	}
 	
 	

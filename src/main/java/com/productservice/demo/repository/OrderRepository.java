@@ -3,12 +3,12 @@ package com.productservice.demo.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.productservice.demo.domain.Order;
-import com.productservice.demo.dto.OrderListDto;
 import com.productservice.demo.dto.OrderSearch;
 
 import lombok.RequiredArgsConstructor;
@@ -40,66 +40,34 @@ public class OrderRepository {
 		return em.createQuery("select o from Order o where o.member.id = :memberId", Order.class)
 				.setParameter("memberId", memberId)
 				.getResultList();
-		
-//		String jpql = "select o, opt, p from Order o left join o.member m"
-//				+ "left join o.orderProduct op"
-//				+ "left join op.option opt"
-//				+ "left join opt.productOption po"
-//				+ "left join po.product p"
-//				+ "where o.member.id = :memberId";	 
-//		
-//		TypeQuery<OrderListDto> query = em.createQuery(jpql, OrderListDto.class)
-//						.setFirstResult(0)
-//						.setMaxResults(1000);
-//		
-//		// 파라미터 세팅
-//		query = query.setParameter("memberId", memberId);
-//		
-//		return query.getResultList();
 	}
 	
-	// TODO: 주문 목록 (검색 포함)
-//	public List<Order> findAll(OrderSearch orderSearch){
-//		
-//		String jpql = "select o, opt, p from Order o left join o.member m"
-//				+ "left join o.orderProduct op"
-//				+ "left join op.option opt"
-//				+ "left join opt.productOption po"
-//				+ "left join po.product p";
-//		boolean isFirstCondition = true;
-//		
-//		// 상품 주문 조건들
-//		
-//		if (orderSearch.getRandom() != null) {
-//			if(isFirstCondition ) {
-//				jpql += " where";
-//				isFirstCondition = false;
-//			}else {
-//				jpql += " and";
-//			}
-//			jpql += " o.status = :status";
-//		}
-//		
-//		if(StringUtils.hasText(orderSearch.getRandom())) {
-//			if(isFirstCondition ) {
-//				jpql += " where";
-//				isFirstCondition = false;
-//			}else {
-//				jpql += " and";
-//			}
-//			jpql += " o.name like :name";
-//		}
-//		
-//		TypeQuery<OrderListDto> query = em.createQuery(jpql, OrderListDto.class)
-//										.setFirstResult(0)
-//										.setMaxResults(1000);
-//		
-//		// 파라미터 세팅
-//		if(orderSearch.getRandom() != null) {
-//			query = query.setParameter("status", orderSearch.getRandom());
-//		}
-//		
-//		return query.getResultList();
-//	}
+	// 검색 포함 주문 목록
+	public List<Order> searchAll(OrderSearch orderSearch) {
+		
+		String jpql = "select o from Order o join o.member m";
+		boolean isFirstCondition = true;
+		
+		// 회원 이름 검색
+		if(StringUtils.hasText(orderSearch.getMemberName())) {
+			if(isFirstCondition) {
+				jpql += " where";
+				isFirstCondition = false;
+			} else {
+				jpql += " and"; 
+			}
+			jpql += " m.name like :name";
+		}
+		
+		TypedQuery<Order> query = em.createQuery(jpql, Order.class)
+				.setFirstResult(0) // offset
+				.setMaxResults(1000); // limit
+		
+		if(StringUtils.hasText(orderSearch.getMemberName())) {
+			query = query.setParameter("name", orderSearch.getMemberName());
+		}
+		
+		return query.getResultList();
+	}
 	
 }

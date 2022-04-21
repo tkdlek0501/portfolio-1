@@ -12,6 +12,14 @@
     			 <p class="grid-header">주문 목록</p>
     			  <div class="grid-body">
                     <div class="item-wrapper">
+                      <div>
+						 <form th:action th:object="${orderSearch}" method="GET" class="form-inline">
+							 <div class="form-group mb-2">
+							 	<input type="text" th:field="*{memberName}" class="form-control" placeholder="회원 이름"/>
+							 	<button type="submit" class="btn btn-primary" style="margin-left:10px;">검색</button>
+							 </div>
+						 </form>
+					 </div>	
                       <div class="table-responsive">
 							<table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
 			                  <thead>

@@ -2,7 +2,6 @@ package com.productservice.demo.controller;
 
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +25,9 @@ import org.springframework.web.util.UriUtils;
 import com.productservice.demo.controller.form.CreateOrderForm;
 import com.productservice.demo.domain.Member;
 import com.productservice.demo.domain.Order;
-import com.productservice.demo.domain.OrderProduct;
 import com.productservice.demo.domain.Product;
 import com.productservice.demo.domain.ProductImage;
-import com.productservice.demo.dto.OrderListDto;
-import com.productservice.demo.repository.OrderProductRepository;
+import com.productservice.demo.dto.OrderSearch;
 import com.productservice.demo.repository.ProductImageRepository;
 import com.productservice.demo.service.OrderService;
 import com.productservice.demo.service.ProductService;
@@ -142,10 +139,12 @@ public class OrderController {
 	// 주문 목록
 	@GetMapping("/admin/orders")
 	public String order(
+			@ModelAttribute("orderSearch") OrderSearch orderSearch,
 			Model model
 			) {
 		
-		List<Order> orders = orderService.findAll();
+		//List<Order> orders = orderService.findAll();
+		List<Order> orders = orderService.searchAll(orderSearch);
 		model.addAttribute("orders", orders);
 		return "/order/orders";
 	}
