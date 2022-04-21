@@ -57,7 +57,7 @@ public class OrderController {
 		return "products";
 	}
 	
-	// 상품 구매 상세 페이지
+	// 상품 주문 상세 페이지
 	@GetMapping("/products/{productId}")
 	public String orderPage(
 			@PathVariable("productId") Long productId,
@@ -71,7 +71,7 @@ public class OrderController {
 		return "product";
 	}
 	
-	// 상품 구매
+	// 상품 주문
 	@PostMapping("/products/{productId}")
 	public String order(
 			@Validated @ModelAttribute("form") CreateOrderForm form,
@@ -116,7 +116,7 @@ public class OrderController {
 		
 		// 성공시
 		redirectAttributes.addAttribute("productId", productId);
-		return "redirect:/products/{productId}";
+		return "redirect:/orders";
 	}
 	
 	
@@ -138,8 +138,21 @@ public class OrderController {
 	}
 	
 	
+// 관리자	
+	// 주문 목록
+	@GetMapping("/admin/orders")
+	public String order(
+			Model model
+			) {
+		
+		List<Order> orders = orderService.findAll();
+		model.addAttribute("orders", orders);
+		return "/order/orders";
+	}
 	
 	
+	
+// 이미지	
 	// 이미지 노출
 	@ResponseBody
 	@GetMapping("/images/{filename}")

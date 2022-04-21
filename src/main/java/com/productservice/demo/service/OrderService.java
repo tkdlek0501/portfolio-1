@@ -48,12 +48,14 @@ public class OrderService {
 		Delivery delivery = Delivery.createDelivery(form.getZipcode(), form.getCity(), form.getStreet());
 		
 		try {
-			// order 생성, insert (delivery 도 같이 insert)
-			Order order = Order.createOrder(member, delivery);
-			orderRepository.save(order);
+			// order 생성
+			int totalPrice = form.getPrice() * form.getCount(); // 해당 주문 총 가격
+			Order order = Order.createOrder(member, delivery, totalPrice);
+
+			// orderProduct 생성 ; 이때 재고 감소
+			OrderProduct orderProduct = OrderProduct.createOrderProduct(option, form.getPrice(), form.getCount(), order);
 			
-			// orderProduct 생성 ; 이때 재고 감소 , insert
-			OrderProduct orderProduct = OrderProduct.createOrderProduct(option, form.getOrderPrice(), form.getCount(), order);
+			orderRepository.save(order);
 			orderProductRepository.save(orderProduct);
 			
 			log.info("order 성공 : {}", order.getId());
@@ -71,6 +73,11 @@ public class OrderService {
 	// 나의 주문 목록
 	public List<Order> myAll(Long memberId) {
 		return orderRepository.myAll(memberId);
+	}
+	
+	// 모든 주문 목록
+	public List<Order> findAll() {
+		return orderRepository.findAll();
 	}
 	
 	

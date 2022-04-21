@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +38,9 @@ public class Order {
 	@Id @GeneratedValue
 	@Column(name = "order_id")
 	private Long id;
+	
+	@NumberFormat(pattern = "###,###")
+	private int totalPrice;
 	
 	private LocalDateTime orderDate;
 	
@@ -76,11 +81,15 @@ public class Order {
 	
 	public static Order createOrder(
 		Member member,
-		Delivery delivery
+		Delivery delivery,
+		int totalPrice
 			) {
 		Order order = new Order();
+		order.setTotalPrice(totalPrice);
 		order.setOrderDate(LocalDateTime.now());
 		order.setStatus(OrderStatus.ORDER);
+		
+		
 		order.setMember(member);
 		order.setDelivery(delivery);
 		

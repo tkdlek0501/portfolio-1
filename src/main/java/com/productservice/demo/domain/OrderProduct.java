@@ -23,11 +23,11 @@ public class OrderProduct {
 	@Column(name = "order_product_id")
 	private Long id;
 	
-	private int orderPrice;
+	private int price;
 	
 	private int count;
 	
-	private int orderTotalPrice;
+	private int totalPrice;
 	
 	// 연관 관계 매핑
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -41,15 +41,15 @@ public class OrderProduct {
 	// 생성 메서드 (주문시)
 	public static OrderProduct createOrderProduct(
 			Option option, 
-			int orderPrice, 
+			int price, 
 			int count,
 			Order order
 			) {
 		OrderProduct orderProduct = new OrderProduct();
 		orderProduct.setOption(option);
-		orderProduct.setOrderPrice(orderPrice);
+		orderProduct.setPrice(price);
 		orderProduct.setCount(count);
-		orderProduct.setOrderTotalPrice(orderPrice * count);
+		orderProduct.setTotalPrice(price * count);
 		orderProduct.setOrder(order);
 		
 		option.removeStock(count); // 재고 감소

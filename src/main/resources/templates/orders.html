@@ -25,7 +25,7 @@
 			                      <th>식별 번호</th>
 			                      <th>주문 상품</th>
 			                      <th>주문 옵션</th>
-			                      <th>우편 번호</th>
+			                      <th>주문 가격</th>
 			                      <th>주문 날짜</th>
 			                      <th>주문 상태</th>
 			                      <th>상세보기</th>
@@ -36,16 +36,15 @@
 			                 	 	<td th:text="${o.id}"></td>
 			                 	 	<td>
 			                 	 		<th:block th:each="op : ${o.orderProduct}">
-			                 				<span th:text="${op.option.productOption.product.name}"></span>
+			                 				<span th:text="${op.option.productOption.product.name}"></span><br>
 			                 			</th:block>
 			                 	 	</td>
 			                 		<td>
 			                 			<th:block th:each="op : ${o.orderProduct}">
-			                 				<span th:text="|[${op.option.names}]|"></span>
+			                 				<span th:text="|[${op.option.names}]|"></span><br>
 			                 			</th:block>
 			                 		</td>
-			                 		<!-- <td th:text="${p.name}"></td> -->
-			                 		<td th:text="${o.delivery.zipcode}"></td>
+			                 		<td th:text="${{o.totalPrice}}"></td>
 			                 		<td th:text="${o.orderDate}"></td>
 			                 		<td th:switch="${{o.status}}">
 			                 			<span th:case="ORDER">주문</span>
