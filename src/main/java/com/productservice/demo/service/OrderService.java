@@ -1,6 +1,8 @@
 package com.productservice.demo.service;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import com.productservice.demo.domain.Member;
 import com.productservice.demo.domain.Option;
 import com.productservice.demo.domain.Order;
 import com.productservice.demo.domain.OrderProduct;
+import com.productservice.demo.dto.OrderListDto;
 import com.productservice.demo.exception.NotEnoughStockException;
 import com.productservice.demo.repository.MemberRepository;
 import com.productservice.demo.repository.OptionRepository;
@@ -63,6 +66,11 @@ public class OrderService {
 			result.put("error", "CreateError");
 			return result;
 		} 
+	}
+	
+	// 나의 주문 목록
+	public List<Order> myAll(Long memberId) {
+		return orderRepository.myAll(memberId);
 	}
 	
 	

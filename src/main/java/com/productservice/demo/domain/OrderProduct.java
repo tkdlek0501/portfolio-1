@@ -16,7 +16,6 @@ import lombok.ToString;
 
 @Entity
 @Getter @Setter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderProduct {
 	

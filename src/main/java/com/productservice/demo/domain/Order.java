@@ -23,11 +23,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 @Entity
 @Table(name = "orders") // order는 DB 예약어라 사용이 불가능!
 @Getter @Setter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Slf4j
 public class Order {
 	
 	@Id @GeneratedValue
@@ -74,16 +77,12 @@ public class Order {
 	public static Order createOrder(
 		Member member,
 		Delivery delivery
-//		OrderProduct... orderProducts
 			) {
 		Order order = new Order();
 		order.setOrderDate(LocalDateTime.now());
 		order.setStatus(OrderStatus.ORDER);
 		order.setMember(member);
 		order.setDelivery(delivery);
-//		for(OrderProduct orderProduct : orderProducts) {
-//			order.addOrderProduct(orderProduct);
-//		}
 		
 		return order;
 	}

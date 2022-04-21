@@ -1,10 +1,13 @@
 package com.productservice.demo.repository;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.springframework.stereotype.Repository;
 
 import com.productservice.demo.domain.Option;
+import com.productservice.demo.domain.Order;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
