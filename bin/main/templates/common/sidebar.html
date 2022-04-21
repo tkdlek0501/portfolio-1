@@ -22,6 +22,7 @@
         </li>
       </ul>
     </li>
+    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
     <li>
       <a href="#admin-li2" data-toggle="collapse" aria-expanded="false">
         <span class="link-title">Member</span>
@@ -55,5 +56,6 @@
         </li>
       </ul>
     </li>
+    </th:block>
   </ul>
 </div>

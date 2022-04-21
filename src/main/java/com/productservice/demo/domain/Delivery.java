@@ -38,4 +38,19 @@ public class Delivery {
 	// 연관 관계 매핑
 	@OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Order order;
+	
+	// 생성 메서드
+	public static Delivery createDelivery(
+			int zipcode,
+			String city,
+			String street
+			) {
+		Delivery delivery = new Delivery();
+		delivery.setZipcode(zipcode);
+		delivery.setCity(city);
+		delivery.setStreet(street);
+		delivery.setStatus(DeliveryStatus.READY);
+		
+		return delivery;
+	}
 }

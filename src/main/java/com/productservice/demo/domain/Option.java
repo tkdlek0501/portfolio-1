@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.productservice.demo.exception.NotEnoughStockException;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,7 +56,7 @@ public class Option {
 		
 		return option;
 	}
-
+	
 	public static Option addOption(
 			String names, 
 			int stockQuantity, 
@@ -65,6 +67,22 @@ public class Option {
 		option.setStockQuantity(stockQuantity);
 		option.setProductOption(productOption);
 		return option;
+	}
+	
+	// 재고 감소
+	public void removeStock(int count) {
+		int restStock = this.stockQuantity - count;
+		
+		if(restStock < 0) {
+			throw new NotEnoughStockException("재고가 충분하지 않습니다.");
+		}
+		
+		this.stockQuantity = restStock;
+	}
+	
+	// 재고 증가
+	public void addStock(int count) {
+		this.stockQuantity += count;
 	}
 	
 	

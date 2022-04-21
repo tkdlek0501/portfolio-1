@@ -27,7 +27,7 @@ public class CreateMemberForm {
 	private String name;
 	
 	@NotNull(message = "나이를 입력해주세요.")
-	@Min(value=0, message="나이는 최소 1세 이상으로 입력하세요.")
+	@Min(value=1, message="나이는 최소 1세 이상으로 입력하세요.")
 	private Integer age;
 	
 	@NotBlank(message = "등급을 선택해주세요.")

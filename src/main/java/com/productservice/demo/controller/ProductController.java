@@ -50,8 +50,6 @@ public class ProductController {
 	
 	private final ProductService productService;
 	private final CategoryService categoryService;
-	private final ProductImageRepository productImageRepository;
-	private final FileStore fileStore;
 	private final OptionService optionService;
 	
 	// 상품 목록
@@ -230,29 +228,5 @@ public class ProductController {
 		return "redirect:/admin/products";
 	}
 	
-	// 파일 노출
-	@ResponseBody
-	@GetMapping("/images/{filename}")
-	public Resource showImages(@PathVariable String filename) throws MalformedURLException {
-		return new UrlResource("file:" + fileStore.getFullPath(filename));
-	}
 	
-	// 파일 다운로드
-	@GetMapping("/download/{id}")
-	public ResponseEntity<Resource> downloadAttach(@PathVariable("id") Long id) throws MalformedURLException{
-		
-		ProductImage image = productImageRepository.findOne(id);
-		String storeFileName = image.getStoreName();
-		String orgFilename = image.getOriginalName();
-		
-		// 실제 다운받을 경로
-		UrlResource resource = new UrlResource("file:" + fileStore.getFullPath(storeFileName));
-		
-		String encodeOrgFileName = UriUtils.encode(orgFilename, StandardCharsets.UTF_8);
-		String contentDisposition = "attachment; filename=\"" + encodeOrgFileName + "\"";
-		
-		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
-				.body(resource);
-	}
 }

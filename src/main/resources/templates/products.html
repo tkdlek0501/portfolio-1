@@ -23,28 +23,23 @@
 			                  <thead>
 			                    <tr>
 			                      <th>식별 번호</th>
+			                      <th>카테고리</th>
 			                      <th>이름</th>
 			                      <th>가격</th>
-			                      <!-- <th>노출상태</th> -->
 			                      <th>등록일</th>
 			                      <th>상세보기</th>
-			                      <!-- <th>삭제하기</th> -->
 			                    </tr>
 			                  </thead>
 			                  <tbody>
 			                 	 <tr th:each="p : ${products}">
 			                 	 	<td th:text="${p.id}"></td>
+			                 		<td th:text="${p.category.name}"></td>
 			                 		<td th:text="${p.name}"></td>
 			                 		<td th:text="${p.price}"></td>
-			                 		<!-- <td th:switch="${{p.status}}">
-			                 			<span th:case="SHOW">노출</span>
-			                 			<span th:case="HIDE">숨김</span>
-			                 		</td> -->
 			                 		<td th:text="${p.registeredDate}"></td>
 			                 		<td>
-			                 			<!-- <a class="btn" th:href="|@{/admin/products/{productId}(productId=${p.id})}|">상세</a> -->
+			                 			<a class="btn" th:href="|@{/products/{productId}(productId=${p.id})}|">상세</a>
 			                 		</td>
-			                 		<!-- <td><button class="btn" th:onclick="|if(confirm('영구삭제 하시겠습니까?')){location.href='/admin/products/${p.id}/remove'}|" type="button">삭제</button></td> -->
 			                  	 </tr>
 			                  </tbody>
 			                </table>	

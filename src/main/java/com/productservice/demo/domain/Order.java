@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,7 +27,6 @@ import lombok.ToString;
 @Entity
 @Table(name = "orders") // order는 DB 예약어라 사용이 불가능!
 @Getter @Setter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 	
@@ -45,7 +45,7 @@ public class Order {
 	@JoinColumn(name = "member_id")
 	private Member member;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "delivery_id")
 	private Delivery delivery;
 	
@@ -56,7 +56,7 @@ public class Order {
 	
 	public void setMember(Member member) {
 		this.member = member;
-		member.addOrder(this);
+		member.getOrder().add(this);
 	}
 	
 	public void setDelivery(Delivery delivery) {
@@ -73,19 +73,31 @@ public class Order {
 	
 	public static Order createOrder(
 		Member member,
-		Delivery delivery,
-		OrderProduct... orderProducts
+		Delivery delivery
+//		OrderProduct... orderProducts
 			) {
 		Order order = new Order();
 		order.setOrderDate(LocalDateTime.now());
 		order.setStatus(OrderStatus.ORDER);
 		order.setMember(member);
 		order.setDelivery(delivery);
-		for(OrderProduct orderProduct : orderProducts) {
-			order.addOrderProduct(orderProduct);
-		}
+//		for(OrderProduct orderProduct : orderProducts) {
+//			order.addOrderProduct(orderProduct);
+//		}
 		
 		return order;
+	}
+	
+	// 주문 취소
+	public void cancel() {
+		if(delivery.getStatus() == DeliveryStatus.COM) {
+			throw new IllegalStateException("이미 배송 완료된 상품은 취소가 불가능 합니다.");
+		}
+		
+		this.setStatus(OrderStatus.CANCEL);
+		for(OrderProduct orderProduct : this.orderProduct) {
+			orderProduct.cancel();
+		}
 	}
 	
 }

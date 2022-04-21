@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +39,7 @@ public class Product {
 	
 	private String name;
 	
+	@NumberFormat(pattern = "###,###")
 	private int price;
 	
 	@Enumerated(EnumType.STRING)

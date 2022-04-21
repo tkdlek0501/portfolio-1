@@ -73,8 +73,8 @@
 				            							<div style="display:flex;flex-flow:nowrap;">
 					            							<div th:each="img, i : *{productImage}" style="display:flex;flex-flow:column;">
 					            								<input th:field="*{productImage[__${i.index}__].id}" type="hidden">
-					            								<img th:src="|images/${img.storeName}|" width="300" height="300">
-					            								<a th:href="|download/${img.id}|" th:text="|다운로드 : ${img.originalName}|"></a>
+					            								<img th:src="|/images/${img.storeName}|" width="300" height="300">
+					            								<a th:href="|/download/${img.id}|" th:text="|다운로드 : ${img.originalName}|"></a>
 					            								<div style="display:flex;align-items:center;">
 						            								<span>삭제 시 체크 : </span>
 						            								<input th:name="|deleteImage[${i.index}]|" th:value="${img.id}" style="margin-left: 4px;" class="deleteImage" type="checkbox">
