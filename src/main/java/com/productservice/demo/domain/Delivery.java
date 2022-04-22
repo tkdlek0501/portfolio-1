@@ -52,4 +52,9 @@ public class Delivery {
 		
 		return delivery;
 	}
+	
+	// 배송 완료
+	public void complete() {
+		this.setStatus(DeliveryStatus.COM);	
+	}
 }

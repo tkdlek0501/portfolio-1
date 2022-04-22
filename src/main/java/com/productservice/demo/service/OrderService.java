@@ -85,5 +85,22 @@ public class OrderService {
 		return orderRepository.searchAll(orderSearch);
 	}
 	
+	// 주문 취소 
+	@Transactional
+	public void cancelOrder(Long orderId) {
+		// 엔티티 조회
+		Order order = orderRepository.findOne(orderId);
+		
+		order.cancel();
+	}
+	
+	// 배송 완료
+	@Transactional
+	public void completeDelivery(Long orderId) {
+		Order order = orderRepository.findOne(orderId);
+		
+		order.complete();
+	}
+	
 	
 }

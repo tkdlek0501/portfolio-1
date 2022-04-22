@@ -96,7 +96,7 @@ public class Product {
 		return product;
 	}
 	
-	// 수정
+	// 수정 TODO: order 처럼 각 엔티티에 메서드로 set 위임하기
 	public void modify(Product product) {
 		// 상품
 		if(product.getName() != null && !product.getName().isEmpty()) this.setName(product.getName());
@@ -104,13 +104,12 @@ public class Product {
 		if(product.getStatus() != null) this.setStatus(status);
 		
 		// 상품 옵션
-//		if(product.getProductOption() != null) this.setProductOption(product.getProductOption()); -> 이러면 수정 대신 row가 추가된다
-		this.getProductOption().setOptionItems(product.getProductOption().getOptionItems());
+		productOption.setOptionItems(product.getProductOption().getOptionItems());
 		
 		// 옵션
-		for(int i = 0; i < this.getProductOption().getOption().size(); i++) {
-			this.getProductOption().getOption().get(i).setNames(product.getProductOption().getOption().get(i).getNames());
-			this.getProductOption().getOption().get(i).setStockQuantity(product.getProductOption().getOption().get(i).getStockQuantity());
+		for(int i = 0; i < productOption.getOption().size(); i++) {
+			productOption.getOption().get(i).setNames(product.getProductOption().getOption().get(i).getNames());
+			productOption.getOption().get(i).setStockQuantity(product.getProductOption().getOption().get(i).getStockQuantity());
 		}
 		
 		// 카테고리 - 조회해서 가져온 엔티티 넣어줌

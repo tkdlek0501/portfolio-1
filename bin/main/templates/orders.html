@@ -28,7 +28,9 @@
 			                      <th>주문 가격</th>
 			                      <th>주문 날짜</th>
 			                      <th>주문 상태</th>
+			                      <th>배송 상태</th>
 			                      <th>상세보기</th>
+			                      <th>주문 취소</th>
 			                    </tr>
 			                  </thead>
 			                  <tbody>
@@ -48,10 +50,17 @@
 			                 		<td th:text="${o.orderDate}"></td>
 			                 		<td th:switch="${{o.status}}">
 			                 			<span th:case="ORDER">주문</span>
-			                 			<span th:case="CANCEL">실패</span>
+			                 			<span th:case="CANCEL">취소</span>
+			                 		</td>
+			                 		<td th:switch="${{o.delivery.status}}">
+			                 			<span th:case="READY">준비중</span>
+			                 			<span th:case="COM">완료</span>
 			                 		</td>
 			                 		<td>
 			                 			<a class="btn" th:href="|@{/orders/{orderId}(orderId=${o.id})}|">상세</a>
+			                 		</td>
+			                 		<td>
+			                 			<a th:if="${o.status.name() == 'ORDER'}" th:href="|javascript:if(confirm('주문 취소 하시겠습니까?')){cancel(${o.id})}|" class="btn btn-danger">주문 취소</a>
 			                 		</td>
 			                  	 </tr>
 			                  </tbody>
@@ -84,6 +93,16 @@
     <script src="../assets/js/template.js"></script>
     <script src="../assets/js/dashboard.js"></script>
     <script>
+    	// 주문 취소 post
+	    function cancel(id) {
+	   	 var form = document.createElement("form");
+	   		 form.setAttribute("method", "post");
+	   		 form.setAttribute("action", "/orders/" + id + "/cancel");
+	   		 document.body.appendChild(form);
+	   		 form.submit();
+	   	 }
+    
+    
 	    $("#dataTable1").DataTable({
 			searching: true,
 			ordering: false

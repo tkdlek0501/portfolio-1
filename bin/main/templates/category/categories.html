@@ -22,7 +22,7 @@
 			                      <th>식별 번호</th>
 			                      <th>이름</th>
 			                      <th>상세보기</th>
-			                      <th>삭제하기</th>
+			                      <!-- <th>삭제하기</th> -->
 			                    </tr>
 			                  </thead>
 			                  <tbody>
@@ -32,7 +32,7 @@
 			                 		<td>
 			                 			<a class="btn" th:href="|@{/admin/categories/{catId}(catId=${c.id})}|">상세</a>
 			                 		</td>
-			                 		<td><button class="btn" th:onclick="|if(confirm('영구삭제 하시겠습니까?')){location.href='/admin/categories/${c.id}/remove'}|" type="button">삭제</button></td>
+			                 		<!-- <td><button class="btn" th:onclick="|if(confirm('영구삭제 하시겠습니까?')){location.href='/admin/categories/${c.id}/remove'}|" type="button">삭제</button></td> -->
 			                  	 </tr>
 			                  </tbody>
 			                </table>	

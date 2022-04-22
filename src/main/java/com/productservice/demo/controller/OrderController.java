@@ -134,6 +134,14 @@ public class OrderController {
 		return "orders";
 	}
 	
+	// 주문 취소
+	@PostMapping("/orders/{orderId}/cancel")
+	public String cancelOrder(
+			@PathVariable("orderId") Long orderId
+			) {
+		orderService.cancelOrder(orderId);
+		return "redirect:/orders";
+	}
 	
 // 관리자	
 	// 주문 목록
@@ -149,6 +157,14 @@ public class OrderController {
 		return "/order/orders";
 	}
 	
+	// 배송 완료
+	@PostMapping("/orders/{orderId}/complete")
+	public String completeDelivery(
+			@PathVariable("orderId") Long orderId
+			) {
+		orderService.completeDelivery(orderId);
+		return "redirect:/admin/orders";
+	}
 	
 	
 // 이미지	

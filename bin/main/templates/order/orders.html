@@ -30,7 +30,9 @@
 			                      <th>주문 가격</th>
 			                      <th>주문 날짜</th>
 			                      <th>주문 상태</th>
+			                      <th>배송 상태</th>
 			                      <th>상세보기</th>
+			                      <th>배송 완료</th>
 			                    </tr>
 			                  </thead>
 			                  <tbody>
@@ -50,10 +52,17 @@
 			                 		<td th:text="${o.orderDate}"></td>
 			                 		<td th:switch="${{o.status}}">
 			                 			<span th:case="ORDER">주문</span>
-			                 			<span th:case="CANCEL">실패</span>
+			                 			<span th:case="CANCEL">취소</span>
+			                 		</td>
+			                 		<td th:switch="${{o.delivery.status}}">
+			                 			<span th:case="READY">준비중</span>
+			                 			<span th:case="COM">배송 완료</span>
 			                 		</td>
 			                 		<td>
 			                 			<a class="btn" th:href="|@{/orders/{orderId}(orderId=${o.id})}|">상세</a>
+			                 		</td>
+			                 		<td>
+			                 			<a th:if="${o.status.name() != 'CANCEL'} and ${o.delivery.status.name() != 'COM'}" th:href="|javascript:if(confirm('배송 완료 처리 하시겠습니까?')){complete(${o.id})}|" class="btn btn-result">배송 완료</a>
 			                 		</td>
 			                  	 </tr>
 			                  </tbody>
@@ -86,6 +95,15 @@
     <script src="../assets/js/template.js"></script>
     <script src="../assets/js/dashboard.js"></script>
     <script>
+    	// 배송 완료 post
+    	function complete(id) {
+    		 var form = document.createElement("form");
+	   		 form.setAttribute("method", "post");
+	   		 form.setAttribute("action", "/orders/" + id + "/complete");
+	   		 document.body.appendChild(form);
+	   		 form.submit();
+    	}
+    
 	    $("#dataTable1").DataTable({
 			searching: true,
 			ordering: false
