@@ -143,10 +143,28 @@ public class OrderController {
 		return "redirect:/orders";
 	}
 	
+	// 자신의 주문 상세
+	@GetMapping("/orders/{orderId}")
+	public String order(
+			@PathVariable("orderId") Long orderId,
+			Model model,
+			Authentication auth
+			) {
+		if(auth == null) { return "redirect:/doLogout"; }
+
+		Member member = (Member) auth.getPrincipal();
+		Long memberId = member.getId();
+		
+		Order order = orderService.myOne(orderId, memberId);
+		
+		model.addAttribute("order", order);
+		return "order/order";
+	}
+	
 // 관리자	
 	// 주문 목록
 	@GetMapping("/admin/orders")
-	public String order(
+	public String orders(
 			@ModelAttribute("orderSearch") OrderSearch orderSearch,
 			Model model
 			) {
@@ -154,7 +172,20 @@ public class OrderController {
 		//List<Order> orders = orderService.findAll();
 		List<Order> orders = orderService.searchAll(orderSearch);
 		model.addAttribute("orders", orders);
-		return "/order/orders";
+		return "order/orders";
+	}
+	
+	// 주문 상세
+	@GetMapping("/admin/orders/{orderId}")
+	public String adminOrder(
+			@PathVariable("orderId") Long orderId,
+			Model model
+			) {
+		
+		Order order = orderService.findOne(orderId);
+		
+		model.addAttribute("order", order);
+		return "order/order";
 	}
 	
 	// 배송 완료

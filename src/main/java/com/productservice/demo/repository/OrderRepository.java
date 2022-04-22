@@ -1,6 +1,7 @@
 package com.productservice.demo.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -27,6 +28,16 @@ public class OrderRepository {
 	// 주문 조회
 	public Order findOne(Long orderId) {
 		return em.find(Order.class, orderId);
+	}
+	
+	// 나의 주문 조회
+	public Optional<Order> myOne(Long orderId, Long memberId) {
+		List<Order> order =  em.createQuery("select o from Order o where o.member.id = :memberId and o.id = :orderId", Order.class)
+				.setParameter("memberId", memberId)
+				.setParameter("orderId", orderId)
+				.getResultList();
+		
+		return order.stream().findAny();
 	}
 	
 	// 주문 목록 (전체)

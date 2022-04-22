@@ -59,7 +59,7 @@
 			                 			<span th:case="COM">배송 완료</span>
 			                 		</td>
 			                 		<td>
-			                 			<a class="btn" th:href="|@{/orders/{orderId}(orderId=${o.id})}|">상세</a>
+			                 			<a class="btn" th:href="|@{/admin/orders/{orderId}(orderId=${o.id})}|">상세</a>
 			                 		</td>
 			                 		<td>
 			                 			<a th:if="${o.status.name() != 'CANCEL'} and ${o.delivery.status.name() != 'COM'}" th:href="|javascript:if(confirm('배송 완료 처리 하시겠습니까?')){complete(${o.id})}|" class="btn btn-result">배송 완료</a>

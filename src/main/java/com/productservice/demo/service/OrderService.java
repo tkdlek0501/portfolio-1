@@ -102,5 +102,15 @@ public class OrderService {
 		order.complete();
 	}
 	
+	// 주문 조회
+	public Order findOne(Long orderId) {
+		return orderRepository.findOne(orderId);
+	}
+	
+	// 나의 주문 조회
+	public Order myOne(Long orderId, Long memberId) {
+		return orderRepository.myOne(orderId, memberId).get();
+	}
+	
 	
 }
