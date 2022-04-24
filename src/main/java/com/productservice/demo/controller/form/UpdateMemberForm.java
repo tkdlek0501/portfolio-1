@@ -71,7 +71,6 @@ public class UpdateMemberForm {
 		if(age != 0) form.setAge(age);
 		form.setCity(address.getCity());
 		form.setStreet(address.getStreet());
-		
 		form.setZipcode(address.getZipcode());
 		
 		return form;

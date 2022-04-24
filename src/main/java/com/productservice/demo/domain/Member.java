@@ -122,9 +122,10 @@ public class Member implements UserDetails{
 		if(form.getPassword() != null && !form.getPassword().isEmpty()) this.setPassword(form.getPassword());
 		if(form.getName() != null && !form.getName().isEmpty()) this.setName(form.getName());
 		if(form.getAge() != 0) this.setAge(form.getAge());
-		Grade grade = Grade.valueOf(form.getGrade());
-		if(form.getGrade() != null) this.setGrade(grade);
-		
+		if(form.getGrade() != null) {
+			Grade grade = Grade.valueOf(form.getGrade());
+			this.setGrade(grade);
+		}
 		if(form.getCity() != null && !form.getCity().isEmpty()) this.getAddress().setCity(form.getCity());
 		if(form.getStreet() != null && !form.getStreet().isEmpty()) this.getAddress().setStreet(form.getStreet());
 		if(form.getZipcode() != null && !form.getZipcode().isEmpty()) this.getAddress().setZipcode(form.getZipcode());
