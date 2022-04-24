@@ -49,17 +49,17 @@ public class ProductOption {
 	// === 생성 메서드
 	
 	public static ProductOption createProductOption(
-			String optionItems,
-			List<Option> options
+			String optionItems
+//			List<Option> options
 			) {
 		ProductOption productOption = new ProductOption();
 		productOption.setOptionItems(optionItems);
 		
-		if(options != null) {
-			for(Option option : options) {
-				productOption.addOption(option);
-			}
-		}
+//		if(options != null) {
+//			for(Option option : options) {
+//				productOption.addOption(option);
+//			}
+//		}
 		
 		return productOption;
 	}

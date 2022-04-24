@@ -107,10 +107,10 @@ public class Product {
 		productOption.setOptionItems(product.getProductOption().getOptionItems());
 		
 		// 옵션
-		for(int i = 0; i < productOption.getOption().size(); i++) {
-			productOption.getOption().get(i).setNames(product.getProductOption().getOption().get(i).getNames());
-			productOption.getOption().get(i).setStockQuantity(product.getProductOption().getOption().get(i).getStockQuantity());
-		}
+//		for(int i = 0; i < productOption.getOption().size(); i++) {
+//			productOption.getOption().get(i).setNames(product.getProductOption().getOption().get(i).getNames());
+//			productOption.getOption().get(i).setStockQuantity(product.getProductOption().getOption().get(i).getStockQuantity());
+//		}
 		
 		// 카테고리 - 조회해서 가져온 엔티티 넣어줌
 		this.setCategory(product.getCategory());

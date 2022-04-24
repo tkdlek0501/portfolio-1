@@ -84,6 +84,12 @@ public class Option {
 	public void addStock(int count) {
 		this.stockQuantity += count;
 	}
+
+	// 변경
+	public void modify(Option option) {
+		this.setNames(option.getNames());
+		this.setStockQuantity(option.getStockQuantity());
+	}
 	
 	
 }

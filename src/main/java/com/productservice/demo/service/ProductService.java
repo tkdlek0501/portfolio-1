@@ -45,7 +45,7 @@ public class ProductService {
 	public Long create(CreateProductForm form) throws IllegalStateException, IOException {
 		
 		// productOption 생성
-		ProductOption productOption = ProductOption.createProductOption(form.getOptionItems(), null);
+		ProductOption productOption = ProductOption.createProductOption(form.getOptionItems());
 		
 		// 카테고리 엔티티 조회
 		Category category = categoryRepository.findOne(form.getCategoryId());
@@ -100,31 +100,34 @@ public class ProductService {
 		
 		// 기존 상품 영속성 컨텍스트 등록
 		Product findProduct = productRepository.findOne(form.getId());
-		log.info("삭제 후 상품 옵션 개수 : {}", findProduct.getProductOption().getOption().size());
+		
+		// 옵션 따로 등록
+		List<Option> findOptions = optionRepository.findAllByPoId(findProduct.getProductOption().getId());
 		
 		try {
 			
-			// option 생성
-			List<Option> options = updateControlOption(form.getOption());
-			List<Option> updateOptions = new ArrayList<>();
-			int orgOptionsSize = findProduct.getProductOption().getOption().size();
-			log.info("orgOptionSize : {}", orgOptionsSize);
-			if(orgOptionsSize > 0) {
-				updateOptions = options.subList(0, orgOptionsSize);
-			}
-			
 			// productOption 생성
-			ProductOption productOption = ProductOption.createProductOption(form.getOptionItems(), updateOptions);
-			
+			ProductOption productOption = ProductOption.createProductOption(form.getOptionItems());
 			// 카테고리 엔티티 조회
 			Category category = categoryRepository.findOne(form.getCategoryId());
-			
 			Product product = Product.createProduct(form.getName(), form.getPrice(), productOption, category);
-			
-			// 수정
+			// product 수정
 			findProduct.modify(product);
 			
 			// 옵션 처리
+			// option 생성
+			List<Option> options = updateControlOption(form.getOption());
+			List<Option> updateOptions = new ArrayList<>();
+			int orgOptionsSize = findOptions.size();
+			if(orgOptionsSize > 0) {
+				updateOptions = options.subList(0, orgOptionsSize);
+			}
+			// option 수정
+			for(int i = 0; i < updateOptions.size(); i++) {
+				findOptions.get(i).modify(updateOptions.get(i));
+			}
+			
+			
 			// 추가 등록
 			if(options.size() > orgOptionsSize) {
 				List<Option> addOptions = options.subList(orgOptionsSize, options.size());
