@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import org.springframework.stereotype.Repository;
 
+import com.productservice.demo.domain.Option;
 import com.productservice.demo.domain.Product;
 import com.productservice.demo.domain.ProductStatus;
 

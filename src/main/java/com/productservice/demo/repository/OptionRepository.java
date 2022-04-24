@@ -34,4 +34,11 @@ public class OptionRepository {
 		return em.find(Option.class, id);
 	}
 	
+	// productOption id 로 조회
+	public List<Option> findOneByPoId(Long poId) {
+		return em.createQuery("select o from Option o where o.productOption.id = :poId", Option.class)
+				.setParameter("poId", poId)
+				.getResultList();
+	}
+	
 }

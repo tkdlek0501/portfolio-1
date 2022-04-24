@@ -136,4 +136,5 @@ public class OrderServiceTest {
 		// then
 		fail("TEST 실패! 주문 취소 후에는 예외가 발생해야 합니다.");
 	}
+	
 }
