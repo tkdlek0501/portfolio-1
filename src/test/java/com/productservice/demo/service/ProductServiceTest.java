@@ -42,6 +42,7 @@ public class ProductServiceTest {
 	@Autowired ProductRepository productRepository;
 	@Autowired CategoryService categoryService;
 	@Autowired OptionRepository optionRepository;
+	@Autowired OptionService optionService;
 	@Autowired EntityManager em;
 	
 	// 등록
@@ -135,15 +136,72 @@ public class ProductServiceTest {
 	}
 	
 	// 옵션 삭제
-	
+	@Test
+	public void deleteOption() throws Exception{
+		// given
+		// 카테고리 등록
+		Category cat = Category.createCategory("카테고리1"); 
+		Long catId = categoryService.create(cat);
+		// 상품 등록
+		CreateProductForm form = new CreateProductForm();
+		form.setCategoryId(catId);
+		String writerData = "str1,str2,str3,str4";
+		MockMultipartFile mockImage = new MockMultipartFile("image", "test.png", "name.png", writerData.getBytes(StandardCharsets.UTF_8));
+		List<MultipartFile> images = new ArrayList<>();
+		images.add(mockImage);
+		form.setImage(images);
+		form.setName("상품1");
+		form.setOptionItems("옵션명");
+		List<CreateOptionForm> option = new ArrayList<>();
+		CreateOptionForm optionForm = CreateOptionForm.createOptionForm("옵션1", 100);
+		option.add(optionForm);
+		form.setOption(option);
+		form.setPrice(10000);
+		form.setStatus("ORDER");
+		Long id = productService.create(form); // 등록
+		// 상품 조회 
+		Product resultProduct = productService.findProduct(id);
+		// 옵션 조회
+		List<Option> options = optionRepository.findAllByPoId(resultProduct.getProductOption().getId());
+		Long deleteId = options.get(0).getId();
+		
+		// when
+		optionService.deleteOne(deleteId);
+		
+		// then
+		assertEquals(null, optionRepository.findOne(deleteId));
+	}
 	
 	
 	// 삭제
 	@Test
 	public void delete() throws Exception{
+		// given
+		// 카테고리 등록
+		Category cat = Category.createCategory("카테고리1"); 
+		Long catId = categoryService.create(cat);
+		// 상품 등록
+		CreateProductForm form = new CreateProductForm();
+		form.setCategoryId(catId);
+		String writerData = "str1,str2,str3,str4";
+		MockMultipartFile mockImage = new MockMultipartFile("image", "test.png", "name.png", writerData.getBytes(StandardCharsets.UTF_8));
+		List<MultipartFile> images = new ArrayList<>();
+		images.add(mockImage);
+		form.setImage(images);
+		form.setName("상품1");
+		form.setOptionItems("옵션명");
+		List<CreateOptionForm> option = new ArrayList<>();
+		CreateOptionForm optionForm = CreateOptionForm.createOptionForm("옵션1", 100);
+		option.add(optionForm);
+		form.setOption(option);
+		form.setPrice(10000);
+		form.setStatus("ORDER");
+		Long id = productService.create(form); // 등록
 		
+		// when
+		productService.deleteProduct(id);
+		
+		// then
+		assertEquals(null, productService.findProduct(id));
 	}
-	
-	// 상품 등록 후 카테고리는 개별 삭제 되면 안된다
-	
 }
