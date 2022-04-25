@@ -40,3 +40,5 @@
   </li>
 </ol>
 
+### 2. ERD
+![포트폴리오 erd](https://user-images.githubusercontent.com/73812257/165031322-93f100ee-889a-44cd-b408-957b96a3abda.png)
