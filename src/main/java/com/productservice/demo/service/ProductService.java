@@ -110,7 +110,7 @@ public class ProductService {
 			ProductOption productOption = ProductOption.createProductOption(form.getOptionItems());
 			// 카테고리 엔티티 조회
 			Category category = categoryRepository.findOne(form.getCategoryId());
-			Product product = Product.createProduct(form.getName(), form.getPrice(), productOption, category);
+			Product product = Product.updateProduct(form.getName(), form.getPrice(), form.getStatus(), productOption, category);
 			// product 수정
 			findProduct.modify(product);
 			

@@ -80,7 +80,6 @@ public class Product {
 	public static Product createProduct(
 			String name,
 			int price,
-//			List<ProductImage> productImages,
 			ProductOption productOption,
 			Category category
 			) {
@@ -96,23 +95,38 @@ public class Product {
 		return product;
 	}
 	
-	// 수정 TODO: order 처럼 각 엔티티에 메서드로 set 위임하기
+	public static Product updateProduct(
+			String name, 
+			Integer price, 
+			String status, 
+			ProductOption productOption,
+			Category category) {
+		Product product = new Product();
+		product.setName(name);
+		product.setPrice(price);
+		ProductStatus ps = ProductStatus.valueOf(status);
+		product.setStatus(ps);
+		product.setRegisteredDate(LocalDateTime.now());
+		
+		product.setProductOption(productOption);
+		product.setCategory(category);
+		
+		return product;
+	}
+	
+	// 수정
 	public void modify(Product product) {
 		// 상품
 		if(product.getName() != null && !product.getName().isEmpty()) this.setName(product.getName());
 		this.setPrice(product.getPrice());
-		if(product.getStatus() != null) this.setStatus(status);
+		if(product.getStatus() != null) this.setStatus(product.getStatus());
 		
 		// 상품 옵션
 		productOption.setOptionItems(product.getProductOption().getOptionItems());
 		
-		// 옵션
-//		for(int i = 0; i < productOption.getOption().size(); i++) {
-//			productOption.getOption().get(i).setNames(product.getProductOption().getOption().get(i).getNames());
-//			productOption.getOption().get(i).setStockQuantity(product.getProductOption().getOption().get(i).getStockQuantity());
-//		}
-		
 		// 카테고리 - 조회해서 가져온 엔티티 넣어줌
 		this.setCategory(product.getCategory());
 	}
+
+	
 }
