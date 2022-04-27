@@ -38,7 +38,6 @@ public class UpdateProductForm {
 	@NotBlank(message = "노출 여부를 선택해주세요")
 	private String status; // ProductStatus (SHOW, HIDE)
 	
-	//@NotBlank(message = "파일을 등록해주세요")
 	private List<MultipartFile> image = new ArrayList<>(); // 받아오는 이미지
 	
 	private List<ProductImage> productImage = new ArrayList<>(); // 이미 등록된 이미지
@@ -59,7 +58,6 @@ public class UpdateProductForm {
 	private Long categoryId;
 
 	// 생성 메서드
-	// 조회시
 	public static UpdateProductForm createUpdateProductForm(
 			Long id,
 			String name,

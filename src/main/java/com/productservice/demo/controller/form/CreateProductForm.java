@@ -38,7 +38,6 @@ public class CreateProductForm {
 	private String optionItems; // 옵션 항목 이름
 	
 	// option
-	// CreateOptionForm 에서 validation?
 	private List<CreateOptionForm> option = new ArrayList<>();
 	
 	// category TODO: 상품 등록시 category 연결

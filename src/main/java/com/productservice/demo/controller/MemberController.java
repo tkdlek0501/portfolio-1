@@ -48,7 +48,7 @@ public class MemberController {
 		return "member/newMember";
 	}
 	
-	// 회원 등록  // TODO: ※ModelAttribute 쓸 때 set까지 자동으로 같이 해주는 것이므로 setter 가 필요하다
+	// 회원 등록  ※ModelAttribute 쓸 때 set까지 자동으로 같이 해주는 것이므로 setter 가 필요하다
 	@PostMapping("")
 	public String createMember(
 			@Validated @ModelAttribute("form") CreateMemberForm form, 

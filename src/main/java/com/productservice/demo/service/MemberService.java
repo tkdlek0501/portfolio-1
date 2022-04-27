@@ -17,8 +17,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Transactional(readOnly = true) // 보통 조회 메서드가 더 많기 때문에 기본값을 readOnly로 설정
-@RequiredArgsConstructor // final 로 선언한 객체들 자동으로 생성자 만들어서 의존관계 주입
+@Transactional(readOnly = true) 
+@RequiredArgsConstructor 
 @Slf4j
 public class MemberService {
 	
@@ -51,7 +51,7 @@ public class MemberService {
 		
 		log.info("중복 검증 실행 username : {}", username);
 		
-		Optional<Member> findMember = memberRepository.findOneByUsername(username); // TODO: 멀티 쓰레드 환경이므로 DB에서도 중복을 막아야 한다.(유니크하게 컬럼 관리) 
+		Optional<Member> findMember = memberRepository.findOneByUsername(username);
 		
 		if(findMember.isPresent()) { // 값이 존재 하는지 boolean
 			throw new IllegalStateException("이미 사용하고 있는 아이디입니다.");

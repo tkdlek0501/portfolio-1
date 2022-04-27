@@ -55,7 +55,6 @@ public class MemberServiceTest {
 		// given
 		Member member1 = Member.createMember("HJ", "김현준", "1234", 29, Grade.ADMIN, address);
 		Member member2 = Member.createMember("HJ", "김현준", "1234", 29, Grade.ADMIN, address2); 
-		// TODO: ※같은 address 인스턴스를 쓰면 안된다 - 인스턴스가 같으면 같은 엔티티로 판단함
 		
 		// when
 		memberService.join(member1);

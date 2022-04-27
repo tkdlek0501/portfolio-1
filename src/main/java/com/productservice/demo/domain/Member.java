@@ -115,7 +115,6 @@ public class Member implements UserDetails{
 		return member;
 	}
 	
-	// TODO: @여기서 null, empty 체크를 해도 되는건지?
 	// 수정
 	public Member modify(UpdateMemberForm form) {
 		if(form.getUsername() != null && !form.getUsername().isEmpty()) this.setUsername(form.getUsername());
@@ -129,9 +128,6 @@ public class Member implements UserDetails{
 		if(form.getCity() != null && !form.getCity().isEmpty()) this.getAddress().setCity(form.getCity());
 		if(form.getStreet() != null && !form.getStreet().isEmpty()) this.getAddress().setStreet(form.getStreet());
 		if(form.getZipcode() != null && !form.getZipcode().isEmpty()) this.getAddress().setZipcode(form.getZipcode());
-		
-//		Address address = Address.createAddress(form.getCity(), form.getStreet(), form.getZipcode());
-//		this.setAddress(address); // 이러면 address 가 새로 생성된다
 		
 		return this;
 	}

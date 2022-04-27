@@ -36,7 +36,6 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 		if(exception instanceof UsernameNotFoundException) {
 			log.info("아이디 조회 실패");
 			errorMessage = "입력하신 정보로 조회되는 아이디가 없습니다.";
-//			redirect(response, returnUrl, errorMessage);
 			response.setContentType("text/html;charset=utf-8");
 	        PrintWriter out = response.getWriter();
 	        out.println("<script>");
@@ -47,7 +46,6 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 		} else if(exception instanceof BadCredentialsException) {
 			log.info("비밀번호 인증 실패");
 			errorMessage = exception.getMessage();
-//			redirect(response, returnUrl, errorMessage);
 			response.setContentType("text/html;charset=utf-8");
 	        PrintWriter out = response.getWriter();
 	        out.println("<script>");
