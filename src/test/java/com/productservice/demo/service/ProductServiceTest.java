@@ -116,23 +116,25 @@ public class ProductServiceTest {
 		Long poId = product.getProductOption().getId();
 		List<Option> options = optionRepository.findAllByPoId(poId); // 옵션
 		
-		// 수정 세팅
+		// 수정할 값 
 		UpdateOptionForm optionForm2 = UpdateOptionForm.createOptionForm(options.get(0).getId(), "옵션2", 200);
 		List<UpdateOptionForm> optionForms = new ArrayList<>();
 		optionForms.add(optionForm2);
-		UpdateProductForm productForm = UpdateProductForm.createUpdateProductForm(id, "상품명2", 20000, "ORDER", null, "옵션명2", optionForms, catId);
+		UpdateProductForm productForm = UpdateProductForm.createUpdateProductForm(id, "상품명2", 20000, "HIDE", null, "옵션명2", optionForms, catId);
 		
-		// when
-		productService.modifyProduct(productForm);
+		// when (수정)
+		Long resultId = productService.modifyProduct(productForm);
 		
 		// then
-		Product resultProduct = productRepository.findOne(id);
-		assertEquals(resultProduct.getName(), "상품명2");
-		assertEquals(resultProduct.getPrice(), 20000);
+		// 다시 조회
+		Product resultProduct = productRepository.findOne(resultId);
+		
+		assertEquals("상품명2", resultProduct.getName());
+		assertEquals(20000, resultProduct.getPrice());
 		
 		Long resultPoId = resultProduct.getProductOption().getId();
 		List<Option> resultOptions = optionRepository.findAllByPoId(resultPoId);
-		assertEquals(resultOptions.get(0).getNames(), "옵션2");
+		assertEquals("옵션2", resultOptions.get(0).getNames());
 	}
 	
 	// 옵션 삭제
@@ -163,6 +165,7 @@ public class ProductServiceTest {
 		Product resultProduct = productService.findProduct(id);
 		// 옵션 조회
 		List<Option> options = optionRepository.findAllByPoId(resultProduct.getProductOption().getId());
+		
 		Long deleteId = options.get(0).getId();
 		
 		// when

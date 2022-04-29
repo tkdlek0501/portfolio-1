@@ -126,8 +126,6 @@ public class ProductService {
 			for(int i = 0; i < updateOptions.size(); i++) {
 				findOptions.get(i).modify(updateOptions.get(i));
 			}
-			
-			
 			// 추가 등록
 			if(options.size() > orgOptionsSize) {
 				List<Option> addOptions = options.subList(orgOptionsSize, options.size());
@@ -147,7 +145,7 @@ public class ProductService {
 			}
 			
 			// 추가
-			if(!form.getImage().get(0).isEmpty()) {
+			if(form.getImage().size() > 0) {
 				List<ProductImage> productImages = controlImage(form.getImage());
 				
 				for(int i = 0;i<form.getImage().size();i++) {
