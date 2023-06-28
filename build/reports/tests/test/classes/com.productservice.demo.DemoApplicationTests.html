@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - DemoApplicationTests</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>DemoApplicationTests</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.productservice.demo.html">com.productservice.demo</a> &gt; DemoApplicationTests</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.081s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">contextLoads()</td>
+<td class="success">0.081s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>21:01:12.330 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+21:01:12.342 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+21:01:12.370 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.productservice.demo.DemoApplicationTests] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+21:01:12.382 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.productservice.demo.DemoApplicationTests], using SpringBootContextLoader
+21:01:12.386 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.productservice.demo.DemoApplicationTests]: class path resource [com/productservice/demo/DemoApplicationTests-context.xml] does not exist
+21:01:12.386 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.productservice.demo.DemoApplicationTests]: class path resource [com/productservice/demo/DemoApplicationTestsContext.groovy] does not exist
+21:01:12.386 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.productservice.demo.DemoApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+21:01:12.387 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.productservice.demo.DemoApplicationTests]: DemoApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+21:01:12.432 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.productservice.demo.DemoApplicationTests]
+21:01:12.483 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\portfolio\portfolio1\build\classes\java\main\com\productservice\demo\DemoApplication.class]
+21:01:12.484 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.productservice.demo.DemoApplication for test class com.productservice.demo.DemoApplicationTests
+21:01:12.571 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.productservice.demo.DemoApplicationTests]: using defaults.
+21:01:12.572 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+21:01:12.588 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4f5991f6, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@484094a5, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@38234a38, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@63fbfaeb, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@602e0143, org.springframework.test.context.support.DirtiesContextTestExecutionListener@2c07545f, org.springframework.test.context.transaction.TransactionalTestExecutionListener@e57b96d, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@32c726ee, org.springframework.test.context.event.EventPublishingTestExecutionListener@22f31dec, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@34c01041, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@76f4b65, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@c94fd30, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@36328d33, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@2c4d1ac, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@7f0d96f2]
+21:01:12.592 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@64a40280 testClass = DemoApplicationTests, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4b40f651 testClass = DemoApplicationTests, locations = '{}', classes = '{class com.productservice.demo.DemoApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@2cb4893b, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@6c284af, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@7c137fd5, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@221a3fa4, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@302c971f, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@d4342c2], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.6)
+
+2023-06-28 21:01:12.880  INFO 10940 --- [    Test worker] c.p.demo.DemoApplicationTests            : Starting DemoApplicationTests using Java 1.8.0_202 on DESKTOP-A553VVH with PID 10940 (started by ASUS in C:\portfolio\portfolio1)
+2023-06-28 21:01:12.882  INFO 10940 --- [    Test worker] c.p.demo.DemoApplicationTests            : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2023-06-28 21:01:13.646  INFO 10940 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-06-28 21:01:13.674  INFO 10940 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18 ms. Found 0 JPA repository interfaces.
+2023-06-28 21:01:14.424  INFO 10940 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-06-28 21:01:14.490  INFO 10940 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.7.Final
+2023-06-28 21:01:14.662  INFO 10940 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-06-28 21:01:14.781  INFO 10940 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-06-28 21:01:15.482  INFO 10940 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-06-28 21:01:15.516  INFO 10940 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-06-28 21:01:16.306 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table member drop foreign key FKe949jkrgjkwq2hxgj3ow03bpm
+2023-06-28 21:01:16.440  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676440 | took 126ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table member drop foreign key FKe949jkrgjkwq2hxgj3ow03bpm
+alter table member drop foreign key FKe949jkrgjkwq2hxgj3ow03bpm;
+2023-06-28 21:01:16.440 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table options drop foreign key FKnf9xxn8oarogvvvsr4tskvjgv
+2023-06-28 21:01:16.451  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676451 | took 10ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table options drop foreign key FKnf9xxn8oarogvvvsr4tskvjgv
+alter table options drop foreign key FKnf9xxn8oarogvvvsr4tskvjgv;
+2023-06-28 21:01:16.452 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table order_product drop foreign key FKbyxa913l261i00pmcllugmlai
+2023-06-28 21:01:16.461  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676461 | took 8ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table order_product drop foreign key FKbyxa913l261i00pmcllugmlai
+alter table order_product drop foreign key FKbyxa913l261i00pmcllugmlai;
+2023-06-28 21:01:16.461 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table order_product drop foreign key FKl5mnj9n0di7k1v90yxnthkc73
+2023-06-28 21:01:16.475  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676475 | took 13ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table order_product drop foreign key FKl5mnj9n0di7k1v90yxnthkc73
+alter table order_product drop foreign key FKl5mnj9n0di7k1v90yxnthkc73;
+2023-06-28 21:01:16.476 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table orders drop foreign key FKtkrur7wg4d8ax0pwgo0vmy20c
+2023-06-28 21:01:16.484  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676484 | took 8ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table orders drop foreign key FKtkrur7wg4d8ax0pwgo0vmy20c
+alter table orders drop foreign key FKtkrur7wg4d8ax0pwgo0vmy20c;
+2023-06-28 21:01:16.485 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table orders drop foreign key FKpktxwhj3x9m4gth5ff6bkqgeb
+2023-06-28 21:01:16.495  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676495 | took 10ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table orders drop foreign key FKpktxwhj3x9m4gth5ff6bkqgeb
+alter table orders drop foreign key FKpktxwhj3x9m4gth5ff6bkqgeb;
+2023-06-28 21:01:16.495 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table product drop foreign key FK1mtsbur82frn64de7balymq9s
+2023-06-28 21:01:16.508  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676508 | took 12ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table product drop foreign key FK1mtsbur82frn64de7balymq9s
+alter table product drop foreign key FK1mtsbur82frn64de7balymq9s;
+2023-06-28 21:01:16.508 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table product_image drop foreign key FK6oo0cvcdtb6qmwsga468uuukk
+2023-06-28 21:01:16.520  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676520 | took 11ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table product_image drop foreign key FK6oo0cvcdtb6qmwsga468uuukk
+alter table product_image drop foreign key FK6oo0cvcdtb6qmwsga468uuukk;
+2023-06-28 21:01:16.520 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table product_option drop foreign key FKn4hmm6ex1vgn60c6uiqte400f
+2023-06-28 21:01:16.536  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676536 | took 15ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table product_option drop foreign key FKn4hmm6ex1vgn60c6uiqte400f
+alter table product_option drop foreign key FKn4hmm6ex1vgn60c6uiqte400f;
+2023-06-28 21:01:16.536 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : drop table if exists address
+2023-06-28 21:01:16.547  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676547 | took 11ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+drop table if exists address
+drop table if exists address;
+2023-06-28 21:01:16.548 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : drop table if exists category
+2023-06-28 21:01:16.556  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676556 | took 8ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+drop table if exists category
+drop table if exists category;
+2023-06-28 21:01:16.557 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : drop table if exists delivery
+2023-06-28 21:01:16.565  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676565 | took 8ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+drop table if exists delivery
+drop table if exists delivery;
+2023-06-28 21:01:16.565 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : drop table if exists hibernate_sequence
+2023-06-28 21:01:16.573  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676573 | took 8ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+drop table if exists hibernate_sequence
+drop table if exists hibernate_sequence;
+2023-06-28 21:01:16.574 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : drop table if exists member
+2023-06-28 21:01:16.584  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676584 | took 10ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+drop table if exists member
+drop table if exists member;
+2023-06-28 21:01:16.584 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : drop table if exists options
+2023-06-28 21:01:16.594  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676594 | took 10ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+drop table if exists options
+drop table if exists options;
+2023-06-28 21:01:16.595 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : drop table if exists order_product
+2023-06-28 21:01:16.605  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676605 | took 9ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+drop table if exists order_product
+drop table if exists order_product;
+2023-06-28 21:01:16.605 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : drop table if exists orders
+2023-06-28 21:01:16.613  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676613 | took 8ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+drop table if exists orders
+drop table if exists orders;
+2023-06-28 21:01:16.614 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : drop table if exists product
+2023-06-28 21:01:16.622  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676622 | took 8ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+drop table if exists product
+drop table if exists product;
+2023-06-28 21:01:16.622 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : drop table if exists product_image
+2023-06-28 21:01:16.631  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676631 | took 8ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+drop table if exists product_image
+drop table if exists product_image;
+2023-06-28 21:01:16.631 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : drop table if exists product_option
+2023-06-28 21:01:16.642  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676642 | took 10ms | statement | connection 1| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+drop table if exists product_option
+drop table if exists product_option;
+2023-06-28 21:01:16.645 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : create table address (address_id bigint not null, city varchar(255), street varchar(255), zipcode varchar(255), primary key (address_id)) engine=InnoDB
+2023-06-28 21:01:16.659  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676659 | took 14ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+create table address (address_id bigint not null, city varchar(255), street varchar(255), zipcode varchar(255), primary key (address_id)) engine=InnoDB
+create table address (address_id bigint not null, city varchar(255), street varchar(255), zipcode varchar(255), primary key (address_id)) engine=InnoDB;
+2023-06-28 21:01:16.660 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : create table category (category_id bigint not null, name varchar(255), primary key (category_id)) engine=InnoDB
+2023-06-28 21:01:16.674  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676674 | took 13ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+create table category (category_id bigint not null, name varchar(255), primary key (category_id)) engine=InnoDB
+create table category (category_id bigint not null, name varchar(255), primary key (category_id)) engine=InnoDB;
+2023-06-28 21:01:16.674 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : create table delivery (delivery_id bigint not null, city varchar(255), status varchar(255), street varchar(255), zipcode integer not null, primary key (delivery_id)) engine=InnoDB
+2023-06-28 21:01:16.688  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676688 | took 13ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+create table delivery (delivery_id bigint not null, city varchar(255), status varchar(255), street varchar(255), zipcode integer not null, primary key (delivery_id)) engine=InnoDB
+create table delivery (delivery_id bigint not null, city varchar(255), status varchar(255), street varchar(255), zipcode integer not null, primary key (delivery_id)) engine=InnoDB;
+2023-06-28 21:01:16.688 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : create table hibernate_sequence (next_val bigint) engine=InnoDB
+2023-06-28 21:01:16.701  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676701 | took 12ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+create table hibernate_sequence (next_val bigint) engine=InnoDB
+create table hibernate_sequence (next_val bigint) engine=InnoDB;
+2023-06-28 21:01:16.701 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : insert into hibernate_sequence values ( 1 )
+2023-06-28 21:01:16.704  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676704 | took 2ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+insert into hibernate_sequence values ( 1 )
+insert into hibernate_sequence values ( 1 );
+2023-06-28 21:01:16.704 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : create table member (member_id bigint not null, age integer not null, grade varchar(255), name varchar(255), password varchar(255), registered_date datetime(6), username varchar(255), address_id bigint, primary key (member_id)) engine=InnoDB
+2023-06-28 21:01:16.719  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676719 | took 13ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+create table member (member_id bigint not null, age integer not null, grade varchar(255), name varchar(255), password varchar(255), registered_date datetime(6), username varchar(255), address_id bigint, primary key (member_id)) engine=InnoDB
+create table member (member_id bigint not null, age integer not null, grade varchar(255), name varchar(255), password varchar(255), registered_date datetime(6), username varchar(255), address_id bigint, primary key (member_id)) engine=InnoDB;
+2023-06-28 21:01:16.719 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : create table options (option_id bigint not null, names varchar(255), stock_quantity integer not null, product_option_id bigint, primary key (option_id)) engine=InnoDB
+2023-06-28 21:01:16.734  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676734 | took 14ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+create table options (option_id bigint not null, names varchar(255), stock_quantity integer not null, product_option_id bigint, primary key (option_id)) engine=InnoDB
+create table options (option_id bigint not null, names varchar(255), stock_quantity integer not null, product_option_id bigint, primary key (option_id)) engine=InnoDB;
+2023-06-28 21:01:16.734 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : create table order_product (order_product_id bigint not null, count integer not null, price integer not null, total_price integer not null, option_id bigint, order_id bigint, primary key (order_product_id)) engine=InnoDB
+2023-06-28 21:01:16.750  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676750 | took 15ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+create table order_product (order_product_id bigint not null, count integer not null, price integer not null, total_price integer not null, option_id bigint, order_id bigint, primary key (order_product_id)) engine=InnoDB
+create table order_product (order_product_id bigint not null, count integer not null, price integer not null, total_price integer not null, option_id bigint, order_id bigint, primary key (order_product_id)) engine=InnoDB;
+2023-06-28 21:01:16.750 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : create table orders (order_id bigint not null, order_date datetime(6), status varchar(255), total_price integer not null, delivery_id bigint, member_id bigint, primary key (order_id)) engine=InnoDB
+2023-06-28 21:01:16.763  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676763 | took 13ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+create table orders (order_id bigint not null, order_date datetime(6), status varchar(255), total_price integer not null, delivery_id bigint, member_id bigint, primary key (order_id)) engine=InnoDB
+create table orders (order_id bigint not null, order_date datetime(6), status varchar(255), total_price integer not null, delivery_id bigint, member_id bigint, primary key (order_id)) engine=InnoDB;
+2023-06-28 21:01:16.763 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : create table product (product_id bigint not null, name varchar(255), price integer not null, registered_date datetime(6), status varchar(255), category_id bigint, primary key (product_id)) engine=InnoDB
+2023-06-28 21:01:16.778  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676778 | took 14ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+create table product (product_id bigint not null, name varchar(255), price integer not null, registered_date datetime(6), status varchar(255), category_id bigint, primary key (product_id)) engine=InnoDB
+create table product (product_id bigint not null, name varchar(255), price integer not null, registered_date datetime(6), status varchar(255), category_id bigint, primary key (product_id)) engine=InnoDB;
+2023-06-28 21:01:16.778 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : create table product_image (product_image_id bigint not null, original_name varchar(255), store_name varchar(255), product_id bigint, primary key (product_image_id)) engine=InnoDB
+2023-06-28 21:01:16.793  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676793 | took 13ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+create table product_image (product_image_id bigint not null, original_name varchar(255), store_name varchar(255), product_id bigint, primary key (product_image_id)) engine=InnoDB
+create table product_image (product_image_id bigint not null, original_name varchar(255), store_name varchar(255), product_id bigint, primary key (product_image_id)) engine=InnoDB;
+2023-06-28 21:01:16.793 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : create table product_option (product_option_id bigint not null, option_items varchar(255), product_id bigint, primary key (product_option_id)) engine=InnoDB
+2023-06-28 21:01:16.807  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676807 | took 14ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+create table product_option (product_option_id bigint not null, option_items varchar(255), product_id bigint, primary key (product_option_id)) engine=InnoDB
+create table product_option (product_option_id bigint not null, option_items varchar(255), product_id bigint, primary key (product_option_id)) engine=InnoDB;
+2023-06-28 21:01:16.807 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table member add constraint FKe949jkrgjkwq2hxgj3ow03bpm foreign key (address_id) references address (address_id)
+2023-06-28 21:01:16.842  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676842 | took 34ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table member add constraint FKe949jkrgjkwq2hxgj3ow03bpm foreign key (address_id) references address (address_id)
+alter table member add constraint FKe949jkrgjkwq2hxgj3ow03bpm foreign key (address_id) references address (address_id);
+2023-06-28 21:01:16.842 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table options add constraint FKnf9xxn8oarogvvvsr4tskvjgv foreign key (product_option_id) references product_option (product_option_id)
+2023-06-28 21:01:16.872  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676872 | took 29ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table options add constraint FKnf9xxn8oarogvvvsr4tskvjgv foreign key (product_option_id) references product_option (product_option_id)
+alter table options add constraint FKnf9xxn8oarogvvvsr4tskvjgv foreign key (product_option_id) references product_option (product_option_id);
+2023-06-28 21:01:16.872 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table order_product add constraint FKbyxa913l261i00pmcllugmlai foreign key (option_id) references options (option_id)
+2023-06-28 21:01:16.905  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676905 | took 33ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table order_product add constraint FKbyxa913l261i00pmcllugmlai foreign key (option_id) references options (option_id)
+alter table order_product add constraint FKbyxa913l261i00pmcllugmlai foreign key (option_id) references options (option_id);
+2023-06-28 21:01:16.905 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table order_product add constraint FKl5mnj9n0di7k1v90yxnthkc73 foreign key (order_id) references orders (order_id)
+2023-06-28 21:01:16.939  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676939 | took 33ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table order_product add constraint FKl5mnj9n0di7k1v90yxnthkc73 foreign key (order_id) references orders (order_id)
+alter table order_product add constraint FKl5mnj9n0di7k1v90yxnthkc73 foreign key (order_id) references orders (order_id);
+2023-06-28 21:01:16.939 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table orders add constraint FKtkrur7wg4d8ax0pwgo0vmy20c foreign key (delivery_id) references delivery (delivery_id)
+2023-06-28 21:01:16.976  INFO 10940 --- [    Test worker] p6spy                                    : #1687953676976 | took 36ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table orders add constraint FKtkrur7wg4d8ax0pwgo0vmy20c foreign key (delivery_id) references delivery (delivery_id)
+alter table orders add constraint FKtkrur7wg4d8ax0pwgo0vmy20c foreign key (delivery_id) references delivery (delivery_id);
+2023-06-28 21:01:16.976 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table orders add constraint FKpktxwhj3x9m4gth5ff6bkqgeb foreign key (member_id) references member (member_id)
+2023-06-28 21:01:17.054  INFO 10940 --- [    Test worker] p6spy                                    : #1687953677054 | took 78ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table orders add constraint FKpktxwhj3x9m4gth5ff6bkqgeb foreign key (member_id) references member (member_id)
+alter table orders add constraint FKpktxwhj3x9m4gth5ff6bkqgeb foreign key (member_id) references member (member_id);
+2023-06-28 21:01:17.054 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table product add constraint FK1mtsbur82frn64de7balymq9s foreign key (category_id) references category (category_id)
+2023-06-28 21:01:17.086  INFO 10940 --- [    Test worker] p6spy                                    : #1687953677086 | took 30ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table product add constraint FK1mtsbur82frn64de7balymq9s foreign key (category_id) references category (category_id)
+alter table product add constraint FK1mtsbur82frn64de7balymq9s foreign key (category_id) references category (category_id);
+2023-06-28 21:01:17.086 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table product_image add constraint FK6oo0cvcdtb6qmwsga468uuukk foreign key (product_id) references product (product_id)
+2023-06-28 21:01:17.114  INFO 10940 --- [    Test worker] p6spy                                    : #1687953677114 | took 28ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table product_image add constraint FK6oo0cvcdtb6qmwsga468uuukk foreign key (product_id) references product (product_id)
+alter table product_image add constraint FK6oo0cvcdtb6qmwsga468uuukk foreign key (product_id) references product (product_id);
+2023-06-28 21:01:17.114 DEBUG 10940 --- [    Test worker] org.hibernate.SQL                        : alter table product_option add constraint FKn4hmm6ex1vgn60c6uiqte400f foreign key (product_id) references product (product_id)
+2023-06-28 21:01:17.153  INFO 10940 --- [    Test worker] p6spy                                    : #1687953677153 | took 37ms | statement | connection 2| url jdbc:mysql://localhost:3306/portfolio?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Seoul
+alter table product_option add constraint FKn4hmm6ex1vgn60c6uiqte400f foreign key (product_id) references product (product_id)
+alter table product_option add constraint FKn4hmm6ex1vgn60c6uiqte400f foreign key (product_id) references product (product_id);
+2023-06-28 21:01:17.156  INFO 10940 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-06-28 21:01:17.164  INFO 10940 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-06-28 21:01:17.377  WARN 10940 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-06-28 21:01:17.561  WARN 10940 --- [    Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@4ed19b69. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-06-28 21:01:17.562  INFO 10940 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@4ed19b69 with []
+2023-06-28 21:01:17.680  INFO 10940 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2023-06-28 21:01:18.726  INFO 10940 --- [    Test worker] c.p.demo.DemoApplicationTests            : Started DemoApplicationTests in 6.102 seconds (JVM running for 7.368)
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.4.1</a> at 2023. 6. 28 오후 9:01:19</p>
+</div>
+</div>
+</body>
+</html>
