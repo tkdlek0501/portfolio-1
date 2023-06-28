@@ -51,6 +51,8 @@ public class ProductController {
 	private final ProductService productService;
 	private final CategoryService categoryService;
 	private final OptionService optionService;
+
+	// test
 	
 	// 상품 목록
 	@GetMapping("")
