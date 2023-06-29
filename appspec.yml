@@ -3,9 +3,8 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/github_action
-    overwrite: yes
+    
 hooks:
   ApplicationStart:
-    - location: scripts/deploy.sh
+    - location: ./scripts/deploy.sh
       timeout: 300
-      runas: ubuntu
