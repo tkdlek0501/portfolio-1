@@ -4,14 +4,7 @@ files:
   - source: /
     destination: /home/ubuntu/github_action
 
-permissions:
-  - object: /
-    pattern: "**"
-    owner: test
-    group: test
-
 hooks:
   ApplicationStart:
     - location: scripts/deploy.sh
       timeout: 300
-      runas: root
