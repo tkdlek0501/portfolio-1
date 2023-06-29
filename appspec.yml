@@ -3,7 +3,13 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/github_action
-    
+
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu
+
 hooks:
   ApplicationStart:
     - location: scripts/deploy.sh
